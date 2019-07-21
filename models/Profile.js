@@ -5,6 +5,10 @@ const ProfileSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
+    name: {
+        type: String,
+        required: true
+    },
     position: {
         type: String,
         required: true
@@ -16,6 +20,9 @@ const ProfileSchema = new mongoose.Schema({
         type: String
     },
     email: {
+        type: String
+    },
+    photo: {
         type: String
     },
     date: {

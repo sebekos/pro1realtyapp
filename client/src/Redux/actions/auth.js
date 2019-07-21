@@ -41,9 +41,9 @@ export const register = ({ name, email, password, registerkey }) => async dispat
     }
 
     const body = JSON.stringify({ name, email, password, registerkey });
-
+    console.log(body);
     try {
-        const res = await axios.post('/api/users', body, config);
+        const res = await axios.post('/api/user', body, config);
         dispatch({
             type: REGISTER_SUCCESS,
             payload: res.data

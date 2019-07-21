@@ -39,6 +39,22 @@ export const addListing = (formData, history, edit = false) => async dispatch =>
     }
 }
 
+// Get all active listings
+export const getListings = () => async dispatch => {
+    try {
+        const res = await axios.get(`/api/listing`);
+        dispatch({
+            type: GET_LISTINGS,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: LISTING_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+}
+
 // Get user listings
 export const getUserListings = () => async dispatch => {
     try {

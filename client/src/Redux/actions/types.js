@@ -14,3 +14,7 @@ export const GET_USER_LISTINGS = 'GET_USER_LISTINGS';
 export const ADD_LISTING = 'ADD_LISTING';
 export const DELETE_LISTING = 'DELETE_LISTING';
 export const LISTING_ERROR = 'LISTING_ERROR';
+export const ADD_PROFILE = 'ADD_PROFILE';
+export const GET_PROFILE = 'GET_PROFILE';
+export const GET_PROFILES = 'GET_PROFILES';
+export const PROFILE_ERROR = 'PROFILE_ERROR';
