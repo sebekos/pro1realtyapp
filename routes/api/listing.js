@@ -82,7 +82,28 @@ router.post('/', [auth,
 // Get all listings
 router.get('/', async (req, res) => {
     try {
-        const listings = await Listing.find({ "active": "1" }).populate('listings');
+        const listings = await Listing.aggregate([
+            {
+                $lookup:
+                {
+                    from: "profiles",
+                    localField: "agentid",
+                    foreignField: "user",
+                    as: "agentinfo"
+                }
+            },
+            {
+                $unwind: "$agentinfo"
+            },
+            {
+                $project: {
+                    "agentinfo.active": 0,
+                    "agentinfo.user": 0,
+                    "agentinfo._id": 0,
+                    "agentinfo.date": 0,
+                    "agentinfo.__v": 0
+                }
+            }]);
         res.json(listings);
     } catch (err) {
         console.error(err.message);
@@ -94,7 +115,29 @@ router.get('/', async (req, res) => {
 // Get all user listings
 router.get('/user', auth, async (req, res) => {
     try {
-        const listings = await Listing.find({ "agentid": req.user.id, "active": "1" }).populate('listings');
+        const listings = await Listing.aggregate([
+            { "$match": { "agentid": `${req.user.id}` } },
+            {
+                $lookup:
+                {
+                    from: "profiles",
+                    localField: "agentid",
+                    foreignField: "user",
+                    as: "agentinfo"
+                }
+            },
+            {
+                $unwind: "$agentinfo"
+            },
+            {
+                $project: {
+                    "agentinfo.active": 0,
+                    "agentinfo.user": 0,
+                    "agentinfo._id": 0,
+                    "agentinfo.date": 0,
+                    "agentinfo.__v": 0
+                }
+            }]);
         res.json(listings);
     } catch (err) {
         console.error(err.message);

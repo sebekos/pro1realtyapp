@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-const ListingItem = ({ auth: { isAuthenticated }, listing: { photos, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, description, _id }, listingId }) =>
+const ListingItem = ({ auth: { isAuthenticated, user }, listing: { agentid, photos, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, description, agentinfo }, listingId }) =>
     <div className="profiles">
         <div className="profile bg-light">
             <img
@@ -21,16 +21,27 @@ const ListingItem = ({ auth: { isAuthenticated }, listing: { photos, status, typ
                 {description ? <p><span className='span-item'>Description: </span>{description}</p> : null}
             </div>
             <ul>
-                <li className="text-primary">
-                    {isAuthenticated ? (<a href={`/editlisting/${listingId}`} className='btn btn-primary my-1'>
-                        Edit Information
+                {isAuthenticated && user._id === agentid ? (
+                    <Fragment>
+                        <li className="text-primary">
+                            {isAuthenticated ? (<a href={`/editlisting/${listingId}`} className='btn btn-primary my-1'>
+                                Edit Information
                     </a>) : null}
-                </li>
-                <li className="text-primary">
-                    {isAuthenticated ? (<a href={`/editlisting/photos/${listingId}`} className='btn btn-primary my-1'>
-                        Add/Edit Photos
+                        </li>
+                        <li className="text-primary">
+                            {isAuthenticated ? (<a href={`/editlisting/photos/${listingId}`} className='btn btn-primary my-1'>
+                                Add/Edit Photos
                     </a>) : null}
-                </li>
+                        </li>
+                    </Fragment>
+                ) : (
+                        <Fragment>
+                            {agentinfo.name ? <p><span className='span-item'>Agent: </span>{agentinfo.name}</p> : null}
+                            {agentinfo.phone ? <p><span className='span-item'>Phone: </span>{agentinfo.phone}</p> : null}
+                            {agentinfo.email ? <p><span className='span-item'>Email: </span>{agentinfo.email}</p> : null}
+                        </Fragment>
+                    )}
+
             </ul>
         </div>
     </div>

@@ -2,10 +2,10 @@ import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
-import { getProfile } from '../../Redux/actions/profile';
+import { getProfile, addProfile } from '../../Redux/actions/profile';
 
 
-const EditProfile = ({ getProfile, profile: { profile, loading } }) => {
+const EditProfile = ({ getProfile, addProfile, profile: { profile, loading }, history }) => {
     const [formData, setFormData] = useState({
         id: '',
         name: '',
@@ -40,7 +40,7 @@ const EditProfile = ({ getProfile, profile: { profile, loading } }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        //addListing(formData, history);
+        addProfile(formData, history);
         console.log(formData);
     }
 
@@ -81,6 +81,7 @@ const EditProfile = ({ getProfile, profile: { profile, loading } }) => {
 
 EditProfile.propTypes = ({
     getProfile: PropTypes.func.isRequired,
+    addProfile: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired
 })
 
@@ -88,4 +89,4 @@ const mapStateToProps = state => ({
     profile: state.profile
 })
 
-export default connect(mapStateToProps, { getProfile })(withRouter(EditProfile));
+export default connect(mapStateToProps, { getProfile, addProfile })(withRouter(EditProfile));

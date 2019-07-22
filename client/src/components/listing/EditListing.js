@@ -7,7 +7,6 @@ import { addListing, getListing, deleteListing } from '../../Redux/actions/listi
 
 const EditListing = ({ addListing, getListing, history, match, listing: { loading, listing }, deleteListing }) => {
     const [formData, setFormData] = useState({
-        id: '',
         status: '',
         type: '',
         address: '',
@@ -24,7 +23,6 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
     useEffect(() => {
         getListing(match.params.id);
         setFormData({
-            id: match.params.id,
             status: loading || !listing.status ? '' : listing.status,
             type: loading || !listing.type ? '' : listing.type,
             address: loading || !listing.address ? '' : listing.address,
@@ -37,10 +35,9 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
             squarefeet: loading || !listing.squarefeet ? '' : listing.squarefeet,
             description: loading || !listing.description ? '' : listing.description
         })
-    }, [loading]);
+    }, []);
 
     const {
-        id,
         status,
         type,
         address,
@@ -63,7 +60,6 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
 
     const onDelete = e => {
         e.preventDefault();
-        console.log('Deleting:' + listing._id);
         deleteListing(listing._id, history);
     }
 

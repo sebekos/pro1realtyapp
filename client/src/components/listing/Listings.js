@@ -10,7 +10,6 @@ const Listings = ({ getListings, listing: { listings, loading } }) => {
         getListings();
     }, [loading]);
 
-
     return loading ? <Spinner /> :
         <Fragment>
             <div className="posts">
