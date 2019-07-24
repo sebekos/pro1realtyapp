@@ -19,6 +19,7 @@ import AddProfile from './components/profile/AddProfile';
 import EditProfile from './components/profile/EditProfile';
 import Listings from './components/listing/Listings';
 import Profiles from './components/profile/Profiles';
+import Avatar from './components/profile/Avatar';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -48,6 +49,7 @@ const App = () => {
               <PrivateRoute exact path="/editlisting/:id" component={EditListing} />
               <PrivateRoute exact path="/addprofile" component={AddProfile} />
               <PrivateRoute exact path="/editprofile" component={EditProfile} />
+              <PrivateRoute exact path="/editprofile/avatar" component={Avatar} />
             </Switch>
           </section>
         </Fragment>

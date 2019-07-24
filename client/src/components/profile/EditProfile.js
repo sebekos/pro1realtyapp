@@ -7,12 +7,12 @@ import { getProfile, addProfile } from '../../Redux/actions/profile';
 
 const EditProfile = ({ getProfile, addProfile, profile: { profile, loading }, history }) => {
     const [formData, setFormData] = useState({
-        id: '',
         name: '',
         position: '',
         location: '',
         phone: '',
-        email: ''
+        email: '',
+        photo: ''
     });
 
     useEffect(() => {
@@ -23,17 +23,18 @@ const EditProfile = ({ getProfile, addProfile, profile: { profile, loading }, hi
             position: loading || !profile.position ? '' : profile.position,
             location: loading || !profile.location ? '' : profile.location,
             phone: loading || !profile.phone ? '' : profile.phone,
-            email: loading || !profile.email ? '' : profile.email
+            email: loading || !profile.email ? '' : profile.email,
+            photo: loading || !profile.photo ? '' : profile.photo
         })
-    }, [loading]);
+    }, [getProfile]);
 
     const {
-        id,
         name,
         position,
         location,
         phone,
         email,
+        photo
     } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -55,6 +56,8 @@ const EditProfile = ({ getProfile, addProfile, profile: { profile, loading }, hi
             <h1 className="large text-primary">
                 Profile Information
             </h1>
+            <img src={photo} alt="" />
+            <p><Link className="btn btn-light my-1" to="/editprofile/avatar">Edit Avatar</Link></p>
             <form className='form' onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
                     <input type="text" placeholder="Name" name="name" value={name} onChange={e => onChange(e)} />

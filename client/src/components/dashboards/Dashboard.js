@@ -13,7 +13,7 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile, loading }, 
     useEffect(() => {
         getProfile();
         getUserListings();
-    }, []);
+    }, [getProfile, getUserListings]);
 
     return (
         <Fragment>

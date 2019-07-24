@@ -8,7 +8,7 @@ import Profile from '../profile/Profile';
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
     useEffect(() => {
         getProfiles();
-    }, []);
+    }, [getProfiles]);
 
 
     return loading ? <Spinner /> :

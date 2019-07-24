@@ -8,7 +8,7 @@ import ListingSummaryItem from './ListingSummaryItem';
 const Listings = ({ getListings, listing: { listings, loading } }) => {
     useEffect(() => {
         getListings();
-    }, [loading]);
+    }, [getListings]);
 
     return loading ? <Spinner /> :
         <Fragment>
