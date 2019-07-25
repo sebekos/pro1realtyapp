@@ -8,6 +8,7 @@ const multiparty = require('multiparty');
 const config = require('config');
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
+const Listing = require('../../models/Listing');
 
 
 
@@ -49,6 +50,28 @@ router.post('/avatar', [auth], (req, res) => {
             const data = await uploadFile(buffer, fileName, type);
             if (data) {
                 await Profile.findOneAndUpdate({ user: req.user.id }, { $set: { "photo": Object.entries(data)[1][1] } }, { new: true });
+            }
+            return res.status(200).send(data);
+        } catch (error) {
+            return res.status(400).send(error);
+        }
+    });
+});
+
+// Upload an avatar
+router.post('/listingphotos/:id', [auth], (req, res) => {
+    const form = new multiparty.Form();
+    form.parse(req, async (error, fields, files) => {
+        if (error) throw new Error(error);
+        try {
+            const path = files.file[0].path;
+            const buffer = fs.readFileSync(path);
+            const type = fileType(buffer);
+            const timestamp = Date.now().toString();
+            const fileName = `listings/${req.params.id}/${timestamp}`;
+            const data = await uploadFile(buffer, fileName, type);
+            if (data) {
+                await Listing.findByIdAndUpdate({ _id: req.params.id }, { $push: { "photos": Object.entries(data)[1][1] } }, { new: true });
             }
             return res.status(200).send(data);
         } catch (error) {

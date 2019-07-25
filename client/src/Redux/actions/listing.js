@@ -6,7 +6,8 @@ import {
     GET_USER_LISTINGS,
     ADD_LISTING,
     DELETE_LISTING,
-    LISTING_ERROR
+    LISTING_ERROR,
+    UPLOAD_LISTING_PHOTOS
 } from './types';
 
 // Add Listing or Update
@@ -103,5 +104,23 @@ export const deleteListing = (id, history) => async dispatch => {
             type: LISTING_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
         });
+    }
+}
+
+// Get all profile
+export const uploadPhotos = (formData, id) => async dispatch => {
+    try {
+        const res = await axios.post(`/api/upload/listingphotos/${id}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        dispatch(setAlert('Photo uploaded', 'success'));
+    } catch (err) {
+        if (err.response.status === 500) {
+            console.log('There was a problem with the server');
+        } else {
+            console.log(err.response.data.msg);
+        }
     }
 }

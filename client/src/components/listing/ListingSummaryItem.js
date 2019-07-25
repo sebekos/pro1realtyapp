@@ -29,7 +29,7 @@ const ListingItem = ({ auth: { isAuthenticated, user }, listing: { agentid, phot
                     </a>) : null}
                         </li>
                         <li className="text-primary">
-                            {isAuthenticated ? (<a href={`/editlisting/photos/${listingId}`} className='btn btn-primary my-1'>
+                            {isAuthenticated ? (<a href={`/editlisting/addphotos/${listingId}`} className='btn btn-primary my-1'>
                                 Add/Edit Photos
                     </a>) : null}
                         </li>
