@@ -2,7 +2,9 @@ import {
     ADD_PROFILE,
     GET_PROFILE,
     GET_PROFILES,
-    PROFILE_ERROR
+    UPLOAD_AVATAR,
+    PROFILE_ERROR,
+    CLEAR_PROFILE
 } from '../actions/types';
 
 const initialState = {
@@ -34,12 +36,24 @@ export default function (state = initialState, action) {
                 profiles: payload,
                 loading: false
             };
+        case UPLOAD_AVATAR:
+            return {
+                ...state,
+                profile: payload,
+                loading: false
+            };
         case PROFILE_ERROR:
             return {
                 ...state,
                 error: payload,
                 loading: false
             };
+        case CLEAR_PROFILE:
+            return {
+                ...state,
+                profile: null,
+                loading: false
+            }
         default:
             return state;
     }

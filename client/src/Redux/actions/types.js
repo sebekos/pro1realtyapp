@@ -18,3 +18,4 @@ export const ADD_PROFILE = 'ADD_PROFILE';
 export const GET_PROFILE = 'GET_PROFILE';
 export const GET_PROFILES = 'GET_PROFILES';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
+export const UPLOAD_AVATAR = 'UPLOAD_AVATAR';

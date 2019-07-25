@@ -90,13 +90,14 @@ export const getListing = (id) => async dispatch => {
 // Delete listing
 export const deleteListing = (id, history) => async dispatch => {
     try {
+        console.log(id);
         const res = await axios.delete(`/api/listing/${id}`);
         dispatch({
             type: DELETE_LISTING,
             payload: res.data
         })
         dispatch(setAlert('Listing deleted', 'danger'));
-        history.push('/dashboard');
+        //history.push('/dashboard');
     } catch (err) {
         dispatch({
             type: LISTING_ERROR,

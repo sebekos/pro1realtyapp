@@ -3,10 +3,12 @@ import React, { Fragment, useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import axios from 'axios';
+import { uploadAvatar } from '../../Redux/actions/profile';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 
-const Avatar = () => {
+const Avatar = ({ uploadAvatar, profile, history }) => {
     const [files, setFiles] = useState('');
     const [filenames, setFilenames] = useState('Choose File');
     const [photo, setPhoto] = useState('');
@@ -44,21 +46,7 @@ const Avatar = () => {
         var newfile = new File([scaledImage], "file");
         const formData = new FormData();
         formData.append('file', newfile);
-
-        try {
-            const res = await axios.post('/api/upload/avatar', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            console.log(res.data);
-        } catch (err) {
-            if (err.response.status === 500) {
-                console.log('There was a problem with the server');
-            } else {
-                console.log(err.response.data.msg);
-            }
-        }
+        await uploadAvatar(formData, profile, history);
     }
 
     const onScale = value => {
@@ -99,12 +87,20 @@ const Avatar = () => {
                 value={scale}
                 className="mb-2"
             />
-            <button onClick={e => onPreview(e)} className='btn btn-primary mb-1'>Preview</button>
-            <button onClick={e => onSave(e)} className='btn btn-secondary mb-2'>Save</button>
+            {file !== '' ? <button onClick={e => onPreview(e)} className='btn btn-primary mb-1'>Preview</button> : null}
+            {preview !== '' ? <button onClick={e => onSave(e)} className='btn btn-secondary mb-2'>Save</button> : null}
             <img src={preview !== '' ? preview : ''} alt='' className='avatar-preview' />
         </div>
 
     )
 }
 
-export default Avatar
+Avatar.propTypes = ({
+    uploadAvatar: PropTypes.func.isRequired
+})
+
+const mapStateToProps = state => ({
+    profile: state.profile
+})
+
+export default connect(mapStateToProps, { uploadAvatar })(Avatar)

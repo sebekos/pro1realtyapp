@@ -4,6 +4,7 @@ import {
     ADD_PROFILE,
     GET_PROFILE,
     GET_PROFILES,
+    UPLOAD_AVATAR,
     PROFILE_ERROR
 } from './types';
 
@@ -66,5 +67,31 @@ export const addProfile = (formData, history, edit = false) => async dispatch =>
             payload: { msg: err.response.statusText, status: err.response.status }
         });
 
+    }
+}
+
+// Get all profile
+export const uploadAvatar = (formData, profile, history) => async dispatch => {
+    try {
+        const res = await axios.post('/api/upload/avatar', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        dispatch({
+            type: UPLOAD_AVATAR,
+            payload: {
+                ...profile,
+                photo: res.data.Location
+            }
+        })
+        dispatch(setAlert('Avatar Updated', 'success'));
+        history.push('/dashboard');
+    } catch (err) {
+        if (err.response.status === 500) {
+            console.log('There was a problem with the server');
+        } else {
+            console.log(err.response.data.msg);
+        }
     }
 }

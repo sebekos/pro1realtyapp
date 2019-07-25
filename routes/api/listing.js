@@ -84,6 +84,11 @@ router.get('/', async (req, res) => {
     try {
         const listings = await Listing.aggregate([
             {
+                "$match": {
+                    "active": "1"
+                }
+            },
+            {
                 $lookup:
                 {
                     from: "profiles",
@@ -116,7 +121,12 @@ router.get('/', async (req, res) => {
 router.get('/user', auth, async (req, res) => {
     try {
         const listings = await Listing.aggregate([
-            { "$match": { "agentid": `${req.user.id}` } },
+            {
+                "$match": {
+                    "agentid": `${req.user.id}`,
+                    "active": "1"
+                }
+            },
             {
                 $lookup:
                 {
@@ -167,6 +177,7 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
     try {
         const listing = await Listing.findById(req.params.id);
+        console.log(listing);
         // Check if user made listing
         if (listing.agentid.toString() !== req.user.id) {
             return res.status(401).json({ msg: 'User not authorized' });
