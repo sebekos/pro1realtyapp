@@ -49,11 +49,18 @@ ul {
   list-style: none;
 }
 
-img {
+.img-icon {
+  width: 80%;
+  margin: auto;
+  max-height: 250px;
+  max-width: 250px;
+}
+
+.avatar-icon {
   width: 60%;
   margin: auto;
-  max-height: 150px;
-  max-width: 150px;
+  max-height: 200px;
+  max-width: 200px;
 }
 
 /* Utilities */
@@ -379,6 +386,11 @@ button {
   width: 250px;
 }
 
+/* Photo viewer */
+.photoviewer {
+  width: 800px;
+}
+
 /* Profiles Page */
 .img-profile {
   display: grid;
@@ -403,6 +415,22 @@ button {
 /* Listing details */
 .span-item{
   font-weight: bold;
+}
+
+.img-sortable{
+  width: 150px;
+  height: 150px;
+}
+
+/* listingdetails */
+.listingdetails{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: top;
+  grid-gap: 2rem;
+  padding: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
 }
 
 /* Profiles Page */
@@ -596,6 +624,9 @@ button {
     display: none;
   }
 
+  .sortable{
+    display: block;
+  }
   /* Profile Page */
 
   .profile-top img,

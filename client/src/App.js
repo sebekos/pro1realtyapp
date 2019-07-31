@@ -21,6 +21,9 @@ import Listings from './components/listing/Listings';
 import Profiles from './components/profile/Profiles';
 import Avatar from './components/profile/Avatar';
 import AddPhotos from './components/listing/AddPhotos';
+import ListingDetails from './components/listing/ListingDetails';
+import Sortable from './components/sortable/Sortable';
+import PhotoSortable from './components/listing/PhotoSortable';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -45,10 +48,12 @@ const App = () => {
               <Route exact path="/login" component={Login} />
               <Route exact path="/listings" component={Listings} />
               <Route exact path="/agents" component={Profiles} />
+              <Route exact path="/listing/:id" component={ListingDetails} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/addlisting" component={AddListing} />
               <PrivateRoute exact path="/editlisting/:id" component={EditListing} />
               <PrivateRoute exact path="/editlisting/addphotos/:id" component={AddPhotos} />
+              <PrivateRoute exact path="/editlisting/sort/:id" component={PhotoSortable} />
               <PrivateRoute exact path="/addprofile" component={AddProfile} />
               <PrivateRoute exact path="/editprofile" component={EditProfile} />
               <PrivateRoute exact path="/editprofile/avatar" component={Avatar} />
@@ -59,7 +64,5 @@ const App = () => {
     </Provider>
   )
 }
-
-
 
 export default App;

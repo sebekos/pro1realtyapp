@@ -98,7 +98,7 @@ export const deleteListing = (id, history) => async dispatch => {
             payload: res.data
         })
         dispatch(setAlert('Listing deleted', 'danger'));
-        //history.push('/dashboard');
+        history.push('/dashboard');
     } catch (err) {
         dispatch({
             type: LISTING_ERROR,
@@ -115,7 +115,25 @@ export const uploadPhotos = (formData, id) => async dispatch => {
                 'Content-Type': 'multipart/form-data'
             }
         });
-        dispatch(setAlert('Photo uploaded', 'success'));
+    } catch (err) {
+        if (err.response.status === 500) {
+            console.log('There was a problem with the server');
+        } else {
+            console.log(err.response.data.msg);
+        }
+    }
+}
+
+// Get all profile
+export const reOrderPhotos = (images, id, history) => async dispatch => {
+    try {
+        const res = await axios.post(`/api/listing/reorderphotos/${id}`, images, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        dispatch(setAlert('Photos Updated', 'success'));
+        // history.push('/dashboard');
     } catch (err) {
         if (err.response.status === 500) {
             console.log('There was a problem with the server');

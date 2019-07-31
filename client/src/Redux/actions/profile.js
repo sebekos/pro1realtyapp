@@ -86,8 +86,9 @@ export const uploadAvatar = (formData, profile, history) => async dispatch => {
             }
         })
         dispatch(setAlert('Avatar Updated', 'success'));
-        history.push('/dashboard');
+        //history.push('/dashboard');
     } catch (err) {
+        console.log(err);
         if (err.response.status === 500) {
             console.log('There was a problem with the server');
         } else {

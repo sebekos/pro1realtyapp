@@ -1,26 +1,38 @@
 import React, { Fragment, useState } from 'react'
 import ImageUploader from 'react-images-upload';
 import { uploadPhotos } from '../../Redux/actions/listing';
+import { setAlert } from '../../Redux/actions/alert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
+import { Progress } from "react-sweet-progress";
+import "react-sweet-progress/lib/style.css";
 
-const AddPhotos = ({ uploadPhotos, match, history }) => {
+const AddPhotos = ({ uploadPhotos, match, history, setAlert }) => {
     const [pictures, setPictures] = useState([]);
+    const [progress, setProgress] = useState('');
 
     const onDrop = picture => {
         setPictures(picture);
     }
 
     const onUpload = async e => {
-        pictures.map(async picture => {
+        console.log(pictures.length);
+        setProgress(0);
+        var count = 0;
+        pictures.map(async (picture, index) => {
             const formData = new FormData();
             formData.append('file', picture);
-            await uploadPhotos(formData, match.params.id);
+            await uploadPhotos(formData, match.params.id)
+                .then(results => {
+                    count = count + 1;
+                    setProgress((count / pictures.length) * 100)
+                });
         });
     }
 
     return (
         <Fragment>
+            {progress !== '' ? <Progress percent={progress} /> : null}
             <ImageUploader
                 withIcon={true}
                 buttonText='Choose images'
@@ -35,7 +47,8 @@ const AddPhotos = ({ uploadPhotos, match, history }) => {
 }
 
 AddPhotos.propTypes = ({
-    uploadPhotos: PropTypes.func.isRequired
+    uploadPhotos: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired
 })
 
-export default connect(null, { uploadPhotos })(AddPhotos);
+export default connect(null, { uploadPhotos, setAlert })(AddPhotos);

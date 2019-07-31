@@ -2,11 +2,11 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-const ListingItem = ({ auth: { isAuthenticated, user }, listing: { agentid, photos, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, description, agentinfo }, listingId }) =>
+const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agentid, photos, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, description, agentinfo }, listingId }) =>
     <div className="profiles">
         <div className="profile bg-light">
             <img
-                className="img"
+                className="img-icon"
                 src={photos ? photos[0] : ""}
                 alt=""
             />
@@ -21,17 +21,19 @@ const ListingItem = ({ auth: { isAuthenticated, user }, listing: { agentid, phot
                 {description ? <p><span className='span-item'>Description: </span>{description}</p> : null}
             </div>
             <ul>
-                {isAuthenticated && user._id === agentid ? (
+                {!loading && isAuthenticated && user._id === agentid ? (
                     <Fragment>
                         <li className="text-primary">
-                            {isAuthenticated ? (<a href={`/editlisting/${listingId}`} className='btn btn-primary my-1'>
-                                Edit Information
-                    </a>) : null}
+                            <a href={`/listing/${listingId}`} className='btn btn-primary my-1'>View Details</a>
                         </li>
                         <li className="text-primary">
-                            {isAuthenticated ? (<a href={`/editlisting/addphotos/${listingId}`} className='btn btn-primary my-1'>
-                                Add/Edit Photos
-                    </a>) : null}
+                            {isAuthenticated ? (<a href={`/editlisting/${listingId}`} className='btn btn-primary my-1'>Edit Information</a>) : null}
+                        </li>
+                        <li className="text-primary">
+                            {isAuthenticated ? (<a href={`/editlisting/addphotos/${listingId}`} className='btn btn-primary my-1'>Add Photos</a>) : null}
+                        </li>
+                        <li className="text-primary">
+                            {isAuthenticated ? (<a href={`/editlisting/sort/${listingId}`} className='btn btn-primary my-1'>Sort Photos</a>) : null}
                         </li>
                     </Fragment>
                 ) : (
@@ -39,6 +41,9 @@ const ListingItem = ({ auth: { isAuthenticated, user }, listing: { agentid, phot
                             {agentinfo.name ? <p><span className='span-item'>Agent: </span>{agentinfo.name}</p> : null}
                             {agentinfo.phone ? <p><span className='span-item'>Phone: </span>{agentinfo.phone}</p> : null}
                             {agentinfo.email ? <p><span className='span-item'>Email: </span>{agentinfo.email}</p> : null}
+                            <li className="text-primary">
+                                <a href={`/listing/${listingId}`} className='btn btn-primary my-1'>View Details</a>
+                            </li>
                         </Fragment>
                     )}
 

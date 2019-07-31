@@ -1,7 +1,7 @@
 
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
-import Slider, { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { uploadAvatar } from '../../Redux/actions/profile';
 import PropTypes from 'prop-types'
@@ -9,7 +9,6 @@ import { connect } from 'react-redux'
 
 
 const Avatar = ({ uploadAvatar, profile, history }) => {
-    const [files, setFiles] = useState('');
     const [filenames, setFilenames] = useState('Choose File');
     const [photo, setPhoto] = useState('');
     const [editor, setEditor] = useState('');
@@ -20,7 +19,6 @@ const Avatar = ({ uploadAvatar, profile, history }) => {
 
     const onChange = e => {
         setFile(e.target.files[0]);
-        setFiles(e.target.files);
         setFilenames(e.target.files[0].name);
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -47,6 +45,7 @@ const Avatar = ({ uploadAvatar, profile, history }) => {
         const formData = new FormData();
         formData.append('file', newfile);
         await uploadAvatar(formData, profile, history);
+        history.push('/dashboard');
     }
 
     const onScale = value => {
