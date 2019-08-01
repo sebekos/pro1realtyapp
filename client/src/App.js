@@ -22,8 +22,9 @@ import Profiles from './components/profile/Profiles';
 import Avatar from './components/profile/Avatar';
 import AddPhotos from './components/listing/AddPhotos';
 import ListingDetails from './components/listing/ListingDetails';
-import Sortable from './components/sortable/Sortable';
 import PhotoSortable from './components/listing/PhotoSortable';
+import AgentListings from './components/listing/AgentListings';
+import Office from './components/contact/Office';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -49,6 +50,8 @@ const App = () => {
               <Route exact path="/listings" component={Listings} />
               <Route exact path="/agents" component={Profiles} />
               <Route exact path="/listing/:id" component={ListingDetails} />
+              <Route exact path="/listings/:id" component={AgentListings} />
+              <Route exact path="/contact" component={Office} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/addlisting" component={AddListing} />
               <PrivateRoute exact path="/editlisting/:id" component={EditListing} />

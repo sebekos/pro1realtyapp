@@ -19,7 +19,7 @@ const Profile = ({ profile: { name, position, location, phone, email, photo, use
                 {email ? <p><span className='span-item'>Email: </span>{email}</p> : null}
             </div>
             <div>
-                <Link className="btn btn-primary my-1" to={`/listings/${user}`}>View Listings</Link>
+                <Link className="btn btn-primary my-1" to={`/listings/${user._id}`}>View Listings</Link>
             </div>
         </div>
     </div>

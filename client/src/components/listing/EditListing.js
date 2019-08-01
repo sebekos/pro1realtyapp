@@ -35,7 +35,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
             squarefeet: loading || !listing.squarefeet ? '' : listing.squarefeet,
             description: loading || !listing.description ? '' : listing.description
         })
-    }, [loading]);
+    }, [loading, getListing]);
 
     const {
         status,

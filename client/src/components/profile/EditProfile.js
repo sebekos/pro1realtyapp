@@ -26,7 +26,7 @@ const EditProfile = ({ getProfile, addProfile, profile: { profile, loading }, hi
             email: loading || !profile.email ? '' : profile.email,
             photo: loading || !profile.photo ? '' : profile.photo
         })
-    }, [getProfile]);
+    }, [loading, getProfile]);
 
     const {
         name,
@@ -76,7 +76,7 @@ const EditProfile = ({ getProfile, addProfile, profile: { profile, loading }, hi
                 </div>
                 <input type="submit" className="btn btn-primary my-1" />
                 <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
-                <button className="btn btn-danger my-1" to="/dashboard" onClick={e => onDelete(e)} type="button">Delete</button>
+                <button className="btn btn-danger my-1" onClick={e => onDelete(e)} type="button">Delete</button>
             </form>
         </Fragment >
     )

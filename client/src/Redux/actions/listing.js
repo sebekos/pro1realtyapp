@@ -4,10 +4,10 @@ import {
     GET_LISTING,
     GET_LISTINGS,
     GET_USER_LISTINGS,
+    GET_AGENT_LISTINGS,
     ADD_LISTING,
     DELETE_LISTING,
-    LISTING_ERROR,
-    UPLOAD_LISTING_PHOTOS
+    LISTING_ERROR
 } from './types';
 
 // Add Listing or Update
@@ -72,6 +72,22 @@ export const getUserListings = () => async dispatch => {
     }
 }
 
+// Get agent listings
+export const getAgentListings = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`/api/listing/user/${id}`);
+        dispatch({
+            type: GET_AGENT_LISTINGS,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: LISTING_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+}
+
 // Get listing
 export const getListing = (id) => async dispatch => {
     try {
@@ -110,7 +126,7 @@ export const deleteListing = (id, history) => async dispatch => {
 // Get all profile
 export const uploadPhotos = (formData, id) => async dispatch => {
     try {
-        const res = await axios.post(`/api/upload/listingphotos/${id}`, formData, {
+        await axios.post(`/api/upload/listingphotos/${id}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -127,13 +143,12 @@ export const uploadPhotos = (formData, id) => async dispatch => {
 // Get all profile
 export const reOrderPhotos = (images, id, history) => async dispatch => {
     try {
-        const res = await axios.post(`/api/listing/reorderphotos/${id}`, images, {
+        await axios.post(`/api/listing/reorderphotos/${id}`, images, {
             headers: {
                 'Content-Type': 'application/json'
             }
         });
         dispatch(setAlert('Photos Updated', 'success'));
-        // history.push('/dashboard');
     } catch (err) {
         if (err.response.status === 500) {
             console.log('There was a problem with the server');

@@ -24,16 +24,16 @@ const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agen
                 {!loading && isAuthenticated && user._id === agentid ? (
                     <Fragment>
                         <li className="text-primary">
-                            <a href={`/listing/${listingId}`} className='btn btn-primary my-1'>View Details</a>
+                            <a href={`/listing/${listingId}`} className='btn btn-primary btn-custom'>View Details</a>
                         </li>
                         <li className="text-primary">
-                            {isAuthenticated ? (<a href={`/editlisting/${listingId}`} className='btn btn-primary my-1'>Edit Information</a>) : null}
+                            {isAuthenticated ? (<a href={`/editlisting/${listingId}`} className='btn btn-primary btn-custom'>Edit Information</a>) : null}
                         </li>
                         <li className="text-primary">
-                            {isAuthenticated ? (<a href={`/editlisting/addphotos/${listingId}`} className='btn btn-primary my-1'>Add Photos</a>) : null}
+                            {isAuthenticated ? (<a href={`/editlisting/addphotos/${listingId}`} className='btn btn-primary btn-custom'>Add Photos</a>) : null}
                         </li>
                         <li className="text-primary">
-                            {isAuthenticated ? (<a href={`/editlisting/sort/${listingId}`} className='btn btn-primary my-1'>Sort Photos</a>) : null}
+                            {isAuthenticated ? (<a href={`/editlisting/sort/${listingId}`} className='btn btn-primary btn-custom'>Sort Photos</a>) : null}
                         </li>
                     </Fragment>
                 ) : (

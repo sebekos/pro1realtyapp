@@ -412,6 +412,12 @@ button {
   margin-bottom: 1rem;
 }
 
+.btn-custom{
+  margin: 2px auto;
+  width: 160px;
+  text-align: center;
+}
+
 /* Listing details */
 .span-item{
   font-weight: bold;
@@ -419,7 +425,7 @@ button {
 
 .img-sortable{
   width: 150px;
-  height: 150px;
+  height: 100px;
 }
 
 /* listingdetails */
@@ -591,6 +597,10 @@ button {
     font-size: 2rem;
   }
 
+  .medium {
+    font-size: 1.5rem;
+  }
+
   .lead {
     font-size: 1rem;
   }
@@ -613,6 +623,13 @@ button {
   .navbar .welcome {
     display: none;
   }
+
+  /* Sortable Page */
+.sortable-container{
+  margin: auto;
+  text-align: center;
+  width: 500px;
+}
 
   /* Profiles Page */
   .profile {

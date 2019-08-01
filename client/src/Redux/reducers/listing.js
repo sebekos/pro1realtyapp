@@ -4,7 +4,8 @@ import {
     GET_USER_LISTINGS,
     ADD_LISTING,
     LISTING_ERROR,
-    DELETE_LISTING
+    DELETE_LISTING,
+    GET_AGENT_LISTINGS
 } from '../actions/types';
 
 const initialState = {
@@ -25,6 +26,12 @@ export default function (state = initialState, action) {
                 loading: false
             };
         case GET_USER_LISTINGS:
+            return {
+                ...state,
+                listings: payload,
+                loading: false
+            };
+        case GET_AGENT_LISTINGS:
             return {
                 ...state,
                 listings: payload,

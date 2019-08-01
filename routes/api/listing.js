@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 const Listing = require('../../models/Listing');
+ObjectId = require('mongodb').ObjectID;
 
 // Add listing
 router.post('/', [auth,
@@ -156,14 +157,100 @@ router.get('/user', auth, async (req, res) => {
 }
 );
 
+// Get agent listings
+router.get('/user/:id', async (req, res) => {
+    try {
+        const listings = await Listing.aggregate([
+            {
+                "$match": {
+                    "agentid": `${req.params.id}`,
+                    "active": "1"
+                }
+            },
+            {
+                $lookup:
+                {
+                    from: "profiles",
+                    localField: "agentid",
+                    foreignField: "user",
+                    as: "agentinfo"
+                }
+            },
+            {
+                $unwind: "$agentinfo"
+            },
+            {
+                $project: {
+                    "agentinfo.active": 0,
+                    "agentinfo.user": 0,
+                    "agentinfo._id": 0,
+                    "agentinfo.date": 0,
+                    "agentinfo.__v": 0
+                }
+            }]);
+        res.json(listings);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+}
+);
+
 // Get one listing
 router.get('/:id', async (req, res) => {
     try {
-        const listing = await Listing.findById(req.params.id);
+        const listing = await Listing.aggregate([
+            {
+                "$match": {
+                    "_id": ObjectId(`${req.params.id}`),
+                    "active": "1"
+                }
+            },
+            {
+                $lookup:
+                {
+                    from: "profiles",
+                    localField: "agentid",
+                    foreignField: "user",
+                    as: "agentinfo"
+                }
+            },
+            {
+                $unwind: "$agentinfo"
+            },
+            {
+                $project: {
+                    "agentinfo.active": 0,
+                    "agentinfo.user": 0,
+                    "agentinfo._id": 0,
+                    "agentinfo.date": 0,
+                    "agentinfo.__v": 0
+                }
+            }]);
         if (!listing) {
             return res.status(404).json({ msg: 'Listing not found' });
         }
-        res.json(listing);
+        res.json(listing[0]);
+    } catch (err) {
+        console.log(err);
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Listing not found' });
+        }
+        res.status(500).send('Server Error');
+    }
+}
+);
+
+// Reorder listing photos
+router.post('/reorderphotos/:id', auth, async (req, res) => {
+    try {
+        const listing = await Listing.findById(req.params.id);
+        // Check if user made listing
+        if (listing.agentid.toString() !== req.user.id) {
+            return res.status(401).json({ msg: 'User not authorized' });
+        }
+        const check = await Listing.findByIdAndUpdate(req.params.id, { $set: { "photos": req.body } }, { new: true });
+        res.json(check);
     } catch (err) {
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Listing not found' });
@@ -177,7 +264,6 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
     try {
         const listing = await Listing.findById(req.params.id);
-        console.log(listing);
         // Check if user made listing
         if (listing.agentid.toString() !== req.user.id) {
             return res.status(401).json({ msg: 'User not authorized' });
