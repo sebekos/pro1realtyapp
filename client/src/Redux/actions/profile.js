@@ -71,28 +71,31 @@ export const addProfile = (formData, history, edit = false) => async dispatch =>
 }
 
 // Get all profile
-export const uploadAvatar = (formData, profile, history) => async dispatch => {
+export const uploadAvatar = (formData, profile) => async dispatch => {
     try {
         const res = await axios.post('/api/upload/avatar', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         });
+        const newPro = {
+            ...profile.profile,
+            photo: res.data.Location
+        }
         dispatch({
             type: UPLOAD_AVATAR,
-            payload: {
-                ...profile,
-                photo: res.data.Location
-            }
+            payload: newPro
         })
         dispatch(setAlert('Avatar Updated', 'success'));
-        //history.push('/dashboard');
     } catch (err) {
-        console.log(err);
-        if (err.response.status === 500) {
-            console.log('There was a problem with the server');
-        } else {
-            console.log(err.response.data.msg);
+        const errors = err.response.data.errors;
+        if (errors) {
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
         }
+
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
     }
 }

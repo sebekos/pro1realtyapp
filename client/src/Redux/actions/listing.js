@@ -11,7 +11,7 @@ import {
 } from './types';
 
 // Add Listing or Update
-export const addListing = (formData, history, edit = false) => async dispatch => {
+export const addListing = (formData, edit = false) => async dispatch => {
     try {
         const config = {
             headers: {
@@ -25,7 +25,6 @@ export const addListing = (formData, history, edit = false) => async dispatch =>
             payload: res.data
         })
         dispatch(setAlert(edit ? 'Listing Updated' : 'Listing Added', 'success'));
-        history.push('/dashboard');
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {

@@ -379,6 +379,7 @@ button {
   margin: auto;
   display: grid;
   width: 350px;
+  
 }
 
 .avatar-preview{
@@ -410,6 +411,10 @@ button {
   padding: 1rem;
   line-height: 1.8;
   margin-bottom: 1rem;
+}
+
+.react-datepicker-wrapper, .react-datepicker__input-container{
+  width: 100% !important;
 }
 
 .btn-custom{

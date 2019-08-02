@@ -3,10 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
 import { addListing, getListing, deleteListing } from '../../Redux/actions/listing';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 const EditListing = ({ addListing, getListing, history, match, listing: { loading, listing }, deleteListing }) => {
     const [formData, setFormData] = useState({
+        listdate: '',
         status: '',
         type: '',
         address: '',
@@ -38,6 +41,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
     }, [loading, getListing]);
 
     const {
+        listdate,
         status,
         type,
         address,
@@ -63,12 +67,23 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
         deleteListing(listing._id, history);
     }
 
+    // const onDate = date => {
+    //     setListDate(date);
+    // }
+
     return (
         <Fragment>
             <h1 className="large text-primary">
                 Listing Information
             </h1>
             <form className='form' onSubmit={e => onSubmit(e)}>
+                <div className="form-group">
+                    <DatePicker
+                        placeholderText='* Select listed date'
+                        selected={listdate}
+                        onChange={e => onChange(e)}
+                        maxDate={new Date()} />
+                </div>
                 <div className="form-group">
                     <select name="status" value={status} onChange={e => onChange(e)} >
                         <option>Listed</option>

@@ -6,9 +6,10 @@ import 'rc-slider/assets/index.css';
 import { uploadAvatar } from '../../Redux/actions/profile';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 
 
-const Avatar = ({ uploadAvatar, profile, history }) => {
+const Avatar = ({ uploadAvatar, profile }) => {
     const [filenames, setFilenames] = useState('Choose File');
     const [photo, setPhoto] = useState('');
     const [editor, setEditor] = useState('');
@@ -44,8 +45,7 @@ const Avatar = ({ uploadAvatar, profile, history }) => {
         var newfile = new File([scaledImage], "file");
         const formData = new FormData();
         formData.append('file', newfile);
-        await uploadAvatar(formData, profile, history);
-        history.push('/dashboard');
+        await uploadAvatar(formData, profile);
     }
 
     const onScale = value => {
@@ -54,6 +54,7 @@ const Avatar = ({ uploadAvatar, profile, history }) => {
 
     return (
         <div className='avatareditor'>
+            <Link className="btn btn-light my-1" to="/dashboard">Go To Dashboard</Link>
             <AvatarEditor
                 ref={editor => onEditor(editor)}
                 image={photo !== '' ? photo : ""}

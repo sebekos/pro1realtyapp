@@ -3,9 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
 import { addListing } from '../../Redux/actions/listing';
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddListing = ({ addListing, history, auth: { user } }) => {
+    const [listdate, setListDate] = useState('');
+
     const [formData, setFormData] = useState({
         status: 'Listed',
         type: 'Residential',
@@ -38,7 +41,15 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        addListing(formData, history);
+        const listingData = {
+            ...formData,
+            listdate: listdate
+        }
+        addListing(listingData);
+    }
+
+    const onDate = date => {
+        setListDate(date);
     }
 
     return (
@@ -48,8 +59,16 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
             </h1>
             <form className='form' onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
+                    <DatePicker
+                        placeholderText='* Select listed date'
+                        selected={listdate}
+                        onChange={date => onDate(date)}
+                        maxDate={new Date()} />
+                </div>
+                <div className="form-group">
                     <select name="status" value={status} onChange={e => onChange(e)} >
                         <option>Listed</option>
+                        <option>Under Contract</option>
                         <option>Closed</option>
                     </select>
                 </div>
