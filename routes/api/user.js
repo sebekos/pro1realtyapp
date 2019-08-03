@@ -12,12 +12,15 @@ const User = require('../../models/User');
 router.post('/', [
     check('name', 'Name is required').not().isEmpty(),
     check('email', 'Password is required').isEmail(),
-    check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 })
+    check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 }),
+    check('registerkey', 'Key is required').not().isEmpty()
 ], async (req, res) => {
     const errors = validationResult(req);
-    console.log(errors);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
+    }
+    if (req.body.registerkey !== config.get('REGISTER_KEY')) {
+        return res.status(400).json({ errors: [{ msg: 'Please contact admin to get a registration key' }] });
     }
 
     const { name, email, password } = req.body;
@@ -56,7 +59,6 @@ router.post('/', [
         );
 
     } catch (err) {
-        console.log(err.message);
         res.status(500).send('Server Error');
     }
 });

@@ -8,6 +8,7 @@ ObjectId = require('mongodb').ObjectID;
 // Add listing
 router.post('/', [auth,
     [
+        check('listdate', 'List date is required').not().isEmpty(),
         check('status', 'Status is required').not().isEmpty(),
         check('type', 'Type is required').not().isEmpty(),
         check('address', 'Address is required').not().isEmpty(),
@@ -24,6 +25,7 @@ router.post('/', [auth,
         }
 
         const {
+            listdate,
             status,
             type,
             address,
@@ -43,6 +45,7 @@ router.post('/', [auth,
         // Build listing object
         const listingFields = {};
         listingFields.agentid = req.user.id;
+        if (listdate) listingFields.listdate = listdate;
         if (status) listingFields.status = status;
         if (type) listingFields.type = type;
         if (type) listingFields.type = type;

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const ListingSchema = new mongoose.Schema({
+    listdate: {
+        type: Date,
+        required: true
+    },
     status: {
         type: String,
         required: true

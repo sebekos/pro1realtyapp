@@ -18,7 +18,7 @@ const PhotoViewer = ({ photos }) => {
 
     return (
         <div className='photoviewer'>
-            <ImageGallery items={setupGallery(photos)} />
+            <ImageGallery items={setupGallery(photos)} showFullscreenButton={false} />
         </div>
     )
 }

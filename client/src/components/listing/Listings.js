@@ -13,9 +13,9 @@ const Listings = ({ getListings, listing: { listings, loading } }) => {
     return loading ? <Spinner /> :
         <Fragment>
             <div className="posts">
-                {listings.map(listing => (
+                {listings.length > 0 ? listings.map(listing => (
                     <ListingSummaryItem key={listing._id} listing={listing} listingId={listing._id}>Listing</ListingSummaryItem>
-                ))}
+                )) : <div className='text-primary large'>There are currently no listings</div>}
             </div>
         </Fragment>
 }

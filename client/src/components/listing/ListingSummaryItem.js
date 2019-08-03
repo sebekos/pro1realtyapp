@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import Moment from 'react-moment';
 import { connect } from 'react-redux'
 
-const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agentid, photos, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, description, agentinfo }, listingId }) =>
+const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agentid, photos, listdate, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, agentinfo }, listingId }) =>
     <div className="profiles">
         <div className="profile bg-light">
             <img
@@ -11,29 +12,29 @@ const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agen
                 alt=""
             />
             <div>
-                <h2>{address + ' ' + city + ', ' + state + ' ' + zipcode}</h2>
+                <a href={`/listing/${listingId}`} ><h2>{address + ' ' + city + ', ' + state + ' ' + zipcode}</h2></a>
+                <p><span className='span-item'>$</span>{price.toLocaleString()}</p>
+                <p><span className='span-item'>Listed: </span><Moment parse="YYYY-MM-DDTHH:mm:ss.SSSZ" format="LL">{listdate}</Moment></p>
                 <p><span className='span-item'>Type: </span>{type}</p>
                 <p><span className='span-item'>Status: </span>{status}</p>
-                <p><span className='span-item'>$</span>{price}</p>
                 {bedroom ? <p><span className='span-item'>Bedrooms: </span>{bedroom}</p> : null}
-                {bathroom ? <p><span className='span-item'>Bathrooms: {bathroom}</span></p> : null}
-                {squarefeet ? <p><span className='span-item'>Squarefeet: {squarefeet}</span></p> : null}
-                {description ? <p><span className='span-item'>Description: </span>{description}</p> : null}
+                {bathroom ? <p><span className='span-item'>Bathrooms: </span>{bathroom}</p> : null}
+                {squarefeet ? <p><span className='span-item'>Squarefeet: </span>{squarefeet}</p> : null}
             </div>
             <ul>
-                {!loading && isAuthenticated && user._id === agentid ? (
+                {!loading && isAuthenticated && user && user._id === agentid ? (
                     <Fragment>
                         <li className="text-primary">
                             <a href={`/listing/${listingId}`} className='btn btn-primary btn-custom'>View Details</a>
                         </li>
                         <li className="text-primary">
-                            {isAuthenticated ? (<a href={`/editlisting/${listingId}`} className='btn btn-primary btn-custom'>Edit Information</a>) : null}
+                            <a href={`/editlisting/${listingId}`} className='btn btn-primary btn-custom'>Edit Information</a>
                         </li>
                         <li className="text-primary">
-                            {isAuthenticated ? (<a href={`/editlisting/addphotos/${listingId}`} className='btn btn-primary btn-custom'>Add Photos</a>) : null}
+                            <a href={`/editlisting/addphotos/${listingId}`} className='btn btn-primary btn-custom'>Add Photos</a>
                         </li>
                         <li className="text-primary">
-                            {isAuthenticated ? (<a href={`/editlisting/sort/${listingId}`} className='btn btn-primary btn-custom'>Sort Photos</a>) : null}
+                            <a href={`/editlisting/sort/${listingId}`} className='btn btn-primary btn-custom'>Sort Photos</a>
                         </li>
                     </Fragment>
                 ) : (

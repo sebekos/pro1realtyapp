@@ -4,10 +4,13 @@ import { getListing } from '../../Redux/actions/listing';
 import PropTypes from 'prop-types';
 import PhotoViewer from './PhotoViewer';
 import Spinner from '../layout/Spinner';
+import Moment from 'react-moment';
+import { Link } from 'react-router-dom';
 import "react-image-gallery/styles/css/image-gallery.css";
 
 const ListingDetails = ({ getListing, match, listing: { loading, listing } }) => {
     const [formData, setFormData] = useState({
+        listdate: '',
         status: '',
         type: '',
         address: '',
@@ -26,6 +29,7 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing } }) =>
     useEffect(() => {
         getListing(match.params.id);
         setFormData({
+            listdate: loading || !listing.listdate ? '' : listing.listdate,
             status: loading || !listing.status ? '' : listing.status,
             type: loading || !listing.type ? '' : listing.type,
             address: loading || !listing.address ? '' : listing.address,
@@ -39,9 +43,10 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing } }) =>
             description: loading || !listing.description ? '' : listing.description,
             photos: loading || !listing.photos ? '' : listing.photos
         });
-    }, [loading]);
+    }, [getListing, loading]);
 
     const {
+        listdate,
         status,
         type,
         address,
@@ -58,30 +63,32 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing } }) =>
 
     return (
         <Fragment>
-            <div className="profiles">
-                <div className="listingdetails bg-light">
-                    {!loading ? (
+            <Link to="/listings" className='btn btn-primary my'>Go Back</Link>
+            {!loading && listing !== null ? (
+                <div className="profiles">
+                    <div className="listingdetails bg-light">
                         <Fragment>
                             {photos.length > 0 ? <PhotoViewer photos={photos} /> : <h2>No Photos Exist For This Listing</h2>}
                             <div className="">
-                                <h2>{address}</h2>
-                                <h2>{city + ', ' + state + ' ' + zipcode}</h2>
+                                <div className='listing-details-address1'>{address}</div>
+                                <div className='listing-details-address2'>{city + ', ' + state + ' ' + zipcode}</div>
+                                <p className='p-important'><span className='span-item'>$</span>{price.toLocaleString()}</p>
+                                <p><span className='span-item'>Listed: </span><Moment parse="YYYY-MM-DDTHH:mm:ss.SSSZ" format="LL">{listdate}</Moment></p>
                                 <p><span className='span-item'>Type: </span>{type}</p>
                                 <p><span className='span-item'>Status: </span>{status}</p>
-                                <p><span className='span-item'>$</span>{price}</p>
                                 {bedroom ? <p><span className='span-item'>Bedrooms: </span>{bedroom}</p> : null}
-                                {bathroom ? <p><span className='span-item'>Bathrooms: {bathroom}</span></p> : null}
-                                {squarefeet ? <p><span className='span-item'>Squarefeet: {squarefeet}</span></p> : null}
+                                {bathroom ? <p><span className='span-item'>Bathrooms: </span>{bathroom}</p> : null}
+                                {squarefeet ? <p><span className='span-item'>Squarefeet: </span>{squarefeet}</p> : null}
                                 {description ? <p><span className='span-item'>Description: </span>{description}</p> : null}
-                                <h2>Contact</h2>
+                                <div className='listing-contact'>Contact</div>
                                 {listing.agentinfo.name ? <p><span className='span-item'>Agent: </span>{listing.agentinfo.name}</p> : null}
                                 {listing.agentinfo.phone ? <p><span className='span-item'>Phone: </span>{listing.agentinfo.phone}</p> : null}
                                 {listing.agentinfo.email ? <p><span className='span-item'>Email: </span>{listing.agentinfo.email}</p> : null}
                             </div>
                         </Fragment>
-                    ) : <Spinner />}
+                    </div>
                 </div>
-            </div>
+            ) : <Spinner />}
         </Fragment>
     )
 }

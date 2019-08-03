@@ -8,8 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 const EditListing = ({ addListing, getListing, history, match, listing: { loading, listing }, deleteListing }) => {
+    const [listdate, setListDate] = useState('');
     const [formData, setFormData] = useState({
-        listdate: '',
         status: '',
         type: '',
         address: '',
@@ -41,7 +41,6 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
     }, [loading, getListing]);
 
     const {
-        listdate,
         status,
         type,
         address,
@@ -67,9 +66,9 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
         deleteListing(listing._id, history);
     }
 
-    // const onDate = date => {
-    //     setListDate(date);
-    // }
+    const onDate = date => {
+        setListDate(date);
+    }
 
     return (
         <Fragment>
@@ -81,7 +80,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
                     <DatePicker
                         placeholderText='* Select listed date'
                         selected={listdate}
-                        onChange={e => onChange(e)}
+                        onChange={e => onDate(e)}
                         maxDate={new Date()} />
                 </div>
                 <div className="form-group">

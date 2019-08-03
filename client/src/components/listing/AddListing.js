@@ -39,13 +39,13 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault();
         const listingData = {
             ...formData,
             listdate: listdate
         }
-        addListing(listingData);
+        await addListing(listingData, history);
     }
 
     const onDate = date => {

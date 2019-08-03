@@ -89,7 +89,10 @@ const Avatar = ({ uploadAvatar, profile }) => {
             />
             {file !== '' ? <button onClick={e => onPreview(e)} className='btn btn-primary mb-1'>Preview</button> : null}
             {preview !== '' ? <button onClick={e => onSave(e)} className='btn btn-secondary mb-2'>Save</button> : null}
-            <img src={preview !== '' ? preview : ''} alt='' className='avatar-preview' />
+            <div className='gen-center'>
+                <img src={preview !== '' ? preview : ''} alt='' className='avatar-preview' />
+
+            </div>
         </div>
 
     )

@@ -165,6 +165,16 @@ ul {
   margin-bottom: 3rem;
 }
 
+.mt-1 {
+  margin-top: 1rem;
+}
+.mt-2 {
+  margin-top: 2rem;
+}
+.mt-3 {
+  margin-top: 3rem;
+}
+
 .btn {
   display: inline-block;
   background: var(--light-color);
@@ -280,7 +290,7 @@ ul {
 
 .form .form-text {
   display: block;
-  margin-top: 0.3rem;
+  margin-top: -1rem;
   color: #888;
 }
 
@@ -373,6 +383,11 @@ button {
   width:500px;
 }
 
+.between{
+  width: 100%;
+  border-bottom: 3px solid var(--primary-color);
+}
+
 /* avatar editor */
 .avatareditor{
   text-align: center;
@@ -385,11 +400,16 @@ button {
 .avatar-preview{
   height: 250px;
   width: 250px;
+  border: 1px solid grey;
 }
 
-/* Photo viewer */
-.photoviewer {
-  width: 800px;
+/* Photo viewer max sizes */
+.image-gallery-slide img {
+  display: block;
+  max-width:1200px;
+  max-height:800px;
+  width: auto;
+  height: auto;
 }
 
 /* Profiles Page */
@@ -441,6 +461,25 @@ button {
   grid-gap: 2rem;
   padding: 1rem;
   line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.listing-details-address1{
+  font-size: 2rem;
+}
+
+.listing-details-address2{
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.listing-contact{
+  font-size: 1.5rem;
+  margin-top: 1.2rem;
+}
+
+.p-important{
+  font-size: 1.3rem;
   margin-bottom: 1rem;
 }
 
@@ -630,11 +669,17 @@ button {
   }
 
   /* Sortable Page */
-.sortable-container{
-  margin: auto;
-  text-align: center;
-  width: 500px;
-}
+  .sortable-container{
+    margin: auto;
+    text-align: center;
+    width: 500px;
+  }
+
+  .gen-center{
+    text-align: center;
+    margin: auto;
+  }
+
 
   /* Profiles Page */
   .profile {

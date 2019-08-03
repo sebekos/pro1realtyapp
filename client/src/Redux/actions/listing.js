@@ -11,7 +11,7 @@ import {
 } from './types';
 
 // Add Listing or Update
-export const addListing = (formData, edit = false) => async dispatch => {
+export const addListing = (formData, history, edit = false) => async dispatch => {
     try {
         const config = {
             headers: {
@@ -25,6 +25,7 @@ export const addListing = (formData, edit = false) => async dispatch => {
             payload: res.data
         })
         dispatch(setAlert(edit ? 'Listing Updated' : 'Listing Added', 'success'));
+        history.push(`/editlisting/addphotos/${res.data._id}`);
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
@@ -87,8 +88,9 @@ export const getAgentListings = (id) => async dispatch => {
     }
 }
 
-// Get listing
+// Get one listing
 export const getListing = (id) => async dispatch => {
+    console.log(id);
     try {
         const res = await axios.get(`/api/listing/${id}`);
         dispatch({
@@ -103,10 +105,9 @@ export const getListing = (id) => async dispatch => {
     }
 }
 
-// Delete listing
+// Delete listing - Set active to 0
 export const deleteListing = (id, history) => async dispatch => {
     try {
-        console.log(id);
         const res = await axios.delete(`/api/listing/${id}`);
         dispatch({
             type: DELETE_LISTING,
@@ -122,7 +123,7 @@ export const deleteListing = (id, history) => async dispatch => {
     }
 }
 
-// Get all profile
+// Upload all photos
 export const uploadPhotos = (formData, id) => async dispatch => {
     try {
         await axios.post(`/api/upload/listingphotos/${id}`, formData, {
@@ -139,7 +140,7 @@ export const uploadPhotos = (formData, id) => async dispatch => {
     }
 }
 
-// Get all profile
+// Reorder photos
 export const reOrderPhotos = (images, id, history) => async dispatch => {
     try {
         await axios.post(`/api/listing/reorderphotos/${id}`, images, {

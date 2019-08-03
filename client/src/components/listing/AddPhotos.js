@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import { Progress } from "react-sweet-progress";
 import "react-sweet-progress/lib/style.css";
+import { Link } from 'react-router-dom';
 
 const AddPhotos = ({ uploadPhotos, match, history, setAlert }) => {
     const [pictures, setPictures] = useState([]);
@@ -13,10 +14,10 @@ const AddPhotos = ({ uploadPhotos, match, history, setAlert }) => {
 
     const onDrop = picture => {
         setPictures(picture);
+        setProgress('');
     }
 
     const onUpload = async e => {
-        console.log(pictures.length);
         setProgress(0);
         var count = 0;
         pictures.map(async (picture, index) => {
@@ -32,6 +33,7 @@ const AddPhotos = ({ uploadPhotos, match, history, setAlert }) => {
 
     return (
         <Fragment>
+            <h2>Add Photos</h2>
             {progress !== '' ? <Progress percent={progress} /> : null}
             <ImageUploader
                 withIcon={true}
@@ -41,7 +43,8 @@ const AddPhotos = ({ uploadPhotos, match, history, setAlert }) => {
                 maxFileSize={5242880}
                 withPreview={true}
             />
-            {pictures.length > 0 ? <button type='button' className='btn btn-success' onClick={e => onUpload(e)}>Upload</button> : null}
+            {pictures.length > 0 && progress === '' ? <button type='button' className='btn btn-success' onClick={e => onUpload(e)}>Upload</button> : null}
+            {progress === 100 ? <a className='btn btn-success' href={`/listing/${match.params.id}`}>Go To Listing</a> : null}
         </Fragment>
     )
 }

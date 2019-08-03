@@ -42,9 +42,11 @@ const AddProfile = ({ addProfile, history }) => {
                 <div className="form-group">
                     <input type="text" placeholder="Position" name="position" value={position} onChange={e => onChange(e)} />
                 </div>
+                <small className="form-text">* Broker, agent, assistant, etc...</small>
                 <div className="form-group">
                     <input type="text" placeholder="Location" name="location" value={location} onChange={e => onChange(e)} />
                 </div>
+                <small className="form-text">* Chicago Land Area, Great Lakes, etc...</small>
                 <div className="form-group">
                     <input type="text" placeholder="Phone" name="phone" value={phone} onChange={e => onChange(e)} />
                 </div>

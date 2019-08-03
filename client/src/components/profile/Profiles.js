@@ -14,9 +14,9 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
     return loading ? <Spinner /> :
         <Fragment>
             <div className="posts">
-                {profiles.map(profile => (
+                {profiles.length > 0 ? profiles.map(profile => (
                     <Profile key={profile._id} profile={profile} />
-                ))}
+                )) : <div className='text-primary large'>There are currently no agents</div>}
             </div>
         </Fragment>
 }

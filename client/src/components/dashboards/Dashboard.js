@@ -21,6 +21,7 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile, loading }, 
                 <i className="fas fa-user"></i>
                 {' '}Welcome {user && user.name}
             </p>
+            <div className='between'></div>
             <h1 className="large text-primary">My Profile</h1>
             {!loading && profile ? (
                 <Fragment>
@@ -30,10 +31,12 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile, loading }, 
                     <Profile profile={profile} />
                 </Fragment>
             ) : <Fragment>
+                    <div className='text-dark medium'>You do not have a profile yet. Click add profile</div>
                     <Link to='/addprofile' className='btn btn-primary my-1'>
                         Add Profile
                     </Link>
                 </Fragment>}
+            <div className='between mt-3'></div>
             <h1 className="large text-primary">My Listings</h1>
             <Link to='/addlisting' className='btn btn-primary my-1'>
                 Add Listing
@@ -41,9 +44,9 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile, loading }, 
             {!loading && listings ? (
                 <Fragment>
                     <div className="posts">
-                        {listings.map(listing => (
+                        {listings.length > 0 ? listings.map(listing => (
                             <ListingSummaryItem key={listing._id} listing={listing} listingId={listing._id}>Listing</ListingSummaryItem>
-                        ))}
+                        )) : <div className='text-dark medium'>You do not have any listings</div>}
                     </div>
                 </Fragment>
             ) : <Spinner />}
