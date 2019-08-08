@@ -7,11 +7,13 @@ import {
     GET_AGENT_LISTINGS,
     ADD_LISTING,
     DELETE_LISTING,
-    LISTING_ERROR
+    LISTING_ERROR,
+    PROGRESS_BAR
 } from './types';
 
 // Add Listing or Update
 export const addListing = (formData, history, edit = false) => async dispatch => {
+    console.log(formData);
     try {
         const config = {
             headers: {
@@ -24,8 +26,12 @@ export const addListing = (formData, history, edit = false) => async dispatch =>
             type: ADD_LISTING,
             payload: res.data
         })
-        dispatch(setAlert(edit ? 'Listing Updated' : 'Listing Added', 'success'));
-        history.push(`/editlisting/addphotos/${res.data._id}`);
+        if (edit) {
+            dispatch(setAlert('Listing Updated', 'success'));
+        } else {
+            dispatch(setAlert('Listing Added', 'success'));
+            history.push(`/editlisting/addphotos/${res.data._id}`);
+        }
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
@@ -90,7 +96,6 @@ export const getAgentListings = (id) => async dispatch => {
 
 // Get one listing
 export const getListing = (id) => async dispatch => {
-    console.log(id);
     try {
         const res = await axios.get(`/api/listing/${id}`);
         dispatch({
@@ -124,7 +129,7 @@ export const deleteListing = (id, history) => async dispatch => {
 }
 
 // Upload all photos
-export const uploadPhotos = (formData, id) => async dispatch => {
+export const uploadPhotos = (formData, id, total) => async dispatch => {
     try {
         await axios.post(`/api/upload/listingphotos/${id}`, formData, {
             headers: {
@@ -132,16 +137,19 @@ export const uploadPhotos = (formData, id) => async dispatch => {
             }
         });
     } catch (err) {
-        if (err.response.status === 500) {
-            console.log('There was a problem with the server');
-        } else {
-            console.log(err.response.data.msg);
+        const errors = err.response.data.errors;
+        if (errors) {
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
         }
+        dispatch({
+            type: LISTING_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
     }
 }
 
 // Reorder photos
-export const reOrderPhotos = (images, id, history) => async dispatch => {
+export const reOrderPhotos = (images, id) => async dispatch => {
     try {
         await axios.post(`/api/listing/reorderphotos/${id}`, images, {
             headers: {
@@ -150,10 +158,17 @@ export const reOrderPhotos = (images, id, history) => async dispatch => {
         });
         dispatch(setAlert('Photos Updated', 'success'));
     } catch (err) {
-        if (err.response.status === 500) {
-            console.log('There was a problem with the server');
-        } else {
-            console.log(err.response.data.msg);
-        }
+        dispatch({
+            type: LISTING_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
     }
+}
+
+// Progress bar status
+export const updateProgressBar = (value) => async dispatch => {
+    dispatch({
+        type: PROGRESS_BAR,
+        payload: value
+    })
 }

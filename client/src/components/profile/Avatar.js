@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 
 
-const Avatar = ({ uploadAvatar, profile }) => {
+const Avatar = ({ uploadAvatar, profile, history }) => {
     const [filenames, setFilenames] = useState('Choose File');
     const [photo, setPhoto] = useState('');
     const [editor, setEditor] = useState('');
@@ -40,12 +40,12 @@ const Avatar = ({ uploadAvatar, profile }) => {
         });
     }
 
-    const onSave = async e => {
+    const onSave = e => {
         e.preventDefault();
         var newfile = new File([scaledImage], "file");
         const formData = new FormData();
         formData.append('file', newfile);
-        await uploadAvatar(formData, profile);
+        uploadAvatar(formData, profile, history);
     }
 
     const onScale = value => {
@@ -54,7 +54,7 @@ const Avatar = ({ uploadAvatar, profile }) => {
 
     return (
         <div className='avatareditor'>
-            <Link className="btn btn-light my-1" to="/dashboard">Go To Dashboard</Link>
+            <Link className="btn btn-primary my-1" to="/dashboard">Go To Dashboard</Link>
             <AvatarEditor
                 ref={editor => onEditor(editor)}
                 image={photo !== '' ? photo : ""}
@@ -91,7 +91,6 @@ const Avatar = ({ uploadAvatar, profile }) => {
             {preview !== '' ? <button onClick={e => onSave(e)} className='btn btn-secondary mb-2'>Save</button> : null}
             <div className='gen-center'>
                 <img src={preview !== '' ? preview : ''} alt='' className='avatar-preview' />
-
             </div>
         </div>
 

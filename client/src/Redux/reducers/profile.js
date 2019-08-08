@@ -4,7 +4,8 @@ import {
     GET_PROFILES,
     UPLOAD_AVATAR,
     PROFILE_ERROR,
-    CLEAR_PROFILE
+    CLEAR_PROFILE,
+    DELETE_PROFILE
 } from '../actions/types';
 
 const initialState = {
@@ -46,6 +47,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 error: payload,
+                loading: false
+            };
+        case DELETE_PROFILE:
+            return {
+                ...state,
+                profile: null,
                 loading: false
             };
         case CLEAR_PROFILE:

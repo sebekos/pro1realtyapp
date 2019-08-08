@@ -6,24 +6,27 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-const Sortable = ({ importImages, listingId, reOrderPhotos, history }) => {
+const Sortable = ({ importImages, listingId, reOrderPhotos }) => {
     const [images, setImages] = useState(importImages);
     const onSortEnd = ({ oldIndex, newIndex }) => {
         setImages(arrayMove(images, oldIndex, newIndex));
     };
     const onSave = e => {
-        reOrderPhotos(images, listingId, history);
+        reOrderPhotos(images, listingId);
     };
     return (
         <Fragment>
             <div>
-                <div className='text-primary medium'>
-                    Drag and drop photos then press Save
+                <div className='text-primary large'>
+                    Drag and drop photos then Save
+                </div>
+                <div className='text-dark medium'>
+                    Top photo will be the first image and thumbnail
                 </div>
             </div>
             <div>
                 <button className='btn btn-success' onClick={e => onSave(e)}>Save</button>
-                <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
+                <Link className="btn btn-light my-1" to="/dashboard">Go To Dashboard</Link>
             </div>
             <div className='sortable-container'>
                 <ImgContainer images={images} onSortEnd={(oldIndex, newIndex) => onSortEnd(oldIndex, newIndex)} />

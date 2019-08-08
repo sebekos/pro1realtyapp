@@ -28,6 +28,7 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile, loading }, 
                     <Link to='/editprofile' className='btn btn-primary my-1'>
                         Edit Profile
                     </Link>
+                    <Link className="btn btn-light my-1" to="/editprofile/avatar">Add/Edit Avatar</Link>
                     <Profile profile={profile} />
                 </Fragment>
             ) : <Fragment>
@@ -38,7 +39,7 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile, loading }, 
                 </Fragment>}
             <div className='between mt-3'></div>
             <h1 className="large text-primary">My Listings</h1>
-            <Link to='/addlisting' className='btn btn-primary my-1'>
+            <Link to='/addlisting' className='btn btn-success my-1'>
                 Add Listing
             </Link>
             {!loading && listings ? (

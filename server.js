@@ -14,8 +14,6 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => res.send('API running'));
 
 // Define routes
-app.use('/api/admin', require('./routes/api/admin'));
-app.use('/api/agent', require('./routes/api/agent'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/listing', require('./routes/api/listing'));
 app.use('/api/profile', require('./routes/api/profile'));

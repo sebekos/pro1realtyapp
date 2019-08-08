@@ -25,6 +25,9 @@ import ListingDetails from './components/listing/ListingDetails';
 import PhotoSortable from './components/listing/PhotoSortable';
 import AgentListings from './components/listing/AgentListings';
 import Office from './components/contact/Office';
+import DeletePhotos from './components/deletephotos/DeletePhotos';
+import Pwreset from './components/auth/Pwreset';
+import Pwresetsave from './components/auth/Pwresetsave';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -52,11 +55,14 @@ const App = () => {
               <Route exact path="/listing/:id" component={ListingDetails} />
               <Route exact path="/listings/:id" component={AgentListings} />
               <Route exact path="/contact" component={Office} />
+              <Route exact path="/pwreset" component={Pwreset} />
+              <Route exact path="/pwresetsave/:hash" component={Pwresetsave} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/addlisting" component={AddListing} />
               <PrivateRoute exact path="/editlisting/:id" component={EditListing} />
               <PrivateRoute exact path="/editlisting/addphotos/:id" component={AddPhotos} />
               <PrivateRoute exact path="/editlisting/sort/:id" component={PhotoSortable} />
+              <PrivateRoute exact path="/editlisting/delete/:id" component={DeletePhotos} />
               <PrivateRoute exact path="/addprofile" component={AddProfile} />
               <PrivateRoute exact path="/editprofile" component={EditProfile} />
               <PrivateRoute exact path="/editprofile/avatar" component={Avatar} />

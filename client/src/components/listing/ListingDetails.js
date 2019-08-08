@@ -63,12 +63,12 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing } }) =>
 
     return (
         <Fragment>
-            <Link to="/listings" className='btn btn-primary my'>Go Back</Link>
+            <Link to="/listings" className='btn btn-primary my'>Go To All Listings</Link>
             {!loading && listing !== null ? (
                 <div className="profiles">
                     <div className="listingdetails bg-light">
                         <Fragment>
-                            {photos.length > 0 ? <PhotoViewer photos={photos} /> : <h2>No Photos Exist For This Listing</h2>}
+                            {photos.length > 0 ? <PhotoViewer photos={photos} /> : <h2 className='text-center my-2'>No Photos Exist For This Listing</h2>}
                             <div className="">
                                 <div className='listing-details-address1'>{address}</div>
                                 <div className='listing-details-address2'>{city + ', ' + state + ' ' + zipcode}</div>

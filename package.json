@@ -24,6 +24,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.5",
     "multiparty": "^4.2.1",
+    "nodemailer": "^6.3.0",
+    "randombytes": "^2.1.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

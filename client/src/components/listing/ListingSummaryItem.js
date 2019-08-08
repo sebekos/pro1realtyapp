@@ -36,6 +36,9 @@ const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agen
                         <li className="text-primary">
                             <a href={`/editlisting/sort/${listingId}`} className='btn btn-primary btn-custom'>Sort Photos</a>
                         </li>
+                        <li className="text-primary">
+                            <a href={`/editlisting/delete/${listingId}`} className='btn btn-primary btn-custom'>Delete Photos</a>
+                        </li>
                     </Fragment>
                 ) : (
                         <Fragment>

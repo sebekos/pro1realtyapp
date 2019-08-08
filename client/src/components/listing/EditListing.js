@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const EditListing = ({ addListing, getListing, history, match, listing: { loading, listing }, deleteListing }) => {
     const [listdate, setListDate] = useState('');
     const [formData, setFormData] = useState({
+        id: '',
         status: '',
         type: '',
         address: '',
@@ -26,6 +27,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
     useEffect(() => {
         getListing(match.params.id);
         setFormData({
+            id: loading || !listing._id ? '' : listing._id,
             status: loading || !listing.status ? '' : listing.status,
             type: loading || !listing.type ? '' : listing.type,
             address: loading || !listing.address ? '' : listing.address,
@@ -41,6 +43,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
     }, [loading, getListing]);
 
     const {
+        id,
         status,
         type,
         address,
@@ -56,13 +59,20 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault();
-        addListing(formData, history);
+        const listingData = {
+            ...formData,
+            listdate: listdate
+        }
+        await addListing(listingData, history, true);
     }
 
     const onDelete = e => {
         e.preventDefault();
+        if (!window.confirm("This will delete this listing. Press OK to continue")) {
+            return;
+        }
         deleteListing(listing._id, history);
     }
 

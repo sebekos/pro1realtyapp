@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { getListing } from '../../Redux/actions/listing';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -16,9 +16,9 @@ const PhotoSortable = ({ match, listing: { listing, loading }, getListing }) => 
     }, [loading, getListing]);
 
     return (
-        <div>
+        <Fragment>
             {!loading && sortphotos.length > 0 ? <Sortable importImages={sortphotos} listingId={listing._id} /> : <Spinner />}
-        </div>
+        </Fragment>
     )
 }
 

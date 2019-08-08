@@ -5,6 +5,7 @@ const { check, validationResult } = require('express-validator');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Listing = require('../../models/Listing');
 
 // @route       GET api/profile/me
 // @description Get current users profile
@@ -18,7 +19,6 @@ router.get('/me', auth, async (req, res) => {
         }
         res.json(profile);
     } catch (err) {
-        console.error(err.message);
         res.status(500).send('Server Error');
     }
 });
@@ -64,7 +64,7 @@ router.post('/', [auth, [
         await profile.save();
         res.json(profile);
     } catch (err) {
-        console.error(err.message);
+        res.status(500).send('Server Error');
     }
 });
 
@@ -76,7 +76,6 @@ router.get('/', async (req, res) => {
         const profiles = await Profile.find({ active: 1 });
         res.json(profiles);
     } catch (error) {
-        console.error(err.message);
         res.status(500).send('Server Error');
     }
 });
@@ -91,7 +90,6 @@ router.get('/user/:user_id', async (req, res) => {
         if (!profile) return res.status(400).json({ msg: 'There is no profile for this user' });
         res.json(profile);
     } catch (err) {
-        console.error(err.message);
         if (err.kind == 'ObjectId') {
             return res.status(400).json({ msg: 'Profile not found' });
         }
@@ -100,19 +98,16 @@ router.get('/user/:user_id', async (req, res) => {
 });
 
 // @route       DELETE api/profile
-// @description Get single profile
+// @description Delete profile
 // @access      Private
-router.delete('/', auth, async (req, res) => {
-    // Build profile object
-    const profileFields = {};
-    profileFields.active = 1;
+router.delete('/', [auth], async (req, res) => {
     try {
         await Profile.findOneAndUpdate({ user: req.user.id }, { $set: { "active": "0" } }, { new: true });
-        await User.findOneAndUpdate({ _id: req.user.id }, { $set: { "access": "0" } }, { new: true });
+        await Listing.updateMany({ agentid: req.user.id }, { $set: { "active": "0" } }, { multi: true });
+        await User.findOneAndDelete({ _id: req.user.id });
 
         res.json({ msg: 'User Deactivated' });
     } catch (err) {
-        console.error(err.message);
         res.status(500).send('Server Error');
     }
 });

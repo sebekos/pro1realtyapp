@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
+
 const auth = require('../../middleware/auth');
 const Office = require('../../models/Office');
+const User = require('../../models/User');
 
 // @route   GET api/office
 // @desc    Get office info
@@ -12,7 +14,6 @@ router.get('/', async (req, res) => {
         const office = await Office.findOne().select('-_id');;
         res.json(office);
     } catch (err) {
-        console.error(err.message);
         res.status(500).send('Server Error');
     }
 }
@@ -27,6 +28,10 @@ router.post('/:id', [auth, [
     check('state', 'State is required').not().isEmpty(),
     check('zipcode', 'Zipcode is required').not().isEmpty()
 ]], async (req, res) => {
+    // Check if user has access
+    if (req.user.access != '1') {
+        return res.status(401).json({ msg: 'User not authorized' });
+    }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -52,7 +57,7 @@ router.post('/:id', [auth, [
 
     try {
         let office = await Office.findOne({ _id: req.body.id });
-        //Update
+        // Update
         if (office) {
             office = await Office.findOneAndUpdate({ _id: req.body.id }, { $set: officeFields }, { new: true });
             return res.json(office);
@@ -63,7 +68,7 @@ router.post('/:id', [auth, [
         await office.save();
         res.json(office);
     } catch (err) {
-        console.error(err.message);
+        res.status(500).send('Server Error');
     }
 });
 

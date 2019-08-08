@@ -7,8 +7,8 @@ import { logout } from '../../Redux/actions/auth';
 const Navbar = ({ auth: { isAuthenticated, loading }, logout, history }) => {
     const authLinks = (
         <ul>
-            <li><Link to="/dashboard">Dashboard</Link></li>
             <li><Link to="/">Home</Link></li>
+            <li><Link to="/dashboard">Dashboard</Link></li>
             <li><Link to="/listings">Listings</Link></li>
             <li><Link to="/agents">Agents</Link></li>
             <li>
@@ -27,6 +27,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout, history }) => {
             <li><Link to="/listings">Listings</Link></li>
             <li><Link to="/agents">Agents</Link></li>
             <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/login">Login</Link></li>
         </ul>
     );
 

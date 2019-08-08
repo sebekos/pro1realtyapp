@@ -2,11 +2,12 @@ import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
-import { getProfile, addProfile } from '../../Redux/actions/profile';
+import { getProfile, addProfile, deleteProfile } from '../../Redux/actions/profile';
 
 
-const EditProfile = ({ getProfile, addProfile, profile: { profile, loading }, history }) => {
+const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile, loading }, history }) => {
     const [formData, setFormData] = useState({
+        id: '',
         name: '',
         position: '',
         location: '',
@@ -29,6 +30,7 @@ const EditProfile = ({ getProfile, addProfile, profile: { profile, loading }, hi
     }, [loading, getProfile]);
 
     const {
+        id,
         name,
         position,
         location,
@@ -42,13 +44,15 @@ const EditProfile = ({ getProfile, addProfile, profile: { profile, loading }, hi
     const onSubmit = e => {
         e.preventDefault();
         addProfile(formData, history);
-        console.log(formData);
     }
 
     const onDelete = e => {
         e.preventDefault();
-        console.log('Deleting:' + profile._id);
-        // deleteListing(listing._id, history);
+        if (!window.confirm("This will delete your profile and listings. Press OK to continue")) {
+            return;
+        }
+        console.log('deleting');
+        deleteProfile();
     }
 
     return (
@@ -57,7 +61,7 @@ const EditProfile = ({ getProfile, addProfile, profile: { profile, loading }, hi
                 Profile Information
             </h1>
             <img src={photo} alt="" />
-            <p><Link className="btn btn-light my-1" to="/editprofile/avatar">Edit Avatar</Link></p>
+            <p><Link className="btn btn-light my-1" to="/editprofile/avatar">Add/Edit Avatar</Link></p>
             <form className='form' onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
                     <input type="text" placeholder="Name" name="name" value={name} onChange={e => onChange(e)} />
@@ -85,11 +89,12 @@ const EditProfile = ({ getProfile, addProfile, profile: { profile, loading }, hi
 EditProfile.propTypes = ({
     getProfile: PropTypes.func.isRequired,
     addProfile: PropTypes.func.isRequired,
-    profile: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    deleteProfile: PropTypes.func.isRequired
 })
 
 const mapStateToProps = state => ({
     profile: state.profile
 })
 
-export default connect(mapStateToProps, { getProfile, addProfile })(withRouter(EditProfile));
+export default connect(mapStateToProps, { getProfile, addProfile, deleteProfile })(withRouter(EditProfile));

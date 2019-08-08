@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const auth = require('../../middleware/auth');
-const Listing = require('../../models/Listing');
 ObjectId = require('mongodb').ObjectID;
 
-// Add listing
+const auth = require('../../middleware/auth');
+const Listing = require('../../models/Listing');
+
+
+// @route       POST api/listing
+// @description Create or update listing information
+// @access      Private
 router.post('/', [auth,
     [
         check('listdate', 'List date is required').not().isEmpty(),
@@ -63,8 +67,14 @@ router.post('/', [auth,
         if (photos) {
             listingFields.photos = photos.split(',').map(photo => photo.trim());
         }
+
         try {
-            let listing = await Listing.findOne({ _id: req.body.id });
+            let listing = await Listing.findById(req.body.id);
+            // Check if user has access
+            if (listing && req.user.id !== listing.agentid) {
+                return res.status(401).json({ msg: 'User not authorized' });
+            }
+
             if (listing) {
                 listing = await Listing.findOneAndUpdate(
                     { _id: req.body.id },
@@ -73,17 +83,19 @@ router.post('/', [auth,
                 );
                 return res.json(listing);
             }
-            listing = new Listing(listingFields)
+
+            listing = new Listing(listingFields);
             await listing.save();
             res.json(listing);
         } catch (err) {
-            console.error(err.message);
             res.status(500).send('Server Error');
         }
     }
 );
 
-// Get all listings
+// @route       GET api/listing
+// @description Get all listings
+// @access      Public
 router.get('/', async (req, res) => {
     try {
         const listings = await Listing.aggregate([
@@ -112,16 +124,17 @@ router.get('/', async (req, res) => {
                     "agentinfo.date": 0,
                     "agentinfo.__v": 0
                 }
-            }]);
+            }]).sort({ listdate: -1 });
         res.json(listings);
     } catch (err) {
-        console.error(err.message);
         res.status(500).send('Server Error');
     }
 }
 );
 
-// Get all user listings
+// @route       GET api/listing/user
+// @description Get user listings on login
+// @access      private
 router.get('/user', auth, async (req, res) => {
     try {
         const listings = await Listing.aggregate([
@@ -151,16 +164,17 @@ router.get('/user', auth, async (req, res) => {
                     "agentinfo.date": 0,
                     "agentinfo.__v": 0
                 }
-            }]);
+            }]).sort({ listdate: -1 });
         res.json(listings);
     } catch (err) {
-        console.error(err.message);
         res.status(500).send('Server Error');
     }
 }
 );
 
-// Get agent listings
+// @route       GET api/listing/user/:id
+// @description Get agent listings
+// @access      Public
 router.get('/user/:id', async (req, res) => {
     try {
         const listings = await Listing.aggregate([
@@ -190,16 +204,17 @@ router.get('/user/:id', async (req, res) => {
                     "agentinfo.date": 0,
                     "agentinfo.__v": 0
                 }
-            }]);
+            }]).sort({ listdate: -1 });
         res.json(listings);
     } catch (err) {
-        console.error(err.message);
         res.status(500).send('Server Error');
     }
 }
 );
 
-// Get one listing
+// @route       GET api/listing/:id
+// @description Get one listing
+// @access      Public
 router.get('/:id', async (req, res) => {
     try {
         const listing = await Listing.aggregate([
@@ -235,7 +250,6 @@ router.get('/:id', async (req, res) => {
         }
         res.json(listing[0]);
     } catch (err) {
-        console.log(err);
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Listing not found' });
         }
@@ -244,12 +258,14 @@ router.get('/:id', async (req, res) => {
 }
 );
 
-// Reorder listing photos
+// @route       POST /api/listing/reorderphotos/:id
+// @description Reorder listing photos
+// @access      Private
 router.post('/reorderphotos/:id', auth, async (req, res) => {
     try {
         const listing = await Listing.findById(req.params.id);
         // Check if user made listing
-        if (listing.agentid.toString() !== req.user.id) {
+        if (listing.agentid !== req.user.id) {
             return res.status(401).json({ msg: 'User not authorized' });
         }
         const check = await Listing.findByIdAndUpdate(req.params.id, { $set: { "photos": req.body } }, { new: true });
@@ -263,7 +279,9 @@ router.post('/reorderphotos/:id', auth, async (req, res) => {
 }
 );
 
-// Delete listing
+// @route       DELETE api/listing/:id
+// @description Delete listing
+// @access      Private
 router.delete('/:id', auth, async (req, res) => {
     try {
         const listing = await Listing.findById(req.params.id);

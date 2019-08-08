@@ -36,12 +36,19 @@ const uploadFile = (buffer, name, type) => {
     return s3.upload(params).promise();
 };
 
-// Upload an avatar
+// @route       POST api/upload/avatar
+// @description Upload user avatar
+// @access      Private
 router.post('/avatar', [auth], (req, res) => {
     const form = new multiparty.Form();
     form.parse(req, async (error, fields, files) => {
         if (error) throw new Error(error);
         try {
+            const profile = await Profile.findOne({ user: req.user.id });
+            // Check if user made account
+            if (profile.user !== req.user.id) {
+                return res.status(401).json({ msg: 'User not authorized' });
+            }
             const path = files.file[0].path;
             const buffer = fs.readFileSync(path);
             const type = fileType(buffer);
@@ -58,12 +65,25 @@ router.post('/avatar', [auth], (req, res) => {
     });
 });
 
-// Upload an avatar
+// @route       POST api/upload/listingphotos/:id
+// @description Upload listing photos
+// @access      Private
 router.post('/listingphotos/:id', [auth], (req, res) => {
     const form = new multiparty.Form();
     form.parse(req, async (error, fields, files) => {
         if (error) throw new Error(error);
         try {
+            const listing = await Listing.findById(req.params.id);
+            // Max photo limit
+            if ('photos' in listing && listing.photos.length > 9) {
+                return res.status(400).json({ errors: [{ msg: `Maximum 10 photos per a listing, currently at ${listing.photos.length}` }] });
+            }
+            console.log(req.body);
+            console.log(listing.photos.length);
+            // Check if user made listing
+            if (listing.agentid !== req.user.id) {
+                return res.status(401).json({ msg: 'User not authorized' });
+            }
             const path = files.file[0].path;
             const buffer = fs.readFileSync(path);
             const type = fileType(buffer);
@@ -71,7 +91,7 @@ router.post('/listingphotos/:id', [auth], (req, res) => {
             const fileName = `listings/${req.params.id}/${timestamp}`;
             const data = await uploadFile(buffer, fileName, type);
             if (data) {
-                await Listing.findByIdAndUpdate({ _id: req.params.id }, { $push: { "photos": Object.entries(data)[1][1] } }, { new: true });
+                await Listing.findByIdAndUpdate(req.params.id, { $push: { "photos": Object.entries(data)[1][1] } }, { new: true });
             }
             return res.status(200).send(data);
         } catch (error) {

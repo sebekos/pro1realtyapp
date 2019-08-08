@@ -5,7 +5,9 @@ import {
     GET_PROFILE,
     GET_PROFILES,
     UPLOAD_AVATAR,
-    PROFILE_ERROR
+    DELETE_PROFILE,
+    PROFILE_ERROR,
+    LOGOUT
 } from './types';
 
 // Get profile
@@ -71,7 +73,7 @@ export const addProfile = (formData, history, edit = false) => async dispatch =>
 }
 
 // Get all profile
-export const uploadAvatar = (formData, profile) => async dispatch => {
+export const uploadAvatar = (formData, profile, history) => async dispatch => {
     try {
         const res = await axios.post('/api/upload/avatar', formData, {
             headers: {
@@ -87,12 +89,28 @@ export const uploadAvatar = (formData, profile) => async dispatch => {
             payload: newPro
         })
         dispatch(setAlert('Avatar Updated', 'success'));
+        history.push('/dashboard');
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
             errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
         }
 
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+}
+
+// Delete account
+export const deleteProfile = () => async dispatch => {
+    try {
+        const res = await axios.delete('/api/profile');
+        dispatch({ type: DELETE_PROFILE });
+        dispatch({ type: LOGOUT });
+        dispatch(setAlert('Profile Delete', 'danger'));
+    } catch (err) {
         dispatch({
             type: PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
