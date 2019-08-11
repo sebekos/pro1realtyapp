@@ -5,7 +5,6 @@ const fs = require('fs');
 const fileType = require('file-type');
 const bluebird = require('bluebird');
 const multiparty = require('multiparty');
-const config = require('config');
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const Listing = require('../../models/Listing');
