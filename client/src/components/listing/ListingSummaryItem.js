@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment';
 import { connect } from 'react-redux'
+import NumberFormat from 'react-number-format';
 
 const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agentid, photos, listdate, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, agentinfo }, listingId }) =>
     <div className="profiles">
@@ -12,7 +13,7 @@ const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agen
                 alt=""
             />
             <div>
-                <a href={`/listing/${listingId}`} ><h2>{address + ' ' + city + ', ' + state + ' ' + zipcode}</h2></a>
+                <a href={`/listing/${listingId}`} ><h2 className='text-dark'>{address + ' ' + city + ', ' + state + ' ' + zipcode}</h2></a>
                 <p><span className='span-item'>$</span>{price.toLocaleString()}</p>
                 <p><span className='span-item'>Listed: </span><Moment parse="YYYY-MM-DDTHH:mm:ss.SSSZ" format="LL">{listdate}</Moment></p>
                 <p><span className='span-item'>Type: </span>{type}</p>
@@ -43,7 +44,11 @@ const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agen
                 ) : (
                         <Fragment>
                             {agentinfo.name ? <p><span className='span-item'>Agent: </span>{agentinfo.name}</p> : null}
-                            {agentinfo.phone ? <p><span className='span-item'>Phone: </span>{agentinfo.phone}</p> : null}
+                            {agentinfo.phone ? <p><span className='span-item'>Phone: </span><NumberFormat
+                                displayType="text"
+                                format="(###) ###-####"
+                                value={agentinfo.phone}
+                            /></p> : null}
                             {agentinfo.email ? <p><span className='span-item'>Email: </span>{agentinfo.email}</p> : null}
                             <li className="text-primary">
                                 <a href={`/listing/${listingId}`} className='btn btn-primary my-1'>View Details</a>

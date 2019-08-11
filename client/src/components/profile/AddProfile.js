@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
 import { addProfile } from '../../Redux/actions/profile';
+import NumberFormat from 'react-number-format';
 
 
 const AddProfile = ({ addProfile, history }) => {
@@ -27,7 +28,11 @@ const AddProfile = ({ addProfile, history }) => {
     const onSubmit = e => {
         e.preventDefault();
         addProfile(formData, history);
-        console.log(formData);
+    }
+
+    const onPhone = e => {
+        formData.phone = e.value;
+        setFormData({ ...formData, [phone]: '' });
     }
 
     return (
@@ -48,7 +53,14 @@ const AddProfile = ({ addProfile, history }) => {
                 </div>
                 <small className="form-text">* Chicago Land Area, Great Lakes, etc...</small>
                 <div className="form-group">
-                    <input type="text" placeholder="Phone" name="phone" value={phone} onChange={e => onChange(e)} />
+                    <NumberFormat
+                        format="(###) ###-####"
+                        mask=""
+                        name="phone"
+                        placeholder="Phone Number Here"
+                        onValueChange={e => onPhone(e)}
+                        value={phone}
+                    />
                 </div>
                 <div className="form-group">
                     <input type="text" placeholder="Email" name="email" value={email} onChange={e => onChange(e)} />

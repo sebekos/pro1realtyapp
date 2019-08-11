@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { addListing } from '../../Redux/actions/listing';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -69,6 +69,7 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
                     <select name="status" value={status} onChange={e => onChange(e)} >
                         <option>Listed</option>
                         <option>Under Contract</option>
+                        <option>Pending</option>
                         <option>Closed</option>
                     </select>
                 </div>
@@ -106,7 +107,6 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
                     <input type="text" placeholder="Description" name="description" value={description} onChange={e => onChange(e)} />
                 </div>
                 <input type="submit" className="btn btn-primary my-1" />
-                <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
             </form>
         </Fragment >
     )

@@ -8,12 +8,12 @@ import {
     ADD_LISTING,
     DELETE_LISTING,
     LISTING_ERROR,
-    PROGRESS_BAR
+    MAX_BAR,
+    INCREMENT_BAR
 } from './types';
 
 // Add Listing or Update
 export const addListing = (formData, history, edit = false) => async dispatch => {
-    console.log(formData);
     try {
         const config = {
             headers: {
@@ -135,7 +135,12 @@ export const uploadPhotos = (formData, id, total) => async dispatch => {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        });
+        })
+            .then(result => {
+                dispatch({
+                    type: INCREMENT_BAR
+                })
+            });
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
@@ -166,9 +171,16 @@ export const reOrderPhotos = (images, id) => async dispatch => {
 }
 
 // Progress bar status
-export const updateProgressBar = (value) => async dispatch => {
+export const maxProgressBar = (value) => async dispatch => {
     dispatch({
-        type: PROGRESS_BAR,
+        type: MAX_BAR,
         payload: value
+    })
+}
+
+// Progress bar status
+export const incrementProgressBar = () => async dispatch => {
+    dispatch({
+        type: INCREMENT_BAR
     })
 }

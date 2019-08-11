@@ -78,8 +78,6 @@ router.post('/listingphotos/:id', [auth], (req, res) => {
             if ('photos' in listing && listing.photos.length > 9) {
                 return res.status(400).json({ errors: [{ msg: `Maximum 10 photos per a listing, currently at ${listing.photos.length}` }] });
             }
-            console.log(req.body);
-            console.log(listing.photos.length);
             // Check if user made listing
             if (listing.agentid !== req.user.id) {
                 return res.status(401).json({ msg: 'User not authorized' });

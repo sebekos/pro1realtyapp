@@ -6,14 +6,19 @@ import {
     LISTING_ERROR,
     DELETE_LISTING,
     GET_AGENT_LISTINGS,
-    PROGRESS_BAR
+    MAX_BAR,
+    INCREMENT_BAR
 } from '../actions/types';
 
 const initialState = {
     listings: [],
     listing: null,
     loading: true,
-    progressbar: '',
+    progressbar: {
+        max: '',
+        current: '',
+        increment: ''
+    },
     error: {}
 }
 
@@ -56,10 +61,22 @@ export default function (state = initialState, action) {
                 listing: state.listings.filter(listing => listing._id !== payload),
                 loading: false
             }
-        case PROGRESS_BAR:
+        case MAX_BAR:
             return {
                 ...state,
-                progressbar: payload,
+                progressbar: {
+                    current: 0,
+                    max: payload
+                },
+                loading: false
+            }
+        case INCREMENT_BAR:
+            return {
+                ...state,
+                progressbar: {
+                    ...state.progressbar,
+                    current: state.progressbar.current + 1
+                },
                 loading: false
             }
         case LISTING_ERROR:

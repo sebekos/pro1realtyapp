@@ -21,7 +21,8 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
         bedroom: '',
         bathroom: '',
         squarefeet: '',
-        description: ''
+        description: '',
+        ldate: ''
     });
 
     useEffect(() => {
@@ -38,9 +39,15 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
             bedroom: loading || !listing.bedroom ? '' : listing.bedroom,
             bathroom: loading || !listing.bathroom ? '' : listing.bathroom,
             squarefeet: loading || !listing.squarefeet ? '' : listing.squarefeet,
-            description: loading || !listing.description ? '' : listing.description
+            description: loading || !listing.description ? '' : listing.description,
+            ldate: loading || !listing.listdate ? '' : setUpDate(listing.listdate)
         })
     }, [loading, getListing]);
+
+    const setUpDate = data => {
+        var date = new Date(data);
+        setListDate(new Date(date))
+    }
 
     const {
         id,
@@ -96,6 +103,8 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
                 <div className="form-group">
                     <select name="status" value={status} onChange={e => onChange(e)} >
                         <option>Listed</option>
+                        <option>Under Contract</option>
+                        <option>Pending</option>
                         <option>Closed</option>
                     </select>
                 </div>

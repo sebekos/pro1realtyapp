@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import NumberFormat from 'react-number-format'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
 import { getProfile, addProfile, deleteProfile } from '../../Redux/actions/profile';
@@ -51,8 +52,12 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
         if (!window.confirm("This will delete your profile and listings. Press OK to continue")) {
             return;
         }
-        console.log('deleting');
         deleteProfile();
+    }
+
+    const onPhone = e => {
+        formData.phone = e.value;
+        setFormData({ ...formData, [phone]: '' });
     }
 
     return (
@@ -73,7 +78,14 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
                     <input type="text" placeholder="Location" name="location" value={location} onChange={e => onChange(e)} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Phone" name="phone" value={phone} onChange={e => onChange(e)} />
+                    <NumberFormat
+                        format="(###) ###-####"
+                        mask=""
+                        name="phone"
+                        placeholder="Phone Number Here"
+                        onValueChange={e => onPhone(e)}
+                        value={phone}
+                    />
                 </div>
                 <div className="form-group">
                     <input type="text" placeholder="Email" name="email" value={email} onChange={e => onChange(e)} />

@@ -1,9 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux'
 import { pwreset } from '../../Redux/actions/auth';
-import PropTypes from 'prop-types'
 import Spinner from '../layout/Spinner';
-
+import PropTypes from 'prop-types'
 
 const Pwreset = ({ pwreset, auth: { loading } }) => {
     const [email, setEmail] = useState('');
@@ -12,7 +11,6 @@ const Pwreset = ({ pwreset, auth: { loading } }) => {
 
     const onSubmitHandler = async e => {
         e.preventDefault();
-        console.log(email);
         pwreset(email);
     }
 

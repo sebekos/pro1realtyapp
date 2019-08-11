@@ -16,7 +16,7 @@ const Office = ({ getOffice, office: { office, loading } }) => {
             <div className="dash-profile bg-light">
                 <h1 className="large text-primary">Main Office</h1>
                 <ul>
-                    <li className="text-secondary span-item">Phone: {office.phone}</li>
+                    <li className="text-secondary"><span className='span-item'>Phone: </span>{office.phone}</li>
                     <li className="text-secondary">{office.address}</li>
                     <li className="text-secondary">{office.city}, {office.state} {office.zipcode}</li>
                     {office.fax ? (<li className="text-secondary">Fax: {office.fax}</li>) : null}

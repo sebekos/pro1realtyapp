@@ -16,7 +16,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             <div className="posts">
                 {profiles.length > 0 ? profiles.map(profile => (
                     <Profile key={profile._id} profile={profile} />
-                )) : <div className='text-primary large'>There are currently no agents</div>}
+                )) : null}
             </div>
         </Fragment>
 }

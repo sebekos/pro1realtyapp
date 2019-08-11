@@ -23,7 +23,7 @@ router.post('/', [
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    if (req.body.registerkey !== config.get('REGISTER_KEY')) {
+    if (req.body.registerkey !== (process.env.REGISTER_KEY || config.get('REGISTER_KEY'))) {
         return res.status(400).json({ errors: [{ msg: 'Please contact admin to get a registration key' }] });
     }
 
@@ -117,8 +117,8 @@ router.post('/pwreset', [
     });
 
     var mailOptions = {
-        from: config.get('PW_RESET_EMAIL'),
-        to: config.get('PW_RESET_EMAIL'),
+        from: process.env.RESET_EMAIL || config.get('PW_RESET_EMAIL'),
+        to: email,
         subject: 'Pro 1 Realty Reset',
         text: `Follow the link below to reset your password. http://localhost:3000/pwresetsave/${random}`
     };

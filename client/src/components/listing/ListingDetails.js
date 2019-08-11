@@ -8,7 +8,7 @@ import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import "react-image-gallery/styles/css/image-gallery.css";
 
-const ListingDetails = ({ getListing, match, listing: { loading, listing } }) => {
+const ListingDetails = ({ getListing, match, listing: { loading, listing }, history }) => {
     const [formData, setFormData] = useState({
         listdate: '',
         status: '',
@@ -61,9 +61,12 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing } }) =>
         photos
     } = formData;
 
+    const goBack = e => {
+        history.goBack();
+    }
+
     return (
         <Fragment>
-            <Link to="/listings" className='btn btn-primary my'>Go To All Listings</Link>
             {!loading && listing !== null ? (
                 <div className="profiles">
                     <div className="listingdetails bg-light">

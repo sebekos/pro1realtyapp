@@ -27,7 +27,9 @@ router.get('/me', auth, async (req, res) => {
 // @description Create or update user profile
 // @access      Private
 router.post('/', [auth, [
-    check('position', 'Position is required').not().isEmpty()
+    check('position', 'Position is required').not().isEmpty(),
+    check('phone', 'Phone is required').not().isEmpty(),
+    check('phone', 'Phone number must be 10 digits').isLength({ min: 10, max: 10 })
 ]], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

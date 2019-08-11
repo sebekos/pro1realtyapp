@@ -23,7 +23,7 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile, loading }, 
             </p>
             <div className='between'></div>
             <h1 className="large text-primary">My Profile</h1>
-            {!loading && profile ? (
+            {profile ? (
                 <Fragment>
                     <Link to='/editprofile' className='btn btn-primary my-1'>
                         Edit Profile
@@ -39,10 +39,10 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile, loading }, 
                 </Fragment>}
             <div className='between mt-3'></div>
             <h1 className="large text-primary">My Listings</h1>
-            <Link to='/addlisting' className='btn btn-success my-1'>
+            <Link to='/addlisting' className='btn btn-primary my-1'>
                 Add Listing
             </Link>
-            {!loading && listings ? (
+            {listings ? (
                 <Fragment>
                     <div className="posts">
                         {listings.length > 0 ? listings.map(listing => (

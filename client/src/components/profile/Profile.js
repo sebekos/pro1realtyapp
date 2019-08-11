@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import NumberFormat from 'react-number-format';
 
 const Profile = ({ profile: { name, position, location, phone, email, photo, user, loading } }) =>
     <div className="profiles">
@@ -13,7 +14,11 @@ const Profile = ({ profile: { name, position, location, phone, email, photo, use
                 <h2>{name}</h2>
                 {position ? <p className='p-important'><span className='span-item'></span>{position}</p> : null}
                 {location ? <p><span className='span-item'>Location: </span>{location}</p> : null}
-                {phone ? <p><span className='span-item'>Phone: </span>{phone}</p> : null}
+                {phone ? <p><span className='span-item'>Phone: </span><NumberFormat
+                    displayType="text"
+                    format="(###) ###-####"
+                    value={phone}
+                /></p> : null}
                 {email ? <p><span className='span-item'>Email: </span>{email}</p> : null}
             </div>
             <div>
