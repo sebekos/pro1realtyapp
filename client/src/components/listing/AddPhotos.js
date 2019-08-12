@@ -10,7 +10,6 @@ import Resizer from 'react-image-file-resizer';
 
 const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressbar }, getListing, removeAlerts, setAllAlert, maxProgressBar }) => {
     const [pictures, setPictures] = useState([]);
-    const [upload, setUpload] = useState(0);
     const [max, setMax] = useState(0);
 
     useEffect(() => {
@@ -20,15 +19,12 @@ const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressb
 
     const onDrop = picture => {
         if ((picture.length + max) > 10) {
-            setUpload(0);
             return setAllAlert(`Max 10 photos allowed, currently at ${picture.length + max}. Please remove ${picture.length + max - 10}`, 'danger', 10000);
         }
         if (picture.length === 0) {
-            setPictures([]);
-            return setUpload(0);
+            return setPictures([]);
         }
         removeAlerts();
-        setUpload(1);
         maxProgressBar(picture.length);
         setPictures(picture);
     }
@@ -82,7 +78,7 @@ const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressb
             <h2>Add Photos</h2>
             {!loading && progressbar.current !== '' ? <Progress percent={(progressbar.current / progressbar.max * 100).toFixed(0)} /> : null}
             {pictures.length > 0 ? <button type='button' className='btn btn-success text-center' onClick={e => onUpload(e)}>Upload</button> : null}
-            {progressbar.current / progressbar.max == 1 ? <a className='btn btn-primary' href={`/listing/${match.params.id}`}>Go To Listing</a> : null}
+            {progressbar.current / progressbar.max === 1 ? <a className='btn btn-primary' href={`/listing/${match.params.id}`}>Go To Listing</a> : null}
             {!loading && progressbar.current / progressbar.max !== 100 ? <div className='text-dark small'>Your listing has {max} photos. Maximum of 10 per a listing.</div> : null}
             <ImageUploader
                 withIcon={true}

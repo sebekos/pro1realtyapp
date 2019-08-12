@@ -102,7 +102,7 @@ export const pwreset = (email) => async dispatch => {
     const body = JSON.stringify({ email });
 
     try {
-        const res = await axios.post('/api/user/pwreset', body, config);
+        await axios.post('/api/user/pwreset', body, config);
         dispatch({
             type: PW_RESET
         });
@@ -128,7 +128,7 @@ export const pwresetsave = (email, password, hash, history) => async dispatch =>
     const body = JSON.stringify({ email, password, hash });
 
     try {
-        const res = await axios.post('/api/user/pwresetsave', body, config);
+        await axios.post('/api/user/pwresetsave', body, config);
         dispatch({
             type: PW_RESET_SAVE
         });

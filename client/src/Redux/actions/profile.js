@@ -106,7 +106,7 @@ export const uploadAvatar = (formData, profile, history) => async dispatch => {
 // Delete account
 export const deleteProfile = () => async dispatch => {
     try {
-        const res = await axios.delete('/api/profile');
+        await axios.delete('/api/profile');
         dispatch({ type: DELETE_PROFILE });
         dispatch({ type: LOGOUT });
         dispatch(setAlert('Profile Delete', 'danger'));

@@ -10,11 +10,10 @@ const Pwreset = ({ pwresetsave, auth: { loading }, match, history, setAlert }) =
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-        password2: '',
-        hash: match.params.hash
+        password2: ''
     });
 
-    const { email, password, password2, hash } = formData;
+    const { email, password, password2 } = formData;
 
     const onChangeHandler = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });

@@ -5,10 +5,9 @@ import PropTypes from 'prop-types';
 import PhotoViewer from './PhotoViewer';
 import Spinner from '../layout/Spinner';
 import Moment from 'react-moment';
-import { Link } from 'react-router-dom';
 import "react-image-gallery/styles/css/image-gallery.css";
 
-const ListingDetails = ({ getListing, match, listing: { loading, listing }, history }) => {
+const ListingDetails = ({ getListing, match, listing: { loading, listing } }) => {
     const [formData, setFormData] = useState({
         listdate: '',
         status: '',
@@ -60,10 +59,6 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing }, hist
         description,
         photos
     } = formData;
-
-    const goBack = e => {
-        history.goBack();
-    }
 
     return (
         <Fragment>
