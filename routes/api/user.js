@@ -122,7 +122,7 @@ router.post('/pwreset', [
         from: process.env.RESET_EMAIL,
         to: email,
         subject: 'Pro 1 Realty Reset',
-        text: `Follow the link below to reset your password. http://localhost:3000/pwresetsave/${random}`
+        text: `Follow the link below to reset your password. http://pro1mainst.com/pwresetsave/${random}`
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
