@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import PhotoViewer from './PhotoViewer';
 import Spinner from '../layout/Spinner';
 import Moment from 'react-moment';
-import "react-image-gallery/styles/css/image-gallery.css";
+import NumberFormat from 'react-number-format';
 
 const ListingDetails = ({ getListing, match, listing: { loading, listing } }) => {
     const [formData, setFormData] = useState({
@@ -80,7 +80,11 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing } }) =>
                                 {description ? <p><span className='span-item'>Description: </span>{description}</p> : null}
                                 <div className='listing-contact'>Contact</div>
                                 {listing.agentinfo.name ? <p><span className='span-item'>Agent: </span>{listing.agentinfo.name}</p> : null}
-                                {listing.agentinfo.phone ? <p><span className='span-item'>Phone: </span>{listing.agentinfo.phone}</p> : null}
+                                {listing.agentinfo.phone ? <p><span className='span-item'>Phone: </span><NumberFormat
+                                    displayType="text"
+                                    format="(###) ###-####"
+                                    value={listing.agentinfo.phone}
+                                /></p> : null}
                                 {listing.agentinfo.email ? <p><span className='span-item'>Email: </span>{listing.agentinfo.email}</p> : null}
                             </div>
                         </Fragment>
