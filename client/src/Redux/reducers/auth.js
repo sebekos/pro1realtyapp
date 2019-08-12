@@ -43,7 +43,6 @@ export default function (state = initialState, action) {
         case LOGOUT:
         case PW_RESET:
         case PW_RESET_SAVE:
-            localStorage.removeItem('token');
             return {
                 ...state,
                 token: null,
