@@ -82,7 +82,7 @@ router.post('/pwreset', [
     const email = req.body.email;
     let user = await User.findOne({ email });
     if (!user) {
-        return res.status(400).json({ errors: [{ msg: 'LOL noob' }] });
+        return res.status(400).json({ errors: [{ msg: 'Server Error' }] });
     }
 
     // Check attempts
