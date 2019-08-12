@@ -23,7 +23,7 @@ router.post('/', [
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    if (req.body.registerkey !== (process.env.REGISTER_KEY ? process.env.REGISTER_KEY : config.get('REGISTER_KEY'))) {
+    if (req.body.registerkey !== (process.env.REGISTER_KEY)) {
         return res.status(400).json({ errors: [{ msg: 'Please contact admin to get a registration key' }] });
     }
 
@@ -54,7 +54,7 @@ router.post('/', [
 
         jwt.sign(
             payload,
-            process.env.jwtSecret ? process.env.jwtSecret : config.get('jwtSecret'),
+            process.env.jwtSecret,
             { expiresIn: 360000 },
             (err, token) => {
                 if (err) throw err;
@@ -109,15 +109,15 @@ router.post('/pwreset', [
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.PW_RESET_EMAIL ? process.env.PW_RESET_EMAIL : config.get('PW_RESET_EMAIL'),
-            pass: process.env.PW_RESET_PW ? process.env.PW_RESET_PW : config.get('PW_RESET_PW')
+            user: process.env.PW_RESET_EMAIL,
+            pass: process.env.PW_RESET_PW
         },
         secure: false,
         tls: { rejectUnauthorized: false }
     });
 
     var mailOptions = {
-        from: process.env.RESET_EMAIL ? process.env.RESET_EMAIL : config.get('PW_RESET_EMAIL'),
+        from: process.env.RESET_EMAIL,
         to: email,
         subject: 'Pro 1 Realty Reset',
         text: `Follow the link below to reset your password. http://localhost:3000/pwresetsave/${random}`

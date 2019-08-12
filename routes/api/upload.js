@@ -14,8 +14,8 @@ const Listing = require('../../models/Listing');
 
 // configure the keys for accessing AWS
 AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID ? process.env.AWS_ACCESS_KEY_ID : config.get('AWS_ACCESS_KEY_ID'),
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ? process.env.AWS_SECRET_ACCESS_KEY : config.get('AWS_SECRET_ACCESS_KEY')
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
 // configure AWS to work with promises
@@ -29,7 +29,7 @@ const uploadFile = (buffer, name, type) => {
     const params = {
         ACL: 'public-read',
         Body: buffer,
-        Bucket: process.env.AWS_BUCKET ? process.env.AWS_BUCKET : config.get('AWS_BUCKET'),
+        Bucket: process.env.AWS_BUCKET,
         ContentType: type.mime,
         Key: `${name}.${type.ext}`
     };

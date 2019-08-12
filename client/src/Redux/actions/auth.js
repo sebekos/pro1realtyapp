@@ -18,6 +18,7 @@ import setAuthToken from '../utils/setAuthToken';
 // Load user
 export const loadUser = () => async dispatch => {
     if (localStorage.token) {
+        console.log(localStorage.token);
         setAuthToken(localStorage.token);
     }
 
@@ -28,6 +29,7 @@ export const loadUser = () => async dispatch => {
             payload: res.data
         });
     } catch (err) {
+        console.log(err);
         dispatch({
             type: AUTH_ERROR
         });
