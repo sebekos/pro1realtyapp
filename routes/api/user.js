@@ -6,6 +6,8 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const randomBytes = require('randombytes');
+const dotenv = require('dotenv');
+require('dotenv').config();
 
 const User = require('../../models/User');
 const Pwreset = require('../../models/Pwreset');

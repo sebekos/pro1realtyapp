@@ -9,8 +9,8 @@ const config = require('config');
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const Listing = require('../../models/Listing');
-
-
+const dotenv = require('dotenv');
+require('dotenv').config();
 
 // configure the keys for accessing AWS
 AWS.config.update({
