@@ -14,7 +14,7 @@ const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressb
     const [max, setMax] = useState(0);
 
     useEffect(() => {
-        setMax(loading || !listing.photos || listing == null ? 0 : listing.photos.length);
+        setMax(loading || !listing.photos || listing.photos == null ? 0 : listing.photos.length);
         getListing(match.params.id)
     }, [loading, getListing]);
 
@@ -49,7 +49,6 @@ const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressb
                 uri => {
                     var blob = dataURLtoBlob(uri);
                     const formData = new FormData();
-                    console.log(blob);
                     formData.append('file', blob)
                     resolve(formData);
                 },
@@ -72,7 +71,6 @@ const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressb
     }
 
     const uploadConvertPhotos = (results) => {
-        console.log(results);
         results.map(result => {
             uploadPhotos(result, match.params.id);
 
