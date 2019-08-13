@@ -541,10 +541,18 @@ button {
   margin-left: -53px;
 }
 
-.photoviewer{
-  max-width: 1175px;
-  min-width: 750px;
-  max-width: 750px;
+/* Styling for photos */
+.slide-container {
+  width: 700px;
+  margin: auto; 
+}
+
+.each-slide > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  height: 500px;
 }
 
 /* Mobile Styles */

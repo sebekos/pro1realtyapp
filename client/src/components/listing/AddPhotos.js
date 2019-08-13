@@ -37,8 +37,8 @@ const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressb
         var promises = pictures.map((picture, index) => {
             return new Promise((resolve, reject) => Resizer.imageFileResizer(
                 picture,
-                800,
-                1200,
+                500,
+                700,
                 'JPEG',
                 100,
                 0,

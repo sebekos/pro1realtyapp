@@ -1,24 +1,31 @@
 import React from 'react'
-import ImageGallery from 'react-image-gallery';
-import "react-image-gallery/styles/css/image-gallery.css";
+import { Slide } from 'react-slideshow-image';
 
 
 const PhotoViewer = ({ photos }) => {
-
-    const setupGallery = photosIn => {
-        var photoobj = [];
-        photosIn.forEach(photo => {
-            photoobj.push({
-                original: photo,
-                thumbnail: photo
-            });
+    const onLoad = photosIn => {
+        var show = photosIn.map(photo => {
+            return <div className="each-slide" key={photo}>
+                <div style={{ 'backgroundImage': `url(${photo})` }}>
+                </div>
+            </div>
         });
-        return photoobj;
+        return show;
+    }
+
+    const properties = {
+        duration: 10000,
+        transitionDuration: 300,
+        infinite: true,
+        indicators: true,
+        arrows: true
     }
 
     return (
-        <div className='photoviewer'>
-            <ImageGallery items={setupGallery(photos)} showFullscreenButton={false} />
+        <div className="slide-container">
+            <Slide {...properties}>
+                {onLoad(photos)}
+            </Slide>
         </div>
     )
 }
