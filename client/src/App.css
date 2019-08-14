@@ -555,6 +555,11 @@ button {
   height: 500px;
 }
 
+.contact-map{
+  width: 600;
+  height: 500;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
@@ -601,7 +606,40 @@ button {
     display: none;
   }
 
+  /* contact info */
+  #map {
+    width:323px;
+    margin: auto;
+  }
+
+  #map iframe{
+    width: 320px;
+    height: 250px;
+  }
+
+  /* listing details */
+  .listingdetails{
+    display: block;
+    margin: auto;
+    text-align: center;
+  }
+
+  /* Styling for photos */
+  .slide-container {
+    width: 250px;
+    margin: auto; 
+  }
+
+  .each-slide > div {
+    height: 200px;
+  }
+
   /* Profile Page */
+  .profile{
+    display: block;
+    margin: auto;
+    text-align: center;
+  }
 
   .profile-top img,
   .profile img {

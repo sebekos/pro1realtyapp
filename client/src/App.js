@@ -1,15 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
-import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { loadUser } from './Redux/actions/auth';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-//Redux
-import { Provider } from 'react-redux';
 import store from './Redux/store';
 import Alert from './components/layout/Alert';
-import { loadUser } from './Redux/actions/auth';
 import setAuthToken from './Redux/utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Dashboard from './components/dashboards/Dashboard';
@@ -28,6 +26,9 @@ import Office from './components/contact/Office';
 import DeletePhotos from './components/deletephotos/DeletePhotos';
 import Pwreset from './components/auth/Pwreset';
 import Pwresetsave from './components/auth/Pwresetsave';
+import './App.css';
+
+
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);

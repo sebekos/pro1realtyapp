@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment';
-import { connect } from 'react-redux'
 import NumberFormat from 'react-number-format';
 
 const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agentid, photos, listdate, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, agentinfo }, listingId }) =>

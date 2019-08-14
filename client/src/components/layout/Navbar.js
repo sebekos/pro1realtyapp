@@ -9,8 +9,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout, history }) => {
         <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/dashboard">Dashboard</Link></li>
-            <li><Link to="/listings">Listings</Link></li>
-            <li><Link to="/agents">Agents</Link></li>
             <li>
                 <a onClick={e => onLogout(e)} href='#!'>
                     <i className="fas fa-sign-out-alt"></i>{' '}
