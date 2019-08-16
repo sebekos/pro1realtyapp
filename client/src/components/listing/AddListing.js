@@ -1,9 +1,10 @@
 import React, { Fragment, useState } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import { addListing } from '../../Redux/actions/listing';
+import PropTypes from 'prop-types'
 import DatePicker from "react-datepicker";
+import States from "../layout/States";
 import "react-datepicker/dist/react-datepicker.css";
 
 const AddListing = ({ addListing, history, auth: { user } }) => {
@@ -14,7 +15,7 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
         type: 'Residential',
         address: '',
         city: '',
-        state: '',
+        state: 'IL',
         zipcode: '',
         price: '',
         bedroom: '',
@@ -45,6 +46,7 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
             ...formData,
             listdate: listdate
         }
+        console.log(listingData)
         await addListing(listingData, history);
     }
 
@@ -67,7 +69,7 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
                 </div>
                 <div className="form-group">
                     <select name="status" value={status} onChange={e => onChange(e)} >
-                        <option>Listed</option>
+                        <option>Active</option>
                         <option>Under Contract</option>
                         <option>Pending</option>
                         <option>Closed</option>
@@ -77,6 +79,8 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
                     <select name="type" value={type} onChange={e => onChange(e)} >
                         <option>Residential</option>
                         <option>Commercial</option>
+                        <option>Confidential - Residential</option>
+                        <option>Confidential - Commercial</option>
                     </select>
                 </div>
                 <div className="form-group">
@@ -86,7 +90,7 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
                     <input type="text" placeholder="City" name="city" value={city} onChange={e => onChange(e)} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="State" name="state" value={state} onChange={e => onChange(e)} />
+                    <States update={onChange} chosen={state} />
                 </div>
                 <div className="form-group">
                     <input type="text" placeholder="Zipcode" name="zipcode" value={zipcode} onChange={e => onChange(e)} />

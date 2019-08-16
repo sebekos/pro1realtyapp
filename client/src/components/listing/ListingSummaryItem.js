@@ -13,8 +13,19 @@ const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agen
                 alt=""
             />
             <div>
-                <a href={`/listing/${listingId}`} ><h2 className='text-dark'>{address + ' ' + city + ', ' + state + ' ' + zipcode}</h2></a>
-                <p><span className='span-item'>$</span>{price.toLocaleString()}</p>
+                {type.includes('Confidential') ? (
+                    <a href={`/listing/${listingId}`} >
+                        <h2 className='text-dark'>{type}</h2>
+                    </a>
+                ) : (
+                        <Fragment>
+                            <a href={`/listing/${listingId}`} >
+                                <h2 className='text-dark'>{address + ' ' + city + ', ' + state + ' ' + zipcode}</h2>
+                            </a>
+                        </Fragment>
+
+                    )}
+                {price ? <p><span className='span-item'>$</span>{price.toLocaleString()}</p> : null}
                 <p><span className='span-item'>Listed: </span><Moment parse="YYYY-MM-DDTHH:mm:ss.SSSZ" format="LL">{listdate}</Moment></p>
                 <p><span className='span-item'>Type: </span>{type}</p>
                 <p><span className='span-item'>Status: </span>{status}</p>

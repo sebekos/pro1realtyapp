@@ -39,9 +39,14 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile, loading }, 
                 </Fragment>}
             <div className='between mt-3'></div>
             <h1 className="large text-primary">My Listings</h1>
-            <Link to='/addlisting' className='btn btn-primary my-1'>
-                Add Listing
-            </Link>
+            {profile ? (
+                <Link to='/addlisting' className='btn btn-primary my-1'>
+                    Add Listing
+            </Link>) : (
+                    <div className='text-dark medium'>
+                        You must create a profile before adding listings
+            </div>)}
+
             {listings ? (
                 <Fragment>
                     <div className="posts">

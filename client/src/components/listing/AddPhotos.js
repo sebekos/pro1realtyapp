@@ -13,7 +13,7 @@ const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressb
     const [max, setMax] = useState(0);
 
     useEffect(() => {
-        setMax(loading || !listing.photos || listing.photos == null ? 0 : listing.photos.length);
+        setMax(loading || listing === null || !listing.photos || listing.photos === null ? 0 : listing.photos.length);
         getListing(match.params.id)
     }, [loading, getListing]);
 
@@ -85,7 +85,7 @@ const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressb
                 buttonText='Choose images'
                 onChange={pictures => onDrop(pictures)}
                 imgExtension={['.jpg', '.gif', '.png', '.gif', 'jpeg']}
-                maxFileSize={5242880}
+                maxFileSize={10485760}
                 withPreview={true}
             />
         </Fragment>

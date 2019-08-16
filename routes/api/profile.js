@@ -75,7 +75,7 @@ router.post('/', [auth, [
 // @access      Public
 router.get('/', async (req, res) => {
     try {
-        const profiles = await Profile.find({ active: 1 });
+        const profiles = await Profile.find({ active: 1 }).sort({ name: 1 });
         res.json(profiles);
     } catch (error) {
         res.status(500).send('Server Error');

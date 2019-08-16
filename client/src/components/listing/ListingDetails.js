@@ -68,9 +68,18 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing } }) =>
                         <Fragment>
                             {photos.length > 0 ? <PhotoViewer photos={photos} /> : <h2 className='text-center my-2'>No Photos Exist For This Listing</h2>}
                             <div className="">
-                                <div className='listing-details-address1'>{address}</div>
-                                <div className='listing-details-address2'>{city + ', ' + state + ' ' + zipcode}</div>
-                                <p className='p-important'><span className='span-item'>$</span>{price.toLocaleString()}</p>
+                                {type.includes('Confidential') ? (
+                                    <Fragment>
+                                        <div className='listing-details-address1'>{type}</div>
+                                    </Fragment>
+                                ) : (
+                                        <Fragment>
+                                            <div className='listing-details-address1'>{address}</div>
+                                            <div className='listing-details-address2'>{city + ', ' + state + ' ' + zipcode}</div>
+                                        </Fragment>
+
+                                    )}
+                                {price ? <p className='p-important'><span className='span-item'>$</span>{price.toLocaleString()}</p> : null}
                                 <p><span className='span-item'>Listed: </span><Moment parse="YYYY-MM-DDTHH:mm:ss.SSSZ" format="LL">{listdate}</Moment></p>
                                 <p><span className='span-item'>Type: </span>{type}</p>
                                 <p><span className='span-item'>Status: </span>{status}</p>

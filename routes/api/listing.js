@@ -14,12 +14,7 @@ router.post('/', [auth,
     [
         check('listdate', 'List date is required').not().isEmpty(),
         check('status', 'Status is required').not().isEmpty(),
-        check('type', 'Type is required').not().isEmpty(),
-        check('address', 'Address is required').not().isEmpty(),
-        check('city', 'City is required').not().isEmpty(),
-        check('state', 'State is required').not().isEmpty(),
-        check('zipcode', 'Zipcode is required').not().isEmpty(),
-        check('price', 'Price is required').not().isEmpty()
+        check('type', 'Type is required').not().isEmpty()
     ]
 ],
     async (req, res) => {
