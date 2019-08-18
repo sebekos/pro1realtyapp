@@ -11,19 +11,25 @@ import Resizer from 'react-image-file-resizer';
 const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressbar }, getListing, removeAlerts, setAllAlert, maxProgressBar }) => {
     const [pictures, setPictures] = useState([]);
     const [max, setMax] = useState(0);
+    const [uploadBtn, setUploadBtn] = useState(0);
+    const [showProgress, setShowProgress] = useState(0);
 
     useEffect(() => {
         setMax(loading || listing === null || !listing.photos || listing.photos === null ? 0 : listing.photos.length);
-        getListing(match.params.id)
+        getListing(match.params.id);
     }, [loading, getListing]);
 
     const onDrop = picture => {
-        if ((picture.length + max) > 10) {
-            return setAllAlert(`Max 10 photos allowed, currently at ${picture.length + max}. Please remove ${picture.length + max - 10}`, 'danger', 10000);
+        if ((picture.length + listing.photos.length) > 10) {
+            setUploadBtn(0);
+            return setAllAlert(`Max 10 photos allowed, currently at ${picture.length + listing.photos.length}. Please delete ${picture.length + listing.photos.length - 10}`, 'danger', 10000);
         }
         if (picture.length === 0) {
+            setUploadBtn(0);
             return setPictures([]);
         }
+        setUploadBtn(1);
+        setShowProgress(0);
         removeAlerts();
         maxProgressBar(picture.length);
         setPictures(picture);
@@ -31,6 +37,8 @@ const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressb
 
     const onUpload = async e => {
         buildFormArray(pictures);
+        setUploadBtn(0);
+        setShowProgress(1);
     }
 
     const buildFormArray = pictures => {
@@ -66,20 +74,24 @@ const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressb
         return new Blob([u8arr], { type: mime });
     }
 
-    const uploadConvertPhotos = (results) => {
-        results.map(result => {
-            uploadPhotos(result, match.params.id);
+    const uploadConvertPhotos = async (results) => {
+        var promises = [];
+        results.forEach(result => {
+            promises.push(uploadPhotos(result, match.params.id));
+        });
 
-        })
+        Promise.all(promises).then(re => {
+            getListing(match.params.id);
+        });
     }
 
     return (
         <Fragment>
             <h2>Add Photos</h2>
-            {!loading && progressbar.current !== '' ? <Progress percent={(progressbar.current / progressbar.max * 100).toFixed(0)} /> : null}
-            {pictures.length > 0 ? <button type='button' className='btn btn-success text-center' onClick={e => onUpload(e)}>Upload</button> : null}
+            {showProgress ? <Progress percent={(progressbar.current / progressbar.max * 100).toFixed(0)} /> : null}
+            {uploadBtn ? <button type='button' className='btn btn-success text-center' onClick={e => onUpload(e)}>Upload</button> : null}
             {progressbar.current / progressbar.max === 1 ? <a className='btn btn-primary' href={`/listing/${match.params.id}`}>Go To Listing</a> : null}
-            {!loading && progressbar.current / progressbar.max !== 100 ? <div className='text-dark small'>Your listing has {max} photos. Maximum of 10 per a listing.</div> : null}
+            {!loading && progressbar.current / progressbar.max !== 100 ? <div className='text-dark small'>Your listing has {listing.photos.length} photos. Maximum of 10 per a listing.</div> : null}
             <ImageUploader
                 withIcon={true}
                 buttonText='Choose images'

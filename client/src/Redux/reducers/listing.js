@@ -7,7 +7,8 @@ import {
     DELETE_LISTING,
     GET_AGENT_LISTINGS,
     MAX_BAR,
-    INCREMENT_BAR
+    INCREMENT_BAR,
+    MANUAL_BAR
 } from '../actions/types';
 
 const initialState = {
@@ -76,6 +77,15 @@ export default function (state = initialState, action) {
                 progressbar: {
                     ...state.progressbar,
                     current: state.progressbar.current + 1
+                },
+                loading: false
+            }
+        case MANUAL_BAR:
+            return {
+                ...state,
+                progressbar: {
+                    ...state.progressbar,
+                    current: payload / state.progressbar.max
                 },
                 loading: false
             }

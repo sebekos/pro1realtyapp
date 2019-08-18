@@ -15,7 +15,7 @@ const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agen
             <div>
                 {type.includes('Confidential') ? (
                     <a href={`/listing/${listingId}`} >
-                        <h2 className='text-dark'>{type}</h2>
+                        <h2 className='text-dark'>{type}{state !== '' ? ', ' + state : null}</h2>
                     </a>
                 ) : (
                         <Fragment>

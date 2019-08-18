@@ -27,4 +27,5 @@ export const PW_RESET = 'PW_RESET';
 export const PW_RESET_SAVE = 'PW_RESET_SAVE';
 export const MAX_BAR = 'MAX_BAR';
 export const INCREMENT_BAR = 'INCREMENT_BAR';
+export const MANUAL_BAR = 'MANUAL_BAR';
 export const REMOVE_ALL_ALERTS = 'REMOVE_ALL_ALERTS';

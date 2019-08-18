@@ -9,7 +9,8 @@ import {
     DELETE_LISTING,
     LISTING_ERROR,
     MAX_BAR,
-    INCREMENT_BAR
+    INCREMENT_BAR,
+    MANUAL_BAR
 } from './types';
 
 // Add Listing or Update
@@ -170,7 +171,7 @@ export const reOrderPhotos = (images, id) => async dispatch => {
     }
 }
 
-// Progress bar status
+// Progress bar max
 export const maxProgressBar = (value) => async dispatch => {
     dispatch({
         type: MAX_BAR,
@@ -178,9 +179,17 @@ export const maxProgressBar = (value) => async dispatch => {
     })
 }
 
-// Progress bar status
+// Progress bar increment
 export const incrementProgressBar = () => async dispatch => {
     dispatch({
         type: INCREMENT_BAR
+    })
+}
+
+// Progress bar manual change
+export const manualProgressBar = (value) => async dispatch => {
+    dispatch({
+        type: MANUAL_BAR,
+        payload: value
     })
 }
