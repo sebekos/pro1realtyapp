@@ -94,16 +94,16 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
             <h1 className="large text-primary">
                 Listing Information
             </h1>
-            <form className='form' onSubmit={e => onSubmit(e)}>
+            <form className='form' onSubmit={onSubmit}>
                 <div className="form-group">
                     <DatePicker
                         placeholderText='* Select listed date'
                         selected={listdate}
-                        onChange={e => onDate(e)}
+                        onChange={onDate}
                         maxDate={new Date()} />
                 </div>
                 <div className="form-group">
-                    <select name="status" value={status} onChange={e => onChange(e)} >
+                    <select name="status" value={status} onChange={onChange} >
                         <option>Active</option>
                         <option>Under Contract</option>
                         <option>Pending</option>
@@ -111,7 +111,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
                     </select>
                 </div>
                 <div className="form-group">
-                    <select name="type" value={type} onChange={e => onChange(e)} >
+                    <select name="type" value={type} onChange={onChange} >
                         <option>Residential</option>
                         <option>Commercial</option>
                         <option>Confidential - Residential</option>
@@ -119,35 +119,35 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
                     </select>
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Address" name="address" value={address} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Address" name="address" value={address} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="City" name="city" value={city} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="City" name="city" value={city} onChange={onChange} />
                 </div>
                 <div className="form-group">
                     <States update={onChange} chosen={state} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Zipcode" name="zipcode" value={zipcode} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Zipcode" name="zipcode" value={zipcode} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Price" name="price" value={price} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Price" name="price" value={price} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Bedroom" name="bedroom" value={bedroom} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Bedroom" name="bedroom" value={bedroom} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Bathroom" name="bathroom" value={bathroom} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Bathroom" name="bathroom" value={bathroom} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Description" name="description" value={description} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Description" name="description" value={description} onChange={onChange} />
                 </div>
                 <input type="submit" className="btn btn-primary my-1" />
                 <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
-                <button className="btn btn-danger my-1" to="/dashboard" onClick={e => onDelete(e)} type="button">Delete</button>
+                <button className="btn btn-danger my-1" to="/dashboard" onClick={onDelete} type="button">Delete</button>
             </form>
         </Fragment >
     )

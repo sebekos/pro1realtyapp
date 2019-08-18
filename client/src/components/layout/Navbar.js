@@ -5,12 +5,17 @@ import PropTypes from 'prop-types';
 import { logout } from '../../Redux/actions/auth';
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout, history }) => {
+    const onLogout = e => {
+        e.preventDefault();
+        logout();
+    }
+
     const authLinks = (
         <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/dashboard">Dashboard</Link></li>
             <li>
-                <a onClick={e => onLogout(e)} href='#!'>
+                <a onClick={onLogout} href='#!'>
                     <i className="fas fa-sign-out-alt"></i>{' '}
                     <span className='hide-sm'>Logout</span>
                 </a>
@@ -28,11 +33,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout, history }) => {
             <li><Link to="/login">Login</Link></li>
         </ul>
     );
-
-    const onLogout = e => {
-        e.preventDefault();
-        logout();
-    }
 
     return (
         <nav className="navbar bg-dark">

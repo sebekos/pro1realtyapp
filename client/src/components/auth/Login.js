@@ -29,14 +29,14 @@ const Login = ({ login, isAuthenticated }) => {
         <Fragment>
             <h1 className="large text-primary">Sign In</h1>
             <p className="lead"><i className="fas fa-user"></i> Sign Into Your Account</p>
-            <form className="form" onSubmit={e => onSubmitHandler(e)}>
+            <form className="form" onSubmit={onSubmitHandler}>
                 <div className="form-group">
                     <input
                         type="email"
                         placeholder="Email Address"
                         name="email"
                         value={email}
-                        onChange={e => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                         required
                     />
                 </div>
@@ -47,7 +47,7 @@ const Login = ({ login, isAuthenticated }) => {
                         name="password"
                         minLength="6"
                         value={password}
-                        onChange={e => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                         required
 
                     />

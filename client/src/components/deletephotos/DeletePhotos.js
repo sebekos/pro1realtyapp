@@ -32,7 +32,7 @@ const DeletePhotos = ({ match, getListing, reOrderPhotos, listing: { listing, lo
     return (
         <Fragment>
             <div>
-                <button onClick={e => onSave(e)} type='button' className='btn btn-success'>Save</button>
+                <button onClick={onSave} type='button' className='btn btn-success'>Save</button>
                 <Link className="btn btn-light my-1" to="/dashboard">Go To Dashboard</Link>
             </div>
             <div className='delete-container'>

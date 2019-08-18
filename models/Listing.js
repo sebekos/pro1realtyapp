@@ -41,17 +41,14 @@ const ListingSchema = new mongoose.Schema({
         type: String
     },
     agentid: {
-        type: String
+        type: String,
+        required: true
     },
     mainphoto: {
         type: String
     },
     photos: {
         type: [String]
-    },
-    agentid: {
-        type: String,
-        required: true
     },
     active: {
         type: String,

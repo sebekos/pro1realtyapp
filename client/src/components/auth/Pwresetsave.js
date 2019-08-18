@@ -31,14 +31,14 @@ const Pwreset = ({ pwresetsave, auth: { loading }, match, history, setAlert }) =
     return (
         <Fragment>
             <h1 className="large text-primary">Password Reset</h1>
-            <form className="form" onSubmit={e => onSubmitHandler(e)}>
+            <form className="form" onSubmit={onSubmitHandler}>
                 <div className="form-group">
                     <input
                         type="email"
                         placeholder="Email Address"
                         name="email"
                         value={email}
-                        onChange={e => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                         required
                     />
                 </div>
@@ -48,7 +48,7 @@ const Pwreset = ({ pwresetsave, auth: { loading }, match, history, setAlert }) =
                         placeholder="Password"
                         name="password"
                         value={password}
-                        onChange={e => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                         required
                     />
                 </div>
@@ -58,7 +58,7 @@ const Pwreset = ({ pwresetsave, auth: { loading }, match, history, setAlert }) =
                         placeholder="Confirm Password"
                         name="password2"
                         value={password2}
-                        onChange={e => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                         required
                     />
                 </div>

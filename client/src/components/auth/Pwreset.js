@@ -4,28 +4,31 @@ import { pwreset } from '../../Redux/actions/auth';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types'
 
-const Pwreset = ({ pwreset, auth: { loading } }) => {
+const Pwreset = ({ pwreset }) => {
     const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(0);
 
     const onChangeHandler = e => setEmail(e.target.value);
 
     const onSubmitHandler = async e => {
         e.preventDefault();
-        pwreset(email);
+        setLoading(1);
+        await pwreset(email);
+        setLoading(0);
     }
 
     return (
         <Fragment>
             <h1 className="large text-primary">Password Reset</h1>
             <p className="lead"><i className="fas fa-user"></i> Enter the email associated with your account.</p>
-            <form className="form" onSubmit={e => onSubmitHandler(e)}>
+            <form className="form" onSubmit={onSubmitHandler}>
                 <div className="form-group">
                     <input
                         type="email"
                         placeholder="Email Address"
                         name="email"
                         value={email}
-                        onChange={e => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                         required
                     />
                 </div>
@@ -37,12 +40,7 @@ const Pwreset = ({ pwreset, auth: { loading } }) => {
 }
 
 Pwreset.propTypes = ({
-    pwreset: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
+    pwreset: PropTypes.func.isRequired
 });
 
-const mapStateToProps = state => ({
-    auth: state.auth
-});
-
-export default connect(mapStateToProps, { pwreset })(Pwreset);
+export default connect(null, { pwreset })(Pwreset);

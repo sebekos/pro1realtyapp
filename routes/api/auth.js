@@ -25,7 +25,7 @@ router.get('/', auth, async (req, res) => {
 // @description Authenticate user and get token
 // @access      Public
 router.post('/', [
-    check('email', 'Password is required').isEmail(),
+    check('email', 'Email is required or format is incorrect').isEmail(),
     check('password', 'Please enter a password with 6 or more characters').exists()
 ], async (req, res) => {
     const errors = validationResult(req);

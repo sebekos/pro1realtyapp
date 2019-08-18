@@ -132,6 +132,7 @@ router.post('/pwreset', [
             res.json({ msg: "Reset email sent" });
         }
     });
+    res.status(200).send('Password reset email sent');
 });
 
 // @route       POST api/user/confirmreset

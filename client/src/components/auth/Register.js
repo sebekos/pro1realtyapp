@@ -26,7 +26,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         if (password !== password2) {
             setAlert('Passwords do not match', 'danger');
         } else {
-            console.log(formData);
             register({ name, email, password, registerkey });
         }
     }
@@ -39,14 +38,14 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <Fragment>
             <h1 className="large text-primary">Sign Up</h1>
             <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
-            <form className="form" onSubmit={e => onSubmitHandler(e)}>
+            <form className="form" onSubmit={onSubmitHandler}>
                 <div className="form-group">
                     <input
                         type="text"
                         placeholder="Name"
                         name="name"
                         value={name}
-                        onChange={e => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                     />
                 </div>
                 <div className="form-group">
@@ -55,7 +54,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                         placeholder="Email Address"
                         name="email"
                         value={email}
-                        onChange={e => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                     />
                 </div>
                 <div className="form-group">
@@ -64,7 +63,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                         placeholder="Password"
                         name="password"
                         value={password}
-                        onChange={e => onChangeHandler(e)}
+                        onChange={onChangeHandler}
 
                     />
                 </div>
@@ -74,7 +73,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                         placeholder="Confirm Password"
                         name="password2"
                         value={password2}
-                        onChange={e => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                     />
                 </div>
                 <div className="form-group">
@@ -83,7 +82,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                         placeholder="Registration Key"
                         name="registerkey"
                         value={registerkey}
-                        onChange={e => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                     />
                 </div>
                 <input type="submit" className="btn btn-primary" value="Register" />

@@ -64,7 +64,7 @@ router.post('/', [auth,
         }
 
         try {
-            let listing = await Listing.findById(req.body.id);
+            let listing = await Listing.findOne({ _id: req.body.id });
             // Check if user has access
             if (listing && req.user.id !== listing.agentid) {
                 return res.status(401).json({ msg: 'User not authorized' });
