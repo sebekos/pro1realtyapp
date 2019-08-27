@@ -120,7 +120,7 @@ export const deleteListing = (id, history) => async dispatch => {
             payload: res.data
         })
         dispatch(setAlert('Listing deleted', 'danger'));
-        history.push('/dashboard');
+        history.push('/mylistings');
     } catch (err) {
         dispatch({
             type: LISTING_ERROR,

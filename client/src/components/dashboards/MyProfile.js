@@ -37,25 +37,6 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile, loading }, 
                         Add Profile
                     </Link>
                 </Fragment>}
-            <div className='between mt-3'></div>
-            <h1 className="large text-primary">My Listings</h1>
-            {profile ? (
-                <Link to='/addlisting' className='btn btn-primary my-1'>
-                    Add Listing
-            </Link>) : (
-                    <div className='text-dark medium'>
-                        You must create a profile before adding listings
-            </div>)}
-
-            {listings ? (
-                <Fragment>
-                    <div className="posts">
-                        {listings.length > 0 ? listings.map(listing => (
-                            <ListingSummaryItem key={listing._id} listing={listing} listingId={listing._id}>Listing</ListingSummaryItem>
-                        )) : <div className='text-dark medium'>You do not have any listings</div>}
-                    </div>
-                </Fragment>
-            ) : <Spinner />}
         </Fragment>
     )
 }

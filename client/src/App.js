@@ -10,7 +10,8 @@ import store from './Redux/store';
 import Alert from './components/layout/Alert';
 import setAuthToken from './Redux/utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
-import Dashboard from './components/dashboards/Dashboard';
+import MyProfile from './components/dashboards/MyProfile';
+import MyListings from './components/dashboards/MyListings';
 import AddListing from './components/listing/AddListing';
 import EditListing from './components/listing/EditListing';
 import AddProfile from './components/profile/AddProfile';
@@ -58,7 +59,8 @@ const App = () => {
               <Route exact path="/contact" component={Office} />
               <Route exact path="/pwreset" component={Pwreset} />
               <Route exact path="/pwresetsave/:hash" component={Pwresetsave} />
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/myprofile" component={MyProfile} />
+              <PrivateRoute exact path="/mylistings" component={MyListings} />
               <PrivateRoute exact path="/addlisting" component={AddListing} />
               <PrivateRoute exact path="/editlisting/:id" component={EditListing} />
               <PrivateRoute exact path="/editlisting/addphotos/:id" component={AddPhotos} />

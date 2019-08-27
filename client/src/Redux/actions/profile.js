@@ -57,7 +57,7 @@ export const addProfile = (formData, history, edit = false) => async dispatch =>
             payload: res.data
         })
         dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Added', 'success'));
-        history.push('/dashboard');
+        history.push('/myprofile');
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
@@ -89,7 +89,7 @@ export const uploadAvatar = (formData, profile, history) => async dispatch => {
             payload: newPro
         })
         dispatch(setAlert('Avatar Updated', 'success'));
-        history.push('/dashboard');
+        history.push('/myprofile');
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
@@ -109,7 +109,7 @@ export const deleteProfile = () => async dispatch => {
         await axios.delete('/api/profile');
         dispatch({ type: DELETE_PROFILE });
         dispatch({ type: LOGOUT });
-        dispatch(setAlert('Profile Delete', 'danger'));
+        dispatch(setAlert('Profile Deleted', 'danger'));
     } catch (err) {
         dispatch({
             type: PROFILE_ERROR,

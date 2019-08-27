@@ -15,12 +15,10 @@ const DeletePhotos = ({ match, getListing, reOrderPhotos, listing: { listing, lo
         setPhotos(loading || !listing.photos ? [] : listing.photos)
     }, [getListing, loading]);
 
-    const onDelete = (e, image) => {
-        e.preventDefault();
-        const newPhotos = [];
-        photos.forEach(photo => {
-            if (photo !== image) newPhotos.push(photo);
-        });
+    const onDelete = e => {
+        let newPhotos = [];
+        let image = e.target.getAttribute('image');
+        newPhotos = photos.filter(photo => { return photo !== image });
         setPhotos(newPhotos);
     }
 
@@ -33,7 +31,7 @@ const DeletePhotos = ({ match, getListing, reOrderPhotos, listing: { listing, lo
         <Fragment>
             <div>
                 <button onClick={onSave} type='button' className='btn btn-success'>Save</button>
-                <Link className="btn btn-light my-1" to="/dashboard">Go To Dashboard</Link>
+                <Link className="btn btn-light my-1" to="/mylistings">Go To Listings</Link>
             </div>
             <div className='delete-container'>
                 {!loading ? photos.map((photo, index) => (<DeleteItem image={photo} ondelete={onDelete} key={index} />)) : <Spinner />}

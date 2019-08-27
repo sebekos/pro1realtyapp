@@ -67,15 +67,15 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
             </h1>
             <img src={photo} alt="" />
             <p><Link className="btn btn-light my-1" to="/editprofile/avatar">Add/Edit Avatar</Link></p>
-            <form className='form' onSubmit={e => onSubmit(e)}>
+            <form className='form' onSubmit={onSubmit}>
                 <div className="form-group">
-                    <input type="text" placeholder="Name" name="name" value={name} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Position" name="position" value={position} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Position" name="position" value={position} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Location" name="location" value={location} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Location" name="location" value={location} onChange={onChange} />
                 </div>
                 <div className="form-group">
                     <NumberFormat
@@ -88,11 +88,11 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
                     />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Email" name="email" value={email} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Email" name="email" value={email} onChange={onChange} />
                 </div>
                 <input type="submit" className="btn btn-primary my-1" />
-                <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
-                <button className="btn btn-danger my-1" onClick={e => onDelete(e)} type="button">Delete</button>
+                <Link className="btn btn-light my-1" to="/myprofile">Go Back</Link>
+                <button className="btn btn-danger my-1" onClick={onDelete} type="button">Delete</button>
             </form>
         </Fragment >
     )

@@ -40,16 +40,16 @@ const AddProfile = ({ addProfile, history }) => {
             <h1 className="large text-primary">
                 Profile Information
             </h1>
-            <form className='form' onSubmit={e => onSubmit(e)}>
+            <form className='form' onSubmit={onSubmit}>
                 <div className="form-group">
-                    <input type="text" placeholder="Name" name="name" value={name} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Position" name="position" value={position} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Position" name="position" value={position} onChange={onChange} />
                 </div>
                 <small className="form-text">* Broker, agent, assistant, etc...</small>
                 <div className="form-group">
-                    <input type="text" placeholder="Location" name="location" value={location} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Location" name="location" value={location} onChange={onChange} />
                 </div>
                 <small className="form-text">* Chicago Land Area, Great Lakes, etc...</small>
                 <div className="form-group">
@@ -63,10 +63,10 @@ const AddProfile = ({ addProfile, history }) => {
                     />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Email" name="email" value={email} onChange={e => onChange(e)} />
+                    <input type="text" placeholder="Email" name="email" value={email} onChange={onChange} />
                 </div>
                 <input type="submit" className="btn btn-primary my-1" />
-                <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
+                <Link className="btn btn-light my-1" to="/myprofile">Go Back</Link>
             </form>
         </Fragment >
     )

@@ -146,8 +146,8 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
                     <input type="text" placeholder="Description" name="description" value={description} onChange={onChange} />
                 </div>
                 <input type="submit" className="btn btn-primary my-1" />
-                <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
-                <button className="btn btn-danger my-1" to="/dashboard" onClick={onDelete} type="button">Delete</button>
+                <Link className="btn btn-light my-1" to="/mylistings">Go Back</Link>
+                <button className="btn btn-danger my-1" onClick={onDelete} type="button">Delete</button>
             </form>
         </Fragment >
     )

@@ -54,7 +54,7 @@ const Avatar = ({ uploadAvatar, profile, history }) => {
 
     return (
         <div className='avatareditor'>
-            <Link className="btn btn-primary my-1" to="/dashboard">Go To Dashboard</Link>
+            <Link className="btn btn-primary my-1" to="/myprofile">Go To Profile</Link>
             {file !== '' ? <button onClick={e => onPreview(e)} className='btn btn-secondary mb-1'>Preview</button> : null}
             <AvatarEditor
                 ref={editor => onEditor(editor)}
@@ -88,7 +88,7 @@ const Avatar = ({ uploadAvatar, profile, history }) => {
                 value={scale}
                 className="mb-2"
             />
-            {preview !== '' ? <button onClick={e => onSave(e)} className='btn btn-success mb-2'>Save</button> : null}
+            {preview !== '' ? <button onClick={onSave} className='btn btn-success mb-2'>Save</button> : null}
             <div className='gen-center'>
                 <img src={preview !== '' ? preview : ''} alt='' className='avatar-preview' />
             </div>

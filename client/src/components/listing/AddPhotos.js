@@ -88,7 +88,7 @@ const AddPhotos = ({ uploadPhotos, match, listing: { listing, loading, progressb
             <h2>Add Photos</h2>
             {showProgress ? <Progress percent={(progressbar.current / progressbar.max * 100).toFixed(0)} /> : null}
             {uploadBtn ? <button type='button' className='btn btn-success text-center' onClick={onUpload}>Upload</button> : null}
-            {progressbar.current / progressbar.max === 1 ? <a className='btn btn-primary' href={`/listing/${match.params.id}`}>Go To Listing</a> : null}
+            {progressbar.current / progressbar.max === 1 ? <a className='btn btn-success' href={`/listing/${match.params.id}`}>Go To Listing</a> : null}
             <ImageUploader
                 withIcon={true}
                 buttonText='Choose images'
