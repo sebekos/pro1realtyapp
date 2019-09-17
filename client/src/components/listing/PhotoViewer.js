@@ -14,7 +14,7 @@ const PhotoViewer = ({ photos }) => {
     }
 
     const properties = {
-        duration: 10000,
+        duration: 5000,
         transitionDuration: 300,
         infinite: true,
         indicators: true,

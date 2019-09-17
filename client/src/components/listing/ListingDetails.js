@@ -66,8 +66,8 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing } }) =>
                 <div className="profiles">
                     <div className="listingdetails bg-light">
                         <Fragment>
-                            {photos.length > 0 ? <PhotoViewer photos={photos} /> : <h2 className='text-center my-2'>No Photos Exist For This Listing</h2>}
-                            <div className="">
+                            {photos.length > 0 ? <PhotoViewer photos={photos} /> : <div className='listingdetails-nophotos'>No Photos Exist For This Listing</div>}
+                            <div>
                                 {type.includes('Confidential') ? (
                                     <Fragment>
                                         <div className='listing-details-address1'>{type}</div>

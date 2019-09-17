@@ -7,11 +7,17 @@ import NumberFormat from 'react-number-format';
 const ListingItem = ({ auth: { isAuthenticated, user, loading }, listing: { agentid, photos, listdate, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, agentinfo }, listingId }) =>
     <div className="profiles">
         <div className="profile bg-light">
-            <img
-                className="img-icon"
-                src={photos ? photos[0] : ""}
-                alt=""
-            />
+            {photos && photos.length > 0 ? (<Fragment>
+                <img
+                    className="img-icon"
+                    src={photos[0]}
+                    alt=""
+                />
+            </Fragment>) : (<Fragment>
+                <div className="img-empty">
+                    No Photos
+                </div>
+            </Fragment>)}
             <div>
                 {type.includes('Confidential') ? (
                     <a href={`/listing/${listingId}`} >
