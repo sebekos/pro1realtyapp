@@ -463,6 +463,21 @@ button {
   font-weight: bold;
 }
 
+.listings-view{
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.listing-search-bar{
+  display: flex;
+  justify-self: end;
+  margin-bottom: 10px;
+}
+
+.listing-search-bar button{
+  margin-right: 0;
+}
+
 /* listingdetails */
 .listingdetails{
   display: grid;

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import { getListings } from '../../Redux/actions/listing';
 import ListingSummaryItem from './ListingSummaryItem';
+import ListingSearch from './ListingSearch';
 
 const Listings = ({ getListings, listing: { listings, loading } }) => {
     useEffect(() => {
@@ -12,7 +13,8 @@ const Listings = ({ getListings, listing: { listings, loading } }) => {
 
     return loading ? <Spinner /> :
         <Fragment>
-            <div className="posts">
+            <div className="listings-view">
+                <ListingSearch />
                 {listings.map(listing => (
                     <ListingSummaryItem key={listing._id} listing={listing} listingId={listing._id}>Listing</ListingSummaryItem>
                 ))}
