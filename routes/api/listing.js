@@ -207,6 +207,14 @@ router.get('/user/:id', async (req, res) => {
 }
 );
 
+// @route       POST /api/listing/reorderphotos/:id
+// @description Reorder listing photos
+// @access      Private
+router.post('/refined', [], async (req, res) => {
+    console.log(req.body);
+    res.json('Success');
+});
+
 // @route       GET api/listing/:id
 // @description Get one listing
 // @access      Public

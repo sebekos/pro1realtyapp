@@ -5,6 +5,7 @@ import {
     GET_LISTINGS,
     GET_USER_LISTINGS,
     GET_AGENT_LISTINGS,
+    GET_LISTINGS_REFINED,
     ADD_LISTING,
     DELETE_LISTING,
     LISTING_ERROR,
@@ -85,6 +86,27 @@ export const getAgentListings = (id) => async dispatch => {
         const res = await axios.get(`/api/listing/user/${id}`);
         dispatch({
             type: GET_AGENT_LISTINGS,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: LISTING_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+}
+
+// Get refined listings
+export const getRefinedListings = (formData) => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.post('/api/listing/refined', formData, config);
+        dispatch({
+            type: GET_LISTINGS_REFINED,
             payload: res.data
         })
     } catch (err) {

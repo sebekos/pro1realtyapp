@@ -2,6 +2,7 @@ import {
     GET_LISTING,
     GET_LISTINGS,
     GET_USER_LISTINGS,
+    GET_LISTINGS_REFINED,
     ADD_LISTING,
     LISTING_ERROR,
     DELETE_LISTING,
@@ -40,6 +41,12 @@ export default function (state = initialState, action) {
                 loading: false
             };
         case GET_AGENT_LISTINGS:
+            return {
+                ...state,
+                listings: payload,
+                loading: false
+            };
+        case GET_LISTINGS_REFINED:
             return {
                 ...state,
                 listings: payload,
