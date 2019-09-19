@@ -24,7 +24,7 @@ const ListingSearch = ({ getRefinedListings }) => {
     return (
         <div className='listing-search-bar form'>
             <input onChange={onChange} name='zipcode' value={zipcode} type='text' placeholder='Zipcode' />
-            <select name={type} value={type} onChange={onChange}>
+            <select name="type" value={type} onChange={onChange}>
                 <option>Newest</option>
                 <option>Oldest</option>
                 <option>High Price</option>

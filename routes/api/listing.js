@@ -209,10 +209,54 @@ router.get('/user/:id', async (req, res) => {
 
 // @route       POST /api/listing/reorderphotos/:id
 // @description Reorder listing photos
-// @access      Private
+// @access      Public
 router.post('/refined', [], async (req, res) => {
     console.log(req.body);
-    res.json('Success');
+    let order = req.body.type === 'Oldest' ? 1 : -1;
+    order = req.body.type === 'Low Price' ? 1 : -1;
+    let match = {
+        $match: {
+            "active": "1"
+        }
+    }
+    if (req.body.zipcode !== "") {
+        match = {
+            $match: {
+                "active": "1",
+                "zipcode": req.body.zipcode
+            }
+        }
+    }
+
+
+    try {
+        const listings = await Listing.aggregate([
+            match,
+            {
+                $lookup:
+                {
+                    from: "profiles",
+                    localField: "agentid",
+                    foreignField: "user",
+                    as: "agentinfo"
+                }
+            },
+            {
+                $unwind: "$agentinfo"
+            },
+            {
+                $project: {
+                    "agentinfo.active": 0,
+                    "agentinfo.user": 0,
+                    "agentinfo._id": 0,
+                    "agentinfo.date": 0,
+                    "agentinfo.__v": 0
+                }
+            }]).sort({ listdate: order });
+        res.json(listings);
+    } catch (err) {
+        res.status(500).send('Server Error');
+    }
 });
 
 // @route       GET api/listing/:id
