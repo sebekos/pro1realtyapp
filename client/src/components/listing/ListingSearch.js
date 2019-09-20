@@ -17,7 +17,6 @@ const ListingSearch = ({ getRefinedListings }) => {
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSearch = () => {
-        console.log(formData);
         getRefinedListings(formData);
     }
 

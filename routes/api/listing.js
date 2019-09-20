@@ -210,10 +210,19 @@ router.get('/user/:id', async (req, res) => {
 // @route       POST /api/listing/reorderphotos/:id
 // @description Reorder listing photos
 // @access      Public
-router.post('/refined', [], async (req, res) => {
-    console.log(req.body);
-    let order = req.body.type === 'Oldest' ? 1 : -1;
-    order = req.body.type === 'Low Price' ? 1 : -1;
+router.post('/refined', [
+    [
+        check('zipcode', 'Zipcode not valid').isLength({ min: 0, max: 5 }),
+        check('type', 'Type not valid').isLength({ min: 0, max: 15 })
+    ]
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    let order = (req.body.type.includes('Low') || req.body.type.includes('Oldest')) ? 1 : -1;
+    let sortType = (req.body.type.includes('Price')) ? { price: order } : { listdate: order };
     let match = {
         $match: {
             "active": "1"
@@ -227,7 +236,6 @@ router.post('/refined', [], async (req, res) => {
             }
         }
     }
-
 
     try {
         const listings = await Listing.aggregate([
@@ -252,7 +260,7 @@ router.post('/refined', [], async (req, res) => {
                     "agentinfo.date": 0,
                     "agentinfo.__v": 0
                 }
-            }]).sort({ listdate: order });
+            }]).sort(sortType);
         res.json(listings);
     } catch (err) {
         res.status(500).send('Server Error');

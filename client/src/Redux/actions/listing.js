@@ -110,6 +110,11 @@ export const getRefinedListings = (formData) => async dispatch => {
             payload: res.data
         })
     } catch (err) {
+        const errors = err.response.data.errors;
+        if (errors) {
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+        }
+
         dispatch({
             type: LISTING_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }

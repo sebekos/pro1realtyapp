@@ -15,9 +15,10 @@ const Listings = ({ getListings, listing: { listings, loading } }) => {
         <Fragment>
             <div className="listings-view">
                 <ListingSearch />
-                {listings.map(listing => (
+
+                {listings.length > 0 ? listings.map(listing => (
                     <ListingSummaryItem key={listing._id} listing={listing} listingId={listing._id}>Listing</ListingSummaryItem>
-                ))}
+                )) : <div className='text-center'>No Listings Found</div>}
             </div>
         </Fragment>
 }
