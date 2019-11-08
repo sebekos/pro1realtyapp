@@ -73,19 +73,27 @@ router.post('/avatar', [auth], (req, res) => {
 // @description Upload listing photos
 // @access      Private
 router.post('/listingphotos', [auth], (req, res) => {
-    console.log('here');
     const form = new multiparty.Form();
     form.parse(req, async (error, fields, files) => {
         if (error) throw new Error(error);
         try {
-            console.log('try');
             let returnUrls = [];
             const photos = await Listing.findById(fields.group[0]);
-            console.log(fields.group[0]);
             if (!photos) {
                 return res
                     .status(400)
                     .json({ errors: [{ msg: 'Listing ID Error' }] });
+            }
+
+            // Max photo limit
+            if (photos.photos.length + Object.keys(files).length > 10) {
+                return res.status(400).json({
+                    errors: [
+                        {
+                            msg: `Maximum 10 photos per a listing, currently at ${photos.photos.length}`
+                        }
+                    ]
+                });
             }
 
             await Promise.all(

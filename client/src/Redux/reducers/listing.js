@@ -10,7 +10,8 @@ import {
     MAX_BAR,
     INCREMENT_BAR,
     MANUAL_BAR,
-    UPLOAD_SUCCESS
+    UPLOAD_SUCCESS,
+    SET_LOADING_TRUE
 } from '../actions/types';
 
 const initialState = {
@@ -102,7 +103,13 @@ export default function(state = initialState, action) {
         case UPLOAD_SUCCESS:
             return {
                 ...state,
-                listing: payload
+                listing: payload,
+                loading: false
+            };
+        case SET_LOADING_TRUE:
+            return {
+                ...state,
+                loading: true
             };
         case LISTING_ERROR:
             return {

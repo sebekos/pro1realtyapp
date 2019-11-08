@@ -12,7 +12,8 @@ import {
     LISTING_ERROR,
     MAX_BAR,
     INCREMENT_BAR,
-    MANUAL_BAR
+    MANUAL_BAR,
+    SET_LOADING_TRUE
 } from './types';
 
 // Add Listing or Update
@@ -248,5 +249,12 @@ export const manualProgressBar = value => async dispatch => {
     dispatch({
         type: MANUAL_BAR,
         payload: value
+    });
+};
+
+// Progress bar manual change
+export const setLoadingTrue = () => async dispatch => {
+    dispatch({
+        type: SET_LOADING_TRUE
     });
 };
