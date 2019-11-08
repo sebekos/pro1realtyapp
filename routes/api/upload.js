@@ -56,7 +56,11 @@ router.post('/avatar', [auth], (req, res) => {
             const fileName = `avatars/${timestamp}`;
             const data = await uploadFile(buffer, fileName, type);
             if (data) {
-                await Profile.findOneAndUpdate({ user: req.user.id }, { $set: { "photo": Object.entries(data)[1][1] } }, { new: true });
+                await Profile.findOneAndUpdate(
+                    { user: req.user.id },
+                    { $set: { photo: Object.entries(data)[1][1] } },
+                    { new: true }
+                );
             }
             return res.status(200).send(data);
         } catch (error) {
@@ -65,33 +69,59 @@ router.post('/avatar', [auth], (req, res) => {
     });
 });
 
-// @route       POST api/upload/listingphotos/:id
+// @route       POST api/upload/listingphotos
 // @description Upload listing photos
 // @access      Private
-router.post('/listingphotos/:id', [auth], (req, res) => {
+router.post('/listingphotos', [auth], (req, res) => {
+    console.log('here');
     const form = new multiparty.Form();
     form.parse(req, async (error, fields, files) => {
         if (error) throw new Error(error);
         try {
-            const listing = await Listing.findById(req.params.id);
-            // Max photo limit
-            if ('photos' in listing && listing.photos.length > 9) {
-                return res.status(400).json({ errors: [{ msg: `Maximum 10 photos per a listing, currently at ${listing.photos.length}` }] });
+            console.log('try');
+            let returnUrls = [];
+            const photos = await Listing.findById(fields.group[0]);
+            console.log(fields.group[0]);
+            if (!photos) {
+                return res
+                    .status(400)
+                    .json({ errors: [{ msg: 'Listing ID Error' }] });
             }
-            // Check if user made listing
-            if (listing.agentid !== req.user.id) {
-                return res.status(401).json({ msg: 'User not authorized' });
-            }
-            const path = files.file[0].path;
-            const buffer = fs.readFileSync(path);
-            const type = fileType(buffer);
-            const timestamp = Date.now().toString();
-            const fileName = `listings/${req.params.id}/${timestamp}`;
-            const data = await uploadFile(buffer, fileName, type);
-            if (data) {
-                await Listing.findByIdAndUpdate(req.params.id, { $push: { "photos": Object.entries(data)[1][1] } }, { new: true });
-            }
-            return res.status(200).send(data);
+
+            await Promise.all(
+                Object.keys(files).map(photo => {
+                    let path = files[photo][0].path;
+                    let buffer = fs.readFileSync(path);
+                    let type = fileType(buffer);
+                    let timestamp = Date.now().toString();
+                    let fileName = `listings/${req.params.id}/${timestamp}`;
+                    return new Promise((resolve, reject) =>
+                        resolve(uploadFile(buffer, fileName, type))
+                    );
+                })
+            )
+                .then(results => {
+                    returnUrls = results.map(item => {
+                        return item.Location;
+                    });
+                })
+                .catch(err => {
+                    return res
+                        .status(400)
+                        .json({ errors: [{ msg: 'S3 Error' }] });
+                });
+
+            const photoArray = photos.photos.concat(returnUrls);
+            const retObj = {
+                group: fields.group[0],
+                photos: photoArray
+            };
+            await Listing.findByIdAndUpdate(
+                fields.group[0],
+                { $set: { photos: photoArray } },
+                { new: true }
+            );
+            return res.status(200).send(retObj);
         } catch (error) {
             return res.status(400).send(error);
         }

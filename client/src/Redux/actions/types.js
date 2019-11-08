@@ -30,3 +30,4 @@ export const MAX_BAR = 'MAX_BAR';
 export const INCREMENT_BAR = 'INCREMENT_BAR';
 export const MANUAL_BAR = 'MANUAL_BAR';
 export const REMOVE_ALL_ALERTS = 'REMOVE_ALL_ALERTS';
+export const UPLOAD_SUCCESS = 'UPLOAD_SUCCESS';

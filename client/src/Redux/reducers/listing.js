@@ -9,7 +9,8 @@ import {
     GET_AGENT_LISTINGS,
     MAX_BAR,
     INCREMENT_BAR,
-    MANUAL_BAR
+    MANUAL_BAR,
+    UPLOAD_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -22,9 +23,9 @@ const initialState = {
         increment: ''
     },
     error: {}
-}
+};
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
@@ -57,18 +58,20 @@ export default function (state = initialState, action) {
                 ...state,
                 listing: payload,
                 loading: false
-            }
+            };
         case ADD_LISTING:
             return {
                 ...state,
                 loading: false
-            }
+            };
         case DELETE_LISTING:
             return {
                 ...state,
-                listing: state.listings.filter(listing => listing._id !== payload),
+                listing: state.listings.filter(
+                    listing => listing._id !== payload
+                ),
                 loading: false
-            }
+            };
         case MAX_BAR:
             return {
                 ...state,
@@ -77,7 +80,7 @@ export default function (state = initialState, action) {
                     max: payload
                 },
                 loading: false
-            }
+            };
         case INCREMENT_BAR:
             return {
                 ...state,
@@ -86,7 +89,7 @@ export default function (state = initialState, action) {
                     current: state.progressbar.current + 1
                 },
                 loading: false
-            }
+            };
         case MANUAL_BAR:
             return {
                 ...state,
@@ -95,7 +98,12 @@ export default function (state = initialState, action) {
                     current: payload / state.progressbar.max
                 },
                 loading: false
-            }
+            };
+        case UPLOAD_SUCCESS:
+            return {
+                ...state,
+                listing: payload
+            };
         case LISTING_ERROR:
             return {
                 ...state,
@@ -106,4 +114,3 @@ export default function (state = initialState, action) {
             return state;
     }
 }
-

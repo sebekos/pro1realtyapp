@@ -8,6 +8,7 @@ import {
     GET_LISTINGS_REFINED,
     ADD_LISTING,
     DELETE_LISTING,
+    UPLOAD_SUCCESS,
     LISTING_ERROR,
     MAX_BAR,
     INCREMENT_BAR,
@@ -15,19 +16,23 @@ import {
 } from './types';
 
 // Add Listing or Update
-export const addListing = (formData, history, edit = false) => async dispatch => {
+export const addListing = (
+    formData,
+    history,
+    edit = false
+) => async dispatch => {
     try {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }
+        };
 
         const res = await axios.post('/api/listing', formData, config);
         dispatch({
             type: ADD_LISTING,
             payload: res.data
-        })
+        });
         if (edit) {
             dispatch(setAlert('Listing Updated', 'success'));
         } else {
@@ -42,11 +47,13 @@ export const addListing = (formData, history, edit = false) => async dispatch =>
 
         dispatch({
             type: LISTING_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
         });
-
     }
-}
+};
 
 // Get all active listings
 export const getListings = () => async dispatch => {
@@ -55,14 +62,17 @@ export const getListings = () => async dispatch => {
         dispatch({
             type: GET_LISTINGS,
             payload: res.data
-        })
+        });
     } catch (err) {
         dispatch({
             type: LISTING_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
         });
     }
-}
+};
 
 // Get user listings
 export const getUserListings = () => async dispatch => {
@@ -71,44 +81,50 @@ export const getUserListings = () => async dispatch => {
         dispatch({
             type: GET_USER_LISTINGS,
             payload: res.data
-        })
+        });
     } catch (err) {
         dispatch({
             type: LISTING_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
         });
     }
-}
+};
 
 // Get agent listings
-export const getAgentListings = (id) => async dispatch => {
+export const getAgentListings = id => async dispatch => {
     try {
         const res = await axios.get(`/api/listing/user/${id}`);
         dispatch({
             type: GET_AGENT_LISTINGS,
             payload: res.data
-        })
+        });
     } catch (err) {
         dispatch({
             type: LISTING_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
         });
     }
-}
+};
 
 // Get refined listings
-export const getRefinedListings = (formData) => async dispatch => {
+export const getRefinedListings = formData => async dispatch => {
     try {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }
+        };
         const res = await axios.post('/api/listing/refined', formData, config);
         dispatch({
             type: GET_LISTINGS_REFINED,
             payload: res.data
-        })
+        });
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
@@ -117,26 +133,32 @@ export const getRefinedListings = (formData) => async dispatch => {
 
         dispatch({
             type: LISTING_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
         });
     }
-}
+};
 
 // Get one listing
-export const getListing = (id) => async dispatch => {
+export const getListing = id => async dispatch => {
     try {
         const res = await axios.get(`/api/listing/${id}`);
         dispatch({
             type: GET_LISTING,
             payload: res.data
-        })
+        });
     } catch (err) {
         dispatch({
             type: LISTING_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
         });
     }
-}
+};
 
 // Delete listing - Set active to 0
 export const deleteListing = (id, history) => async dispatch => {
@@ -145,30 +167,32 @@ export const deleteListing = (id, history) => async dispatch => {
         dispatch({
             type: DELETE_LISTING,
             payload: res.data
-        })
+        });
         dispatch(setAlert('Listing deleted', 'danger'));
         history.push('/mylistings');
     } catch (err) {
         dispatch({
             type: LISTING_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
         });
     }
-}
+};
 
 // Upload all photos
-export const uploadPhotos = (formData, id, total) => async dispatch => {
+export const uploadPhotos = formData => async dispatch => {
     try {
-        await axios.post(`/api/upload/listingphotos/${id}`, formData, {
+        const res = await axios.post(`/api/upload/listingphotos`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        })
-            .then(result => {
-                dispatch({
-                    type: INCREMENT_BAR
-                })
-            });
+        });
+        dispatch({
+            type: UPLOAD_SUCCESS,
+            payload: res.data
+        });
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
@@ -176,10 +200,13 @@ export const uploadPhotos = (formData, id, total) => async dispatch => {
         }
         dispatch({
             type: LISTING_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
         });
     }
-}
+};
 
 // Reorder photos
 export const reOrderPhotos = (images, id) => async dispatch => {
@@ -193,30 +220,33 @@ export const reOrderPhotos = (images, id) => async dispatch => {
     } catch (err) {
         dispatch({
             type: LISTING_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status }
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
         });
     }
-}
+};
 
 // Progress bar max
-export const maxProgressBar = (value) => async dispatch => {
+export const maxProgressBar = value => async dispatch => {
     dispatch({
         type: MAX_BAR,
         payload: value
-    })
-}
+    });
+};
 
 // Progress bar increment
 export const incrementProgressBar = () => async dispatch => {
     dispatch({
         type: INCREMENT_BAR
-    })
-}
+    });
+};
 
 // Progress bar manual change
-export const manualProgressBar = (value) => async dispatch => {
+export const manualProgressBar = value => async dispatch => {
     dispatch({
         type: MANUAL_BAR,
         payload: value
-    })
-}
+    });
+};
