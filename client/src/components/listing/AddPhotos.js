@@ -11,11 +11,12 @@ import { connect } from 'react-redux';
 import { bulkResize } from '../../utils/photo';
 import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
+import ProgressBar from '../layout/ProgressBar';
 
 const AddPhotos = ({
     uploadPhotos,
     match,
-    listing: { loading },
+    listing: { loading, progressbar },
     getListing,
     setLoadingTrue
 }) => {
@@ -37,7 +38,6 @@ const AddPhotos = ({
 
     const onUpload = async e => {
         setLoadingTrue();
-        toggleProgressBar();
         setUploadBtn(false);
         let res = await bulkResize(pictures);
         let formData = new FormData();
@@ -64,6 +64,7 @@ const AddPhotos = ({
                 {uploadBtn ? (
                     <button onClick={onUpload}>Upload images</button>
                 ) : null}
+                {progressbar ? <ProgressBar /> : null}
             </div>
         </div>
     );

@@ -27,7 +27,6 @@ import Office from './components/contact/Office';
 import DeletePhotos from './components/deletephotos/DeletePhotos';
 import Pwreset from './components/auth/Pwreset';
 import Pwresetsave from './components/auth/Pwresetsave';
-import ProgressBar from './components/layout/ProgressBar';
 import './App.css';
 
 if (localStorage.token) {
@@ -44,7 +43,6 @@ const App = () => {
             <Router>
                 <Fragment>
                     <Navbar />
-                    <ProgressBar />
                     <Route exact path='/' component={Landing} />
                     <section className='container'>
                         <Alert />
