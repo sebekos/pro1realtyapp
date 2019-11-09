@@ -10,10 +10,9 @@ import {
     DELETE_LISTING,
     UPLOAD_SUCCESS,
     LISTING_ERROR,
-    MAX_BAR,
-    INCREMENT_BAR,
-    MANUAL_BAR,
-    SET_LOADING_TRUE
+    SET_LOADING_TRUE,
+    PROGRESS_BAR_VALUE,
+    TOGGLE_PROGRESS_BAR
 } from './types';
 
 // Add Listing or Update
@@ -185,14 +184,27 @@ export const deleteListing = (id, history) => async dispatch => {
 // Upload all photos
 export const uploadPhotos = formData => async dispatch => {
     try {
+        dispatch({
+            type: TOGGLE_PROGRESS_BAR
+        });
         const res = await axios.post(`/api/upload/listingphotos`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
+            },
+            onUploadProgress: progressEvent => {
+                const { loaded, total } = progressEvent;
+                dispatch({
+                    type: PROGRESS_BAR_VALUE,
+                    payload: (loaded / total) * 100
+                });
             }
         });
         dispatch({
             type: UPLOAD_SUCCESS,
             payload: res.data
+        });
+        dispatch({
+            type: TOGGLE_PROGRESS_BAR
         });
     } catch (err) {
         const errors = err.response.data.errors;
@@ -229,26 +241,18 @@ export const reOrderPhotos = (images, id) => async dispatch => {
     }
 };
 
-// Progress bar max
-export const maxProgressBar = value => async dispatch => {
+// Toggle progress bar
+export const toggleProgressBar = () => async dispatch => {
     dispatch({
-        type: MAX_BAR,
-        payload: value
+        type: TOGGLE_PROGRESS_BAR
     });
 };
 
 // Progress bar increment
-export const incrementProgressBar = () => async dispatch => {
+export const progressBarValue = payload => async dispatch => {
     dispatch({
-        type: INCREMENT_BAR
-    });
-};
-
-// Progress bar manual change
-export const manualProgressBar = value => async dispatch => {
-    dispatch({
-        type: MANUAL_BAR,
-        payload: value
+        type: PROGRESS_BAR_VALUE,
+        payload: payload
     });
 };
 

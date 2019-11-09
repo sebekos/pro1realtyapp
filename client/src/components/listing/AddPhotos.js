@@ -3,7 +3,9 @@ import ImageUploader from 'react-images-upload';
 import {
     uploadPhotos,
     getListing,
-    setLoadingTrue
+    setLoadingTrue,
+    progressBarValue,
+    toggleProgressBar
 } from '../../Redux/actions/listing';
 import { connect } from 'react-redux';
 import { bulkResize } from '../../utils/photo';
@@ -35,6 +37,7 @@ const AddPhotos = ({
 
     const onUpload = async e => {
         setLoadingTrue();
+        toggleProgressBar();
         setUploadBtn(false);
         let res = await bulkResize(pictures);
         let formData = new FormData();
@@ -69,7 +72,9 @@ const AddPhotos = ({
 AddPhotos.propTypes = {
     getListing: PropTypes.func.isRequired,
     uploadPhotos: PropTypes.func.isRequired,
-    setLoadingTrue: PropTypes.func.isRequired
+    setLoadingTrue: PropTypes.func.isRequired,
+    progressBarValue: PropTypes.func.isRequired,
+    toggleProgressBar: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -78,5 +83,11 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { uploadPhotos, getListing, setLoadingTrue }
+    {
+        uploadPhotos,
+        getListing,
+        setLoadingTrue,
+        progressBarValue,
+        toggleProgressBar
+    }
 )(AddPhotos);

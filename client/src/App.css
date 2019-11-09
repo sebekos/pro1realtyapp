@@ -367,6 +367,14 @@ button {
     margin-right: 0.6rem;
 }
 
+.progressbar {
+    margin-top: 3.5rem;
+}
+
+progress {
+    width: 100%;
+}
+
 /* Landing Page */
 .landing {
     position: relative;

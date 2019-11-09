@@ -7,9 +7,8 @@ import {
     LISTING_ERROR,
     DELETE_LISTING,
     GET_AGENT_LISTINGS,
-    MAX_BAR,
-    INCREMENT_BAR,
-    MANUAL_BAR,
+    TOGGLE_PROGRESS_BAR,
+    PROGRESS_BAR_VALUE,
     UPLOAD_SUCCESS,
     SET_LOADING_TRUE
 } from '../actions/types';
@@ -18,11 +17,8 @@ const initialState = {
     listings: [],
     listing: null,
     loading: true,
-    progressbar: {
-        max: '',
-        current: '',
-        increment: ''
-    },
+    progressbar: false,
+    progressbarvalue: 0,
     error: {}
 };
 
@@ -73,33 +69,6 @@ export default function(state = initialState, action) {
                 ),
                 loading: false
             };
-        case MAX_BAR:
-            return {
-                ...state,
-                progressbar: {
-                    current: 0,
-                    max: payload
-                },
-                loading: false
-            };
-        case INCREMENT_BAR:
-            return {
-                ...state,
-                progressbar: {
-                    ...state.progressbar,
-                    current: state.progressbar.current + 1
-                },
-                loading: false
-            };
-        case MANUAL_BAR:
-            return {
-                ...state,
-                progressbar: {
-                    ...state.progressbar,
-                    current: payload / state.progressbar.max
-                },
-                loading: false
-            };
         case UPLOAD_SUCCESS:
             return {
                 ...state,
@@ -110,6 +79,16 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 loading: true
+            };
+        case TOGGLE_PROGRESS_BAR:
+            return {
+                ...state,
+                progressbar: !state.progressbar
+            };
+        case PROGRESS_BAR_VALUE:
+            return {
+                ...state,
+                progressbarvalue: payload
             };
         case LISTING_ERROR:
             return {
