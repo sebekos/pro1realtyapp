@@ -193,7 +193,7 @@ ul {
   background: var(--light-color);
   color: #333;
   padding: 0.2rem 1.3rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   border: none;
   cursor: pointer;
   margin-right: 0.5rem;
@@ -315,8 +315,8 @@ ul {
 .form textarea {
   display: block;
   width: 100%;
-  padding: 0.4rem;
-  font-size: 1.2rem;
+  padding: 0.2rem;
+  font-size: 0.9rem;
   border: 1px solid #ccc;
 }
 
@@ -333,6 +333,14 @@ button {
 
 .table th {
   background: var(--light-color);
+}
+
+.login-container {
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid grey;
+  padding: 1rem;
+  background-color: #ccc;
 }
 
 /* Navbar */
