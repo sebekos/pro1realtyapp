@@ -115,6 +115,9 @@ export const getAgentListings = id => async dispatch => {
 
 // Get refined listings
 export const getRefinedListings = formData => async dispatch => {
+  dispatch({
+    type: SET_LOADING_TRUE
+  });
   try {
     const config = {
       headers: {
