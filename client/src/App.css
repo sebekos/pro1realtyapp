@@ -340,7 +340,7 @@ button {
   margin: auto;
   border: 1px solid grey;
   padding: 1rem;
-  background-color: #ccc;
+  background-color: var(--light-color);
 }
 
 /* Navbar */
