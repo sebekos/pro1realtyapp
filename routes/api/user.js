@@ -119,7 +119,7 @@ router.post('/pwreset', [
     });
 
     var mailOptions = {
-        from: process.env.RESET_EMAIL,
+        from: process.env.PW_RESET_EMAIL,
         to: email,
         subject: 'Pro 1 Realty Reset',
         text: `Follow the link below to reset your password. http://pro1mainst.com/pwresetsave/${random}`
@@ -127,12 +127,11 @@ router.post('/pwreset', [
 
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-            res.json({ msg: "Error sending email" });
+            return res.json({ msg: "Error sending email" });
         } else {
-            res.json({ msg: "Reset email sent" });
+            return res.json({ msg: "Reset email sent" });
         }
     });
-    res.status(200).send('Password reset email sent');
 });
 
 // @route       POST api/user/confirmreset
