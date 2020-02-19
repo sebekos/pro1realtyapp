@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const OfficeSchema = new mongoose.Schema({
     address: {
@@ -24,4 +24,4 @@ const OfficeSchema = new mongoose.Schema({
     }
 });
 
-module.exports = Office = mongoose.model('office', OfficeSchema);
+module.exports = Office = mongoose.model("office", OfficeSchema);

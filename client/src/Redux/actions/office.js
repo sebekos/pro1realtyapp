@@ -1,8 +1,5 @@
-import axios from 'axios';
-import {
-    GET_OFFICE,
-    OFFICE_ERROR
-} from './types';
+import axios from "axios";
+import { GET_OFFICE, OFFICE_ERROR } from "./types";
 
 // Get office info
 export const getOffice = () => async dispatch => {
@@ -11,11 +8,11 @@ export const getOffice = () => async dispatch => {
         dispatch({
             type: GET_OFFICE,
             payload: res.data
-        })
+        });
     } catch (err) {
         dispatch({
             type: OFFICE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
         });
     }
-}
+};

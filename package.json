@@ -1,42 +1,42 @@
 {
-  "name": "pro1realtyapp",
-  "version": "1.0.0",
-  "description": "Real Estate App",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server",
-    "server": "nodemon server",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
-    "postinstall": "cd client && npm install"
-  },
-  "author": "Sebastian Kosela",
-  "license": "ISC",
-  "dependencies": {
-    "aws-sdk": "^2.498.0",
-    "bcryptjs": "^2.4.3",
-    "bluebird": "^3.5.5",
-    "body-parser": "^1.19.0",
-    "config": "^3.2.1",
-    "dotenv": "^8.0.0",
-    "express": "^4.17.1",
-    "express-validator": "^6.1.1",
-    "file-type": "^12.0.1",
-    "fs": "0.0.1-security",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.8",
-    "multiparty": "^4.2.1",
-    "nodemailer": "^6.3.0",
-    "randombytes": "^2.1.0",
-    "uuid": "^3.3.2"
-  },
-  "devDependencies": {
-    "concurrently": "^4.1.1",
-    "nodemon": "^1.19.1"
-  },
-  "engines": {
-    "node": "10.15.3",
-    "npm": "6.4.1"
-  }
+    "name": "pro1realtyapp",
+    "version": "1.0.0",
+    "description": "Real Estate App",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server",
+        "server": "nodemon server",
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+        "postinstall": "cd client && npm install"
+    },
+    "author": "Sebastian Kosela",
+    "license": "ISC",
+    "dependencies": {
+        "aws-sdk": "^2.498.0",
+        "bcryptjs": "^2.4.3",
+        "bluebird": "^3.5.5",
+        "body-parser": "^1.19.0",
+        "config": "^3.2.1",
+        "dotenv": "^8.0.0",
+        "express": "^4.17.1",
+        "express-validator": "^6.1.1",
+        "file-type": "^12.0.1",
+        "fs": "0.0.1-security",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.7.8",
+        "multiparty": "^4.2.1",
+        "nodemailer": "^6.3.0",
+        "randombytes": "^2.1.0",
+        "uuid": "^3.3.2"
+    },
+    "devDependencies": {
+        "concurrently": "^4.1.1",
+        "nodemon": "^1.19.1"
+    },
+    "engines": {
+        "node": "10.15.3",
+        "npm": "6.4.1"
+    }
 }

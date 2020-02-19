@@ -1,32 +1,31 @@
-import React, { Fragment, useState } from 'react';
-import { connect } from 'react-redux'
-import { pwresetsave } from '../../Redux/actions/auth';
-import { setAlert } from '../../Redux/actions/alert';
-import PropTypes from 'prop-types'
-import Spinner from '../layout/Spinner';
-
+import React, { Fragment, useState } from "react";
+import { connect } from "react-redux";
+import { pwresetsave } from "../../Redux/actions/auth";
+import { setAlert } from "../../Redux/actions/alert";
+import PropTypes from "prop-types";
+import Spinner from "../layout/Spinner";
 
 const Pwreset = ({ pwresetsave, auth: { loading }, match, history, setAlert }) => {
     const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-        password2: ''
+        email: "",
+        password: "",
+        password2: ""
     });
 
     const { email, password, password2 } = formData;
 
     const onChangeHandler = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
+    };
 
     const onSubmitHandler = async e => {
         e.preventDefault();
         if (password !== password2) {
-            setAlert('Passwords do not match', 'danger');
+            setAlert("Passwords do not match", "danger");
         } else {
             pwresetsave(email, password, match.params.hash, history);
         }
-    }
+    };
 
     return (
         <Fragment>
@@ -66,14 +65,14 @@ const Pwreset = ({ pwresetsave, auth: { loading }, match, history, setAlert }) =
             </form>
             {loading ? <Spinner /> : null}
         </Fragment>
-    )
-}
+    );
+};
 
-Pwreset.propTypes = ({
+Pwreset.propTypes = {
     pwresetsave: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     setAlert: PropTypes.func.isRequired
-});
+};
 
 const mapStateToProps = state => ({
     auth: state.auth

@@ -6,16 +6,16 @@ import {
     PROFILE_ERROR,
     CLEAR_PROFILE,
     DELETE_PROFILE
-} from '../actions/types';
+} from "../actions/types";
 
 const initialState = {
     profiles: [],
     profile: null,
     loading: true,
     error: {}
-}
+};
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
@@ -60,9 +60,8 @@ export default function (state = initialState, action) {
                 ...state,
                 profile: null,
                 loading: false
-            }
+            };
         default:
             return state;
     }
 }
-

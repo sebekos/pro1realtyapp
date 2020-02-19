@@ -1,17 +1,17 @@
-import React from 'react'
-import { Slide } from 'react-slideshow-image';
-
+import React from "react";
+import { Slide } from "react-slideshow-image";
 
 const PhotoViewer = ({ photos }) => {
     const onLoad = photosIn => {
         var show = photosIn.map(photo => {
-            return <div className="each-slide" key={photo}>
-                <div style={{ 'backgroundImage': `url(${photo})` }}>
+            return (
+                <div className="each-slide" key={photo}>
+                    <div style={{ backgroundImage: `url(${photo})` }}></div>
                 </div>
-            </div>
+            );
         });
         return show;
-    }
+    };
 
     const properties = {
         duration: 5000,
@@ -19,15 +19,13 @@ const PhotoViewer = ({ photos }) => {
         infinite: true,
         indicators: true,
         arrows: true
-    }
+    };
 
     return (
         <div className="slide-container">
-            <Slide {...properties}>
-                {onLoad(photos)}
-            </Slide>
+            <Slide {...properties}>{onLoad(photos)}</Slide>
         </div>
-    )
-}
+    );
+};
 
-export default PhotoViewer
+export default PhotoViewer;

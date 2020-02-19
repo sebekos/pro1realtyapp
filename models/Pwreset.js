@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const PwresetSchema = new mongoose.Schema({
     email: {
@@ -19,4 +19,4 @@ const PwresetSchema = new mongoose.Schema({
     }
 });
 
-module.exports = Pwreset = mongoose.model('pwreset', PwresetSchema);
+module.exports = Pwreset = mongoose.model("pwreset", PwresetSchema);

@@ -1,16 +1,16 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const AWS = require('aws-sdk');
-const fs = require('fs');
-const fileType = require('file-type');
-const bluebird = require('bluebird');
-const multiparty = require('multiparty');
-const config = require('config');
-const auth = require('../../middleware/auth');
-const Profile = require('../../models/Profile');
-const Listing = require('../../models/Listing');
-const dotenv = require('dotenv');
-require('dotenv').config();
+const AWS = require("aws-sdk");
+const fs = require("fs");
+const fileType = require("file-type");
+const bluebird = require("bluebird");
+const multiparty = require("multiparty");
+const config = require("config");
+const auth = require("../../middleware/auth");
+const Profile = require("../../models/Profile");
+const Listing = require("../../models/Listing");
+const dotenv = require("dotenv");
+require("dotenv").config();
 
 // configure the keys for accessing AWS
 AWS.config.update({
@@ -27,7 +27,7 @@ const s3 = new AWS.S3();
 // abstracts function to upload a file returning a promise
 const uploadFile = (buffer, name, type) => {
     const params = {
-        ACL: 'public-read',
+        ACL: "public-read",
         Body: buffer,
         Bucket: process.env.AWS_BUCKET,
         ContentType: type.mime,
@@ -39,7 +39,7 @@ const uploadFile = (buffer, name, type) => {
 // @route       POST api/upload/avatar
 // @description Upload user avatar
 // @access      Private
-router.post('/avatar', [auth], (req, res) => {
+router.post("/avatar", [auth], (req, res) => {
     const form = new multiparty.Form();
     form.parse(req, async (error, fields, files) => {
         if (error) throw new Error(error);
@@ -47,7 +47,7 @@ router.post('/avatar', [auth], (req, res) => {
             const profile = await Profile.findOne({ user: req.user.id });
             // Check if user made account
             if (profile.user !== req.user.id) {
-                return res.status(401).json({ msg: 'User not authorized' });
+                return res.status(401).json({ msg: "User not authorized" });
             }
             const path = files.file[0].path;
             const buffer = fs.readFileSync(path);
@@ -72,7 +72,7 @@ router.post('/avatar', [auth], (req, res) => {
 // @route       POST api/upload/listingphotos
 // @description Upload listing photos
 // @access      Private
-router.post('/listingphotos', [auth], (req, res) => {
+router.post("/listingphotos", [auth], (req, res) => {
     const form = new multiparty.Form();
     form.parse(req, async (error, fields, files) => {
         if (error) throw new Error(error);
@@ -80,9 +80,7 @@ router.post('/listingphotos', [auth], (req, res) => {
             let returnUrls = [];
             const photos = await Listing.findById(fields.group[0]);
             if (!photos) {
-                return res
-                    .status(400)
-                    .json({ errors: [{ msg: 'Listing ID Error' }] });
+                return res.status(400).json({ errors: [{ msg: "Listing ID Error" }] });
             }
 
             // Max photo limit
@@ -103,9 +101,7 @@ router.post('/listingphotos', [auth], (req, res) => {
                     let type = fileType(buffer);
                     let timestamp = Date.now().toString();
                     let fileName = `listings/${req.params.id}/${timestamp}`;
-                    return new Promise((resolve, reject) =>
-                        resolve(uploadFile(buffer, fileName, type))
-                    );
+                    return new Promise((resolve, reject) => resolve(uploadFile(buffer, fileName, type)));
                 })
             )
                 .then(results => {
@@ -114,9 +110,7 @@ router.post('/listingphotos', [auth], (req, res) => {
                     });
                 })
                 .catch(err => {
-                    return res
-                        .status(400)
-                        .json({ errors: [{ msg: 'S3 Error' }] });
+                    return res.status(400).json({ errors: [{ msg: "S3 Error" }] });
                 });
 
             const photoArray = photos.photos.concat(returnUrls);
@@ -124,11 +118,7 @@ router.post('/listingphotos', [auth], (req, res) => {
                 group: fields.group[0],
                 photos: photoArray
             };
-            await Listing.findByIdAndUpdate(
-                fields.group[0],
-                { $set: { photos: photoArray } },
-                { new: true }
-            );
+            await Listing.findByIdAndUpdate(fields.group[0], { $set: { photos: photoArray } }, { new: true });
             return res.status(200).send(retObj);
         } catch (error) {
             return res.status(400).send(error);

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const ListingSchema = new mongoose.Schema({
     listdate: {
@@ -56,4 +56,4 @@ const ListingSchema = new mongoose.Schema({
     }
 });
 
-module.exports = Listing = mongoose.model('listing', ListingSchema);
+module.exports = Listing = mongoose.model("listing", ListingSchema);

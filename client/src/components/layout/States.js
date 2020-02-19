@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const States = ({ update, chosen }) => {
     return (
@@ -55,7 +55,7 @@ const States = ({ update, chosen }) => {
             <option value="WV">WV</option>
             <option value="WY">WY</option>
         </select>
-    )
-}
+    );
+};
 
-export default States
+export default States;

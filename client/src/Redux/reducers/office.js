@@ -1,15 +1,12 @@
-import {
-    GET_OFFICE,
-    OFFICE_ERROR
-} from '../actions/types';
+import { GET_OFFICE, OFFICE_ERROR } from "../actions/types";
 
 const initialState = {
     office: [],
     loading: true,
     error: {}
-}
+};
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
@@ -29,4 +26,3 @@ export default function (state = initialState, action) {
             return state;
     }
 }
-
