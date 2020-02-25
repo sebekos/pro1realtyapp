@@ -100,7 +100,7 @@ router.post("/listingphotos", [auth], (req, res) => {
                     let buffer = fs.readFileSync(path);
                     let type = fileType(buffer);
                     let timestamp = Date.now().toString();
-                    let fileName = `listings/${req.params.id}/${timestamp}`;
+                    let fileName = `listings/${fields.group[0]}/${timestamp}`;
                     return new Promise((resolve, reject) => resolve(uploadFile(buffer, fileName, type)));
                 })
             )

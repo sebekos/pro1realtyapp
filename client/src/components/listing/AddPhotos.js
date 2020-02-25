@@ -53,6 +53,7 @@ const AddPhotos = ({
         });
         await uploadPhotos(formData);
         setUploadBtn(true);
+        setAlert("Photos uploaded successfully", "success");
     };
 
     return (

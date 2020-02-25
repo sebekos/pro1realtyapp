@@ -9,11 +9,11 @@ const Landing = () => {
                     <h1 className="x-large">Pro 1 Realty</h1>
                     <p className="lead">List your home or find a new one today</p>
                     <div className="buttons">
-                        <Link to="/agents" className="btn btn-primary">
+                        {/* <Link to="/agents" className="btn btn-primary">
                             Find An Agent
-                        </Link>
-                        <Link to="/listings" className="btn btn-light">
-                            Our Listings
+                        </Link> */}
+                        <Link to="/listings" className="btn btn-primary">
+                            View Our Listings
                         </Link>
                     </div>
                 </div>
