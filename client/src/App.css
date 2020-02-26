@@ -2,7 +2,7 @@
 :root {
     --primary-color: #17a2b8;
     --dark-color: #343a40;
-    --light-color: #dcdcdc;
+    --light-color: #e3e3e3;
     --danger-color: #dc3545;
     --success-color: #28a745;
 }
@@ -504,10 +504,6 @@ progress {
     justify-content: middle;
 }
 
-.listingdetails div:nth-child(2) {
-    align-self: center;
-}
-
 .listingdetails-nophotos {
     text-align: center;
     border: 1px solid black;
@@ -523,6 +519,7 @@ progress {
 .listing-details-address1 {
     font-size: 2rem;
     text-align: center;
+    white-space: nowrap;
 }
 
 .listing-details-address2 {
@@ -534,11 +531,13 @@ progress {
 .listing-contact {
     font-size: 1.5rem;
     margin-top: 1.2rem;
+    text-align: center;
 }
 
 .p-important {
     font-size: 1.3rem;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 /* Profiles Page */
@@ -668,15 +667,19 @@ progress {
     max-height: 500px;
     grid-gap: 10px;
     margin: auto;
+    height: auto;
+    overflow: hidden;
 }
 
 .preview-photos-container img {
     max-width: 400px;
     max-height: 250px;
+    border: 1px solid grey;
+    cursor: pointer;
 }
 
 /* Mobile Styles */
-@media (max-width: 1200px) {
+@media (max-width: 1230px) {
     .preview-photos-container {
         display: grid;
         grid-template-columns: 1fr;
