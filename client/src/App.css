@@ -504,6 +504,10 @@ progress {
     justify-content: middle;
 }
 
+.listingdetails div:nth-child(2) {
+    align-self: center;
+}
+
 .listingdetails-nophotos {
     text-align: center;
     border: 1px solid black;
@@ -609,6 +613,7 @@ progress {
     justify-content: center;
     background-size: cover;
     height: 500px;
+    width: 700px;
 }
 
 .contact-map {
@@ -656,8 +661,32 @@ progress {
     margin: 0.5rem !important;
 }
 
+.preview-photos-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 800px;
+    max-height: 500px;
+    grid-gap: 10px;
+    margin: auto;
+}
+
+.preview-photos-container img {
+    max-width: 400px;
+    max-height: 250px;
+}
+
 /* Mobile Styles */
 @media (max-width: 1200px) {
+    .preview-photos-container {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .preview-photos-container img {
+        justify-self: center !important;
+    }
+    .preview-photos-container img:not(:first-child) {
+        display: none;
+    }
     .container {
         margin-top: 8rem;
     }

@@ -62,13 +62,13 @@ const AddPhotos = ({
             <div className="upload-images">
                 <ImageUploader
                     withIcon={false}
-                    buttonText="Choose images"
+                    buttonText="Choose Images"
                     onChange={pictures => onDrop(pictures)}
                     imgExtension={[".jpg", ".gif", ".png", ".gif", "jpeg"]}
                     maxFileSize={30485760}
                     withPreview={true}
                 />
-                {uploadBtn ? <button onClick={onUpload}>Upload images</button> : null}
+                {uploadBtn ? <button onClick={onUpload}>Upload Images</button> : null}
                 {progressbar ? <ProgressBar /> : null}
             </div>
         </div>

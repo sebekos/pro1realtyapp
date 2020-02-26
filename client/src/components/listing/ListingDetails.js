@@ -2,7 +2,8 @@ import React, { useEffect, useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { getListing } from "../../Redux/actions/listing";
 import PropTypes from "prop-types";
-import PhotoViewer from "./PhotoViewer";
+// import PhotoViewer from "./PhotoViewer";
+import PhotoViewer2 from "./PhotoViewer2";
 import Spinner from "../layout/Spinner";
 import Moment from "react-moment";
 import NumberFormat from "react-number-format";
@@ -67,7 +68,7 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing } }) =>
                     <div className="listingdetails bg-light">
                         <Fragment>
                             {photos.length > 0 ? (
-                                <PhotoViewer photos={photos} />
+                                <PhotoViewer2 photos={photos} />
                             ) : (
                                 <div className="listingdetails-nophotos">No Photos Exist For This Listing</div>
                             )}
