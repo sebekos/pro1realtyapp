@@ -82,12 +82,6 @@ const ListingItem = ({
                         {bathroom}
                     </p>
                 ) : null}
-                {squarefeet ? (
-                    <p>
-                        <span className="span-item">Squarefeet: </span>
-                        {squarefeet}
-                    </p>
-                ) : null}
             </div>
             <ul>
                 {!loading && isAuthenticated && user && user._id === agentid ? (

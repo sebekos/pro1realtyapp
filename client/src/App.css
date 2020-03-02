@@ -522,7 +522,7 @@ progress {
 
 .listing-details-address2 {
     font-size: 1.2rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     text-align: center;
 }
 
@@ -575,16 +575,25 @@ progress {
 
 .profile-top img {
     width: 250px;
+    margin: auto;
 }
 
 /* Sortable */
 .sortable-container {
     width: 300px;
+    border: 1px solid grey;
+    padding: 5px;
     margin: auto;
+    background-color: var(--light-color);
+}
+
+.sort-img-sep {
+    text-align: center;
 }
 
 .sortable-img {
     width: 200px;
+    border: 1px solid black;
 }
 
 /* Delete photos */

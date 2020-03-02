@@ -4,7 +4,7 @@ import SortableImageContainer from "./SortableImageContainer";
 
 const ImgContainer = SortableContainer(props => {
     return (
-        <div>
+        <div class="sort-img-sep">
             {props.images.map((image, index) => (
                 <SortableImageContainer key={index} index={index} image={image} />
             ))}
