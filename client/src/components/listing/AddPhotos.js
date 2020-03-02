@@ -24,6 +24,7 @@ const AddPhotos = ({
 }) => {
     const [pictures, setPictures] = useState([]);
     const [uploadBtn, setUploadBtn] = useState(false);
+    const [redir, setRedir] = useState(false);
 
     useEffect(() => {
         getListing(match.params.id);
@@ -33,6 +34,7 @@ const AddPhotos = ({
         setPictures(picture);
         if (picture.length > 0) {
             setUploadBtn(true);
+            setRedir(false);
         } else {
             setUploadBtn(false);
         }
@@ -54,6 +56,8 @@ const AddPhotos = ({
         await uploadPhotos(formData);
         setUploadBtn(true);
         setAlert("Photos uploaded successfully", "success");
+        setRedir(true);
+        setUploadBtn(false);
     };
 
     return (
@@ -68,7 +72,16 @@ const AddPhotos = ({
                     maxFileSize={30485760}
                     withPreview={true}
                 />
-                {uploadBtn ? <button onClick={onUpload}>Upload Images</button> : null}
+                {uploadBtn ? (
+                    <button className="upload-btn" onClick={onUpload}>
+                        Upload Images
+                    </button>
+                ) : null}
+                {redir ? (
+                    <a href={`/listing/${match.params.id}`} className="upload-finished">
+                        Go To Listing
+                    </a>
+                ) : null}
                 {progressbar ? <ProgressBar /> : null}
             </div>
         </div>

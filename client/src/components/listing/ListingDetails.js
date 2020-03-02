@@ -86,7 +86,7 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing } }) =>
                                     </Fragment>
                                 )}
                                 {price ? (
-                                    <p className="p-important">
+                                    <p className="p-important2">
                                         <span className="span-item">$</span>
                                         {price.toLocaleString()}
                                     </p>

@@ -50,9 +50,8 @@ ul {
 }
 
 .img-icon {
-    width: 100%;
     margin: auto;
-    max-height: 250px;
+    max-height: 175px;
     max-width: 250px;
     border: 1px solid #888;
 }
@@ -519,7 +518,6 @@ progress {
 .listing-details-address1 {
     font-size: 2rem;
     text-align: center;
-    white-space: nowrap;
 }
 
 .listing-details-address2 {
@@ -532,22 +530,32 @@ progress {
     font-size: 1.5rem;
     margin-top: 1.2rem;
     text-align: center;
+    border-top: 1px solid grey;
 }
 
 .p-important {
     font-size: 1.3rem;
     margin-bottom: 1rem;
+}
+
+.p-important2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
     text-align: center;
+    border-bottom: 1px solid grey;
 }
 
 /* Profiles Page */
+.profiles {
+    margin-bottom: 10px;
+}
+
 .profile {
     display: grid;
     grid-template-columns: 2fr 4fr 2fr;
     align-items: center;
     grid-gap: 1rem;
     padding: 0.5rem;
-    margin-bottom: 1rem;
 }
 
 /* Profile Page */
@@ -676,6 +684,14 @@ progress {
     max-height: 250px;
     border: 1px solid grey;
     cursor: pointer;
+}
+
+.upload-finished {
+    padding: 3px 10px;
+    border: 1px solid grey;
+    font-size: 20px;
+    background-color: var(--success-color);
+    color: white;
 }
 
 /* Mobile Styles */
