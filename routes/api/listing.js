@@ -216,7 +216,8 @@ router.post(
     [
         [
             check("zipcode", "Zipcode not valid").isLength({ min: 0, max: 5 }),
-            check("type", "Type not valid").isLength({ min: 0, max: 15 })
+            check("type", "Type not valid").isLength({ min: 0, max: 15 }),
+            check("group", "Group not valid").isLength({ min: 3, max: 15 })
         ]
     ],
     async (req, res) => {
@@ -227,19 +228,15 @@ router.post(
 
         let order = req.body.type.includes("Low") || req.body.type.includes("Oldest") ? 1 : -1;
         let sortType = req.body.type.includes("Price") ? { price: order } : { listdate: order };
+        let sortZip = req.body.zipcode !== "" ? { $eq: req.body.zipcode } : { $ne: "" };
+        let sortGroup = req.body.group !== "All" ? { $regex: req.body.group } : { $ne: "" };
         let match = {
             $match: {
-                active: "1"
+                active: "1",
+                zipcode: sortZip,
+                type: sortGroup
             }
         };
-        if (req.body.zipcode !== "") {
-            match = {
-                $match: {
-                    active: "1",
-                    zipcode: req.body.zipcode
-                }
-            };
-        }
 
         try {
             const listings = await Listing.aggregate([

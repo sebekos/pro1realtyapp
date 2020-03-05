@@ -6,10 +6,11 @@ import { connect } from "react-redux";
 const ListingSearch = ({ getRefinedListings }) => {
     const [formData, setFormData] = useState({
         zipcode: "",
-        type: "Newest"
+        type: "Newest",
+        group: "All"
     });
 
-    const { zipcode, type } = formData;
+    const { zipcode, type, group } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -20,6 +21,11 @@ const ListingSearch = ({ getRefinedListings }) => {
     return (
         <div className="listing-search-bar form">
             <input onChange={onChange} name="zipcode" value={zipcode} type="text" placeholder="Zipcode" />
+            <select name="group" value={group} onChange={onChange}>
+                <option>All</option>
+                <option>Commercial</option>
+                <option>Residential</option>
+            </select>
             <select name="type" value={type} onChange={onChange}>
                 <option>Newest</option>
                 <option>Oldest</option>
