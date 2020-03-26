@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert } from "./alert";
+import { toast } from "react-toastify";
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
@@ -52,7 +52,7 @@ export const register = ({ name, email, password, registerkey }) => async dispat
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+            errors.forEach(error => toast.error(error.msg));
         }
         dispatch({
             type: REGISTER_FAIL
@@ -77,13 +77,12 @@ export const login = (email, password) => async dispatch => {
             payload: res.data
         });
         dispatch(loadUser());
+        toast.dismiss();
     } catch (err) {
         const errors = err.response.data.errors;
-
         if (errors) {
-            errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+            errors.forEach(error => toast.error(error.msg));
         }
-
         dispatch({
             type: LOGIN_FAIL
         });
@@ -105,11 +104,11 @@ export const pwreset = email => async dispatch => {
         dispatch({
             type: PW_RESET
         });
-        dispatch(setAlert("Reset link sent...", "success"));
+        toast.success("Check your email for the reset link");
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+            errors.forEach(error => toast.error(error.msg));
         }
         dispatch({
             type: AUTH_ERROR
@@ -131,12 +130,12 @@ export const pwresetsave = (email, password, hash, history) => async dispatch =>
         dispatch({
             type: PW_RESET_SAVE
         });
-        dispatch(setAlert("Reset success", "success"));
+        toast.success("Reset successful");
         history.push("/login");
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+            errors.forEach(error => toast.error(error.msg));
         }
         dispatch({
             type: REGISTER_FAIL

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { GET_OFFICE, OFFICE_ERROR } from "./types";
+import { toast } from "react-toastify";
 
 // Get office info
 export const getOffice = () => async dispatch => {
@@ -14,5 +15,6 @@ export const getOffice = () => async dispatch => {
             type: OFFICE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
         });
+        toast.error("Get office info error");
     }
 };

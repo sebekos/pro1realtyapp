@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { pwresetsave } from "../../Redux/actions/auth";
-import { setAlert } from "../../Redux/actions/alert";
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import Spinner from "../layout/Spinner";
 
-const Pwreset = ({ pwresetsave, auth: { loading }, match, history, setAlert }) => {
+const Pwreset = ({ pwresetsave, auth: { loading }, match, history }) => {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -21,7 +21,7 @@ const Pwreset = ({ pwresetsave, auth: { loading }, match, history, setAlert }) =
     const onSubmitHandler = async e => {
         e.preventDefault();
         if (password !== password2) {
-            setAlert("Passwords do not match", "danger");
+            toast.error("Passwords do not match");
         } else {
             pwresetsave(email, password, match.params.hash, history);
         }
@@ -32,24 +32,10 @@ const Pwreset = ({ pwresetsave, auth: { loading }, match, history, setAlert }) =
             <h1 className="large text-primary">Password Reset</h1>
             <form className="form" onSubmit={onSubmitHandler}>
                 <div className="form-group">
-                    <input
-                        type="email"
-                        placeholder="Email Address"
-                        name="email"
-                        value={email}
-                        onChange={onChangeHandler}
-                        required
-                    />
+                    <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChangeHandler} required />
                 </div>
                 <div className="form-group">
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                        value={password}
-                        onChange={onChangeHandler}
-                        required
-                    />
+                    <input type="password" placeholder="Password" name="password" value={password} onChange={onChangeHandler} required />
                 </div>
                 <div className="form-group">
                     <input
@@ -70,12 +56,11 @@ const Pwreset = ({ pwresetsave, auth: { loading }, match, history, setAlert }) =
 
 Pwreset.propTypes = {
     pwresetsave: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    setAlert: PropTypes.func.isRequired
+    auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { pwresetsave, setAlert })(Pwreset);
+export default connect(mapStateToProps, { pwresetsave })(Pwreset);

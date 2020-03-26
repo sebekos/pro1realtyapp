@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from "react";
 import ImageUploader from "react-images-upload";
-import {
-    uploadPhotos,
-    getListing,
-    setLoadingTrue,
-    progressBarValue,
-    toggleProgressBar
-} from "../../Redux/actions/listing";
-import { setAlert } from "../../Redux/actions/alert";
+import { uploadPhotos, getListing, setLoadingTrue, progressBarValue, toggleProgressBar } from "../../Redux/actions/listing";
+import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { bulkResize } from "../../utils/photo";
 import PropTypes from "prop-types";
 import Spinner from "../layout/Spinner";
 import ProgressBar from "../layout/ProgressBar";
 
-const AddPhotos = ({
-    uploadPhotos,
-    match,
-    listing: { loading, progressbar, listing },
-    getListing,
-    setLoadingTrue,
-    setAlert
-}) => {
+const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listing }, getListing, setLoadingTrue }) => {
     const [pictures, setPictures] = useState([]);
     const [uploadBtn, setUploadBtn] = useState(false);
     const [redir, setRedir] = useState(false);
@@ -43,7 +30,8 @@ const AddPhotos = ({
     const onUpload = async e => {
         const total = listing.photos.length + pictures.length;
         if (total > 10) {
-            return setAlert("Max photos is 10, currently at " + total, "danger");
+            toast.error("Max photos is 10, currently at " + total);
+            return;
         }
         setLoadingTrue();
         setUploadBtn(false);
@@ -55,7 +43,7 @@ const AddPhotos = ({
         });
         await uploadPhotos(formData);
         setUploadBtn(true);
-        setAlert("Photos uploaded successfully", "success");
+        toast.success("Photos uploaded successfully");
         setRedir(true);
         setUploadBtn(false);
     };
@@ -93,8 +81,7 @@ AddPhotos.propTypes = {
     uploadPhotos: PropTypes.func.isRequired,
     setLoadingTrue: PropTypes.func.isRequired,
     progressBarValue: PropTypes.func.isRequired,
-    toggleProgressBar: PropTypes.func.isRequired,
-    setAlert: PropTypes.func.isRequired
+    toggleProgressBar: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -106,6 +93,5 @@ export default connect(mapStateToProps, {
     getListing,
     setLoadingTrue,
     progressBarValue,
-    toggleProgressBar,
-    setAlert
+    toggleProgressBar
 })(AddPhotos);

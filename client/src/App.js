@@ -2,12 +2,12 @@ import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { loadUser } from "./Redux/actions/auth";
+import { ToastContainer } from "react-toastify";
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import store from "./Redux/store";
-import Alert from "./components/layout/Alert";
 import setAuthToken from "./Redux/utils/setAuthToken";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import MyProfile from "./components/dashboards/MyProfile";
@@ -27,6 +27,7 @@ import Office from "./components/contact/Office";
 import DeletePhotos from "./components/deletephotos/DeletePhotos";
 import Pwreset from "./components/auth/Pwreset";
 import Pwresetsave from "./components/auth/Pwresetsave";
+import "react-toastify/dist/ReactToastify.min.css";
 import "./App.css";
 
 if (localStorage.token) {
@@ -45,7 +46,7 @@ const App = () => {
                     <Navbar />
                     <Route exact path="/" component={Landing} />
                     <section className="container">
-                        <Alert />
+                        <ToastContainer />
                         <Switch>
                             <Route exact path="/register" component={Register} />
                             <Route exact path="/login" component={Login} />

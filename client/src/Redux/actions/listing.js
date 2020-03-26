@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert } from "./alert";
+import { toast } from "react-toastify";
 import {
     GET_LISTING,
     GET_LISTINGS,
@@ -31,15 +31,15 @@ export const addListing = (formData, history, edit = false) => async dispatch =>
             payload: res.data
         });
         if (edit) {
-            dispatch(setAlert("Listing Updated", "success"));
+            toast.success("Listing updated");
         } else {
-            dispatch(setAlert("Listing Added", "success"));
+            toast.success("Listing added");
             history.push(`/editlisting/addphotos/${res.data._id}`);
         }
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+            errors.forEach(error => toast.error(error.msg));
         }
 
         dispatch({
@@ -68,6 +68,7 @@ export const getListings = () => async dispatch => {
                 status: err.response.status
             }
         });
+        toast.error("Get all listings error");
     }
 };
 
@@ -87,6 +88,7 @@ export const getUserListings = () => async dispatch => {
                 status: err.response.status
             }
         });
+        toast.error("Get user listings error");
     }
 };
 
@@ -106,6 +108,7 @@ export const getAgentListings = id => async dispatch => {
                 status: err.response.status
             }
         });
+        toast.error("Get agent listings error");
     }
 };
 
@@ -128,9 +131,8 @@ export const getRefinedListings = formData => async dispatch => {
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+            errors.forEach(error => toast.error(error.msg));
         }
-
         dispatch({
             type: LISTING_ERROR,
             payload: {
@@ -157,6 +159,7 @@ export const getListing = id => async dispatch => {
                 status: err.response.status
             }
         });
+        toast.error("Get listing error");
     }
 };
 
@@ -176,6 +179,7 @@ export const getListingCount = id => async dispatch => {
                 status: err.response.status
             }
         });
+        toast.error("Listing count error");
     }
 };
 
@@ -187,7 +191,7 @@ export const deleteListing = (id, history) => async dispatch => {
             type: DELETE_LISTING,
             payload: res.data
         });
-        dispatch(setAlert("Listing deleted", "danger"));
+        toast.success("Listing deleted");
         history.push("/mylistings");
     } catch (err) {
         dispatch({
@@ -197,6 +201,7 @@ export const deleteListing = (id, history) => async dispatch => {
                 status: err.response.status
             }
         });
+        toast.error("Delete lisitng error");
     }
 };
 
@@ -228,7 +233,7 @@ export const uploadPhotos = formData => async dispatch => {
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+            errors.forEach(error => toast.error(error.msg));
         }
         dispatch({
             type: LISTING_ERROR,
@@ -248,7 +253,7 @@ export const reOrderPhotos = (images, id) => async dispatch => {
                 "Content-Type": "application/json"
             }
         });
-        dispatch(setAlert("Photos Updated", "success"));
+        toast.success("Photos updated");
     } catch (err) {
         dispatch({
             type: LISTING_ERROR,
@@ -257,6 +262,7 @@ export const reOrderPhotos = (images, id) => async dispatch => {
                 status: err.response.status
             }
         });
+        toast.error("Reorder photos error");
     }
 };
 

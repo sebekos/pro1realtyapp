@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert } from "./alert";
+import { toast } from "react-toastify";
 import { ADD_PROFILE, GET_PROFILE, GET_PROFILES, UPLOAD_AVATAR, DELETE_PROFILE, PROFILE_ERROR, LOGOUT } from "./types";
 
 // Get profile
@@ -15,6 +15,7 @@ export const getProfile = () => async dispatch => {
             type: PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
         });
+        toast.error("Get profile error");
     }
 };
 
@@ -31,6 +32,7 @@ export const getProfiles = () => async dispatch => {
             type: PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
         });
+        toast.error("Get agents error");
     }
 };
 
@@ -48,14 +50,13 @@ export const addProfile = (formData, history, edit = false) => async dispatch =>
             type: ADD_PROFILE,
             payload: res.data
         });
-        dispatch(setAlert(edit ? "Profile Updated" : "Profile Added", "success"));
+        toast.success(edit ? "Profile Updated" : "Profile Added");
         history.push("/myprofile");
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+            errors.forEach(error => toast.error(error.msg));
         }
-
         dispatch({
             type: PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
@@ -79,14 +80,13 @@ export const uploadAvatar = (formData, profile, history) => async dispatch => {
             type: UPLOAD_AVATAR,
             payload: newPro
         });
-        dispatch(setAlert("Avatar Updated", "success"));
+        toast.success("Avatar updated");
         history.push("/myprofile");
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+            errors.forEach(error => toast.error(error.msg));
         }
-
         dispatch({
             type: PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
@@ -100,11 +100,12 @@ export const deleteProfile = () => async dispatch => {
         await axios.delete("/api/profile");
         dispatch({ type: DELETE_PROFILE });
         dispatch({ type: LOGOUT });
-        dispatch(setAlert("Profile Deleted", "danger"));
+        toast.success("Profile deleted");
     } catch (err) {
         dispatch({
             type: PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
         });
+        toast.error("Delete profile error");
     }
 };

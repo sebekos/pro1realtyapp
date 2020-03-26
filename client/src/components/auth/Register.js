@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { setAlert } from "../../Redux/actions/alert";
+import { toast } from "react-toastify";
 import { register } from "../../Redux/actions/auth";
 import PropTypes from "prop-types";
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = ({ register, isAuthenticated }) => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -23,7 +23,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     const onSubmitHandler = async e => {
         e.preventDefault();
         if (password !== password2) {
-            setAlert("Passwords do not match", "danger");
+            toast.error("Passwords do not match");
         } else {
             register({ name, email, password, registerkey });
         }
@@ -44,31 +44,13 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                     <input type="text" placeholder="Name" name="name" value={name} onChange={onChangeHandler} />
                 </div>
                 <div className="form-group">
-                    <input
-                        type="email"
-                        placeholder="Email Address"
-                        name="email"
-                        value={email}
-                        onChange={onChangeHandler}
-                    />
+                    <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChangeHandler} />
                 </div>
                 <div className="form-group">
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                        value={password}
-                        onChange={onChangeHandler}
-                    />
+                    <input type="password" placeholder="Password" name="password" value={password} onChange={onChangeHandler} />
                 </div>
                 <div className="form-group">
-                    <input
-                        type="password"
-                        placeholder="Confirm Password"
-                        name="password2"
-                        value={password2}
-                        onChange={onChangeHandler}
-                    />
+                    <input type="password" placeholder="Confirm Password" name="password2" value={password2} onChange={onChangeHandler} />
                 </div>
                 <div className="form-group">
                     <input
@@ -89,7 +71,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 };
 
 Register.propTypes = {
-    setAlert: PropTypes.func.isRequired,
     register: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool
 };
@@ -98,4 +79,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { setAlert, register })(Register);
+export default connect(mapStateToProps, { register })(Register);
