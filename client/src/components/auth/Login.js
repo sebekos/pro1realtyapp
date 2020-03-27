@@ -33,25 +33,10 @@ const Login = ({ login, isAuthenticated }) => {
             </p>
             <form className="form" onSubmit={onSubmitHandler}>
                 <div className="form-group">
-                    <input
-                        type="email"
-                        placeholder="Email Address"
-                        name="email"
-                        value={email}
-                        onChange={onChangeHandler}
-                        required
-                    />
+                    <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChangeHandler} required />
                 </div>
                 <div className="form-group">
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                        minLength="6"
-                        value={password}
-                        onChange={onChangeHandler}
-                        required
-                    />
+                    <input type="password" placeholder="Password" name="password" value={password} onChange={onChangeHandler} required />
                 </div>
                 <input type="submit" className="btn btn-primary" value="Login" />
                 <Link to="/pwreset">

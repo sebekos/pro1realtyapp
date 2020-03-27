@@ -10,7 +10,8 @@ import {
     LOGOUT,
     CLEAR_PROFILE,
     PW_RESET,
-    PW_RESET_SAVE
+    PW_RESET_SAVE,
+    SET_AUTH_LOADING
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -19,7 +20,6 @@ export const loadUser = () => async dispatch => {
     if (localStorage.token) {
         setAuthToken(localStorage.token);
     }
-
     try {
         const res = await axios.get("/api/auth");
         dispatch({
@@ -42,6 +42,7 @@ export const register = ({ name, email, password, registerkey }) => async dispat
     };
 
     const body = JSON.stringify({ name, email, password, registerkey });
+    dispatch(setAuthLoadingTrue);
     try {
         const res = await axios.post("/api/user", body, config);
         dispatch({
@@ -67,9 +68,8 @@ export const login = (email, password) => async dispatch => {
             "Content-Type": "application/json"
         }
     };
-
     const body = JSON.stringify({ email, password });
-
+    dispatch(setAuthLoadingTrue);
     try {
         const res = await axios.post("/api/auth", body, config);
         dispatch({
@@ -147,4 +147,11 @@ export const pwresetsave = (email, password, hash, history) => async dispatch =>
 export const logout = () => dispatch => {
     dispatch({ type: CLEAR_PROFILE });
     dispatch({ type: LOGOUT });
+};
+
+// Loading true
+export const setAuthLoadingTrue = () => async dispatch => {
+    dispatch({
+        type: SET_AUTH_LOADING
+    });
 };

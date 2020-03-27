@@ -704,13 +704,30 @@ progress {
 }
 
 /* Pagination */
-.pagination {
+.previous a,
+.next a,
+.pagination-ul-container li {
+    cursor: pointer;
+}
+
+.disabled a {
+    cursor: default;
+}
+
+.active-pagination a {
+    font-weight: bold;
+    color: #034f84;
+    outline: none;
+}
+
+.pagination-ul-container {
     display: flex;
     width: fit-content;
     text-align: right;
+    float: right;
 }
 
-.pagination li {
+.pagination-ul-container li {
     margin: 4px;
 }
 

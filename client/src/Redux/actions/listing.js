@@ -54,6 +54,7 @@ export const addListing = (formData, history, edit = false) => async dispatch =>
 
 // Get all active listings
 export const getListings = page => async dispatch => {
+    dispatch(setLoadingTrue());
     try {
         const res = await axios.get(`/api/listing/${page}`);
         dispatch({

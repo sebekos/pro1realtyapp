@@ -7,7 +7,8 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     PW_RESET,
-    PW_RESET_SAVE
+    PW_RESET_SAVE,
+    SET_AUTH_LOADING
 } from "../actions/types";
 
 const initialState = {
@@ -27,6 +28,11 @@ export default function(state = initialState, action) {
                 isAuthenticated: true,
                 loading: false,
                 user: payload
+            };
+        case SET_AUTH_LOADING:
+            return {
+                ...state,
+                loading: true
             };
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
