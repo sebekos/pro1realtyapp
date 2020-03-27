@@ -95,13 +95,33 @@ router.post(
 // @route       GET api/listing
 // @description Get all listings
 // @access      Public
-router.get("/", async (req, res) => {
+router.get("/:page", async (req, res) => {
     try {
+        const currPage = req.params.page;
+        if (currPage < 0) {
+            return res.status(500).send("Server Error");
+        }
+        const listingsCount = await Listing.aggregate([
+            {
+                $match: {
+                    active: "1"
+                }
+            },
+            {
+                $count: "count"
+            }
+        ]);
         const listings = await Listing.aggregate([
             {
                 $match: {
                     active: "1"
                 }
+            },
+            {
+                $skip: currPage * 10
+            },
+            {
+                $limit: 10
             },
             {
                 $lookup: {
@@ -124,7 +144,11 @@ router.get("/", async (req, res) => {
                 }
             }
         ]).sort({ listdate: -1 });
-        res.json(listings);
+        const returnData = {
+            data: listings,
+            totalCount: listingsCount[0]["count"]
+        };
+        res.json(returnData);
     } catch (err) {
         res.status(500).send("Server Error");
     }

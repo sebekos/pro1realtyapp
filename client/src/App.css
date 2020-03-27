@@ -703,6 +703,17 @@ progress {
     color: white;
 }
 
+/* Pagination */
+.pagination {
+    display: flex;
+    width: fit-content;
+    text-align: right;
+}
+
+.pagination li {
+    margin: 4px;
+}
+
 /* Mobile Styles */
 @media (max-width: 1230px) {
     .preview-photos-container {
