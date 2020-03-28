@@ -1,12 +1,9 @@
 import {
     GET_LISTING,
-    GET_LISTINGS,
-    GET_USER_LISTINGS,
     GET_LISTINGS_REFINED,
     ADD_LISTING,
     LISTING_ERROR,
     DELETE_LISTING,
-    GET_AGENT_LISTINGS,
     TOGGLE_PROGRESS_BAR,
     PROGRESS_BAR_VALUE,
     UPLOAD_SUCCESS,
@@ -28,30 +25,6 @@ const initialState = {
 export default function(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
-        case GET_LISTINGS:
-            return {
-                ...state,
-                listings: payload.data,
-                pages: Math.ceil(payload.totalCount / 10),
-                currentPage: 1,
-                loading: false
-            };
-        case GET_USER_LISTINGS:
-            return {
-                ...state,
-                listings: payload,
-                pages: Math.ceil(payload.length / 10),
-                currentPage: 1,
-                loading: false
-            };
-        case GET_AGENT_LISTINGS:
-            return {
-                ...state,
-                listings: payload,
-                pages: Math.ceil(payload.length / 10),
-                currentPage: 1,
-                loading: false
-            };
         case GET_LISTINGS_REFINED:
             return {
                 ...state,

@@ -2,9 +2,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import {
     GET_LISTING,
-    GET_LISTINGS,
-    GET_USER_LISTINGS,
-    GET_AGENT_LISTINGS,
     GET_LISTINGS_REFINED,
     ADD_LISTING,
     DELETE_LISTING,
@@ -49,67 +46,6 @@ export const addListing = (formData, history, edit = false) => async dispatch =>
                 status: err.response.status
             }
         });
-    }
-};
-
-// Get all active listings
-export const getListings = (page = 0) => async dispatch => {
-    dispatch(setLoadingTrue());
-    try {
-        const res = await axios.get(`/api/listing/${page}`);
-        dispatch({
-            type: GET_LISTINGS,
-            payload: res.data
-        });
-    } catch (err) {
-        dispatch({
-            type: LISTING_ERROR,
-            payload: {
-                msg: err.response.statusText,
-                status: err.response.status
-            }
-        });
-        toast.error("Get all listings error");
-    }
-};
-
-// Get user listings
-export const getUserListings = page => async dispatch => {
-    try {
-        const res = await axios.get(`/api/listing/user/${page}`);
-        dispatch({
-            type: GET_USER_LISTINGS,
-            payload: res.data
-        });
-    } catch (err) {
-        dispatch({
-            type: LISTING_ERROR,
-            payload: {
-                msg: err.response.statusText,
-                status: err.response.status
-            }
-        });
-        toast.error("Get user listings error");
-    }
-};
-
-// Get agent listings
-export const getAgentListings = id => async dispatch => {
-    try {
-        const res = await axios.get(`/api/listing/user/${id}`);
-        dispatch({
-            type: GET_AGENT_LISTINGS,
-            payload: res.data
-        });
-    } catch (err) {
-        dispatch({
-            type: LISTING_ERROR,
-            payload: {
-                msg: err.response.statusText,
-                status: err.response.status
-            }
-        });
-        toast.error("Get agent listings error");
     }
 };
 

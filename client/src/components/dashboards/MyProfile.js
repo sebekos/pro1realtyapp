@@ -3,14 +3,12 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getProfile } from "../../Redux/actions/profile";
-import { getUserListings } from "../../Redux/actions/listing";
 import Profile from "../profile/Profile";
 
-const Dashboard = ({ auth: { user }, getProfile, profile: { profile }, getUserListings }) => {
+const Dashboard = ({ auth: { user }, getProfile, profile: { profile } }) => {
     useEffect(() => {
         getProfile();
-        getUserListings();
-    }, [getProfile, getUserListings]);
+    }, [getProfile]);
 
     return (
         <Fragment>
@@ -44,8 +42,7 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile }, getUserLi
 Dashboard.propTypes = {
     auth: PropTypes.object.isRequired,
     getProfile: PropTypes.func.isRequired,
-    profile: PropTypes.object.isRequired,
-    getUserListings: PropTypes.func.isRequired
+    profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -53,4 +50,8 @@ const mapStateToProps = state => ({
     profile: state.profile
 });
 
-export default connect(mapStateToProps, { getProfile, getUserListings })(Dashboard);
+const mapDispatchToProps = {
+    getProfile
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
