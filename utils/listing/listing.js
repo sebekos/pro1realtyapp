@@ -49,7 +49,73 @@ const refinedMatch = body => {
     ];
 };
 
+const singleMatch = id => {
+    return [
+        {
+            $match: {
+                _id: ObjectId(`${id}`),
+                active: "1"
+            }
+        },
+        {
+            $lookup: {
+                from: "profiles",
+                localField: "agentid",
+                foreignField: "user",
+                as: "agentinfo"
+            }
+        },
+        {
+            $unwind: "$agentinfo"
+        },
+        {
+            $project: {
+                "agentinfo.active": 0,
+                "agentinfo.user": 0,
+                "agentinfo._id": 0,
+                "agentinfo.date": 0,
+                "agentinfo.__v": 0
+            }
+        }
+    ];
+};
+
+const setListingFields = req => {
+    const listingProps = [
+        "listdate",
+        "status",
+        "type",
+        "address",
+        "city",
+        "state",
+        "zipcode",
+        "price",
+        "bedroom",
+        "bathroom",
+        "squarefeet",
+        "description",
+        "mainphoto",
+        "photos",
+        "agentid"
+    ];
+
+    let listingFields = listingProps.reduce((memo, val) => {
+        if (req.body[val]) {
+            if (val === "photos") {
+                memo[val] = memo[val].split(",").map(photo => photo.trim());
+            }
+            memo[val] = req.body[val];
+        }
+        return memo;
+    }, {});
+
+    listingFields.agentid = req.user.id;
+    return listingFields;
+};
+
 module.exports = {
+    listingQuery,
     refinedMatch,
-    listingQuery
+    singleMatch,
+    setListingFields
 };

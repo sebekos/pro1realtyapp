@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const { refinedMatch, listingQuery } = require("../../utils/listing/listing");
+const { listingQuery, refinedMatch, singleMatch, setListingFields } = require("../../utils/listing/listing");
 ObjectId = require("mongodb").ObjectID;
 
 const auth = require("../../middleware/auth");
@@ -31,47 +31,15 @@ router.post(
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-
-        const listingProps = [
-            "listdate",
-            "status",
-            "type",
-            "address",
-            "city",
-            "state",
-            "zipcode",
-            "price",
-            "bedroom",
-            "bathroom",
-            "squarefeet",
-            "description",
-            "mainphoto",
-            "photos",
-            "agentid"
-        ];
-
-        let listingFields = listingProps.reduce((memo, val) => {
-            if (req.body[val]) {
-                if (val === "photos") {
-                    memo[val] = memo[val].split(",").map(photo => photo.trim());
-                }
-                memo[val] = req.body[val];
-            }
-            return memo;
-        }, {});
-
-        listingFields.agentid = req.user.id;
-
+        const listingFields = setListingFields(req);
         try {
             let listing = null;
-
             // If new listing
             if (!req.body.id) {
                 listing = new Listing(listingFields);
                 await listing.save();
                 return res.json(listing);
             }
-
             // If updating, check if user has access
             listing = await Listing.findOne({ _id: req.body.id });
             if (listing && req.user.id !== listing.agentid) {
@@ -119,34 +87,8 @@ router.post("/refined", async (req, res) => {
 // @access      Public
 router.get("/:id", async (req, res) => {
     try {
-        const listing = await Listing.aggregate([
-            {
-                $match: {
-                    _id: ObjectId(`${req.params.id}`),
-                    active: "1"
-                }
-            },
-            {
-                $lookup: {
-                    from: "profiles",
-                    localField: "agentid",
-                    foreignField: "user",
-                    as: "agentinfo"
-                }
-            },
-            {
-                $unwind: "$agentinfo"
-            },
-            {
-                $project: {
-                    "agentinfo.active": 0,
-                    "agentinfo.user": 0,
-                    "agentinfo._id": 0,
-                    "agentinfo.date": 0,
-                    "agentinfo.__v": 0
-                }
-            }
-        ]);
+        const match = singleMatch(req.params.id);
+        const listing = await Listing.aggregate(match);
         if (!listing) {
             return res.status(404).json({ msg: "Listing not found" });
         }
