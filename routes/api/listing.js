@@ -32,60 +32,52 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const {
-            listdate,
-            status,
-            type,
-            address,
-            city,
-            state,
-            zipcode,
-            price,
-            bedroom,
-            bathroom,
-            squarefeet,
-            description,
-            mainphoto,
-            photos,
-            agentid
-        } = req.body;
+        const listingProps = [
+            "listdate",
+            "status",
+            "type",
+            "address",
+            "city",
+            "state",
+            "zipcode",
+            "price",
+            "bedroom",
+            "bathroom",
+            "squarefeet",
+            "description",
+            "mainphoto",
+            "photos",
+            "agentid"
+        ];
 
-        // Build listing object
-        const listingFields = {};
+        let listingFields = listingProps.reduce((memo, val) => {
+            if (req.body[val]) {
+                if (val === "photos") {
+                    memo[val] = memo[val].split(",").map(photo => photo.trim());
+                }
+                memo[val] = req.body[val];
+            }
+            return memo;
+        }, {});
+
         listingFields.agentid = req.user.id;
-        if (listdate) listingFields.listdate = listdate;
-        if (status) listingFields.status = status;
-        if (type) listingFields.type = type;
-        if (type) listingFields.type = type;
-        if (address) listingFields.address = address;
-        if (city) listingFields.city = city;
-        if (state) listingFields.state = state;
-        if (zipcode) listingFields.zipcode = zipcode;
-        if (price) listingFields.price = price;
-        if (bedroom) listingFields.bedroom = bedroom;
-        if (bathroom) listingFields.bathroom = bathroom;
-        if (squarefeet) listingFields.squarefeet = squarefeet;
-        if (description) listingFields.description = description;
-        if (agentid) listingFields.agentid = agentid;
-        if (mainphoto) listingFields.mainphoto = mainphoto;
-        if (photos) {
-            listingFields.photos = photos.split(",").map(photo => photo.trim());
-        }
 
         try {
-            let listing = await Listing.findOne({ _id: req.body.id });
-            // Check if user has access
-            if (listing && req.user.id !== listing.agentid) {
-                return res.status(401).json({ msg: "User not authorized" });
-            }
+            let listing = null;
 
-            if (listing) {
-                listing = await Listing.findOneAndUpdate({ _id: req.body.id }, { $set: listingFields }, { new: true });
+            // If new listing
+            if (!req.body.id) {
+                listing = new Listing(listingFields);
+                await listing.save();
                 return res.json(listing);
             }
 
-            listing = new Listing(listingFields);
-            await listing.save();
+            // If updating, check if user has access
+            listing = await Listing.findOne({ _id: req.body.id });
+            if (listing && req.user.id !== listing.agentid) {
+                return res.status(401).json({ msg: "User not authorized" });
+            }
+            listing = await Listing.findOneAndUpdate({ _id: req.body.id }, { $set: listingFields }, { new: true });
             res.json(listing);
         } catch (err) {
             res.status(500).send("Server Error");
