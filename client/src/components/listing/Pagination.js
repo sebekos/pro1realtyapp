@@ -1,6 +1,18 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 import ListingSummaryItem from "./ListingSummaryItem";
+import styled from "styled-components";
+
+const ListingsContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    box-sizing: border-box;
+    justify-items: center;
+    @media (max-width: 1280px) {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+`;
 
 const Pagination = ({ pageClick, pages, listings }) => {
     const paginateDiv = (
@@ -23,11 +35,14 @@ const Pagination = ({ pageClick, pages, listings }) => {
     return (
         <div className="pagination-container">
             {paginateDiv}
-            {listings.map(listing => (
-                <ListingSummaryItem key={listing._id} listing={listing} listingId={listing._id}>
-                    Listing
-                </ListingSummaryItem>
-            ))}
+            <ListingsContainer>
+                {listings.map(listing => (
+                    <ListingSummaryItem key={listing._id} listing={listing} listingId={listing._id}>
+                        Listing
+                    </ListingSummaryItem>
+                ))}
+            </ListingsContainer>
+
             {paginateDiv}
         </div>
     );

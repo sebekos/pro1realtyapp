@@ -11,7 +11,7 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
     const [listdate, setListDate] = useState("");
 
     const [formData, setFormData] = useState({
-        status: "Listed",
+        status: "Active",
         type: "Residential",
         address: "",
         city: "",
@@ -91,22 +91,10 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
                     <input type="text" placeholder="Bathroom" name="bathroom" value={bathroom} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input
-                        type="text"
-                        placeholder="Squarefeet"
-                        name="squarefeet"
-                        value={squarefeet}
-                        onChange={onChange}
-                    />
+                    <input type="text" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input
-                        type="text"
-                        placeholder="Description"
-                        name="description"
-                        value={description}
-                        onChange={onChange}
-                    />
+                    <input type="text" placeholder="Description" name="description" value={description} onChange={onChange} />
                 </div>
                 <input type="submit" className="btn btn-primary my-1" />
             </form>

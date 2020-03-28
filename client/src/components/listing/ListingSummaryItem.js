@@ -1,147 +1,189 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import NumberFormat from "react-number-format";
+import styled from "styled-components";
+
+const SummaryContainer = styled.div`
+    display: grid;
+    grid-template-columns: 275px 337px;
+    box-sizing: border-box;
+    border-top: 1px solid grey;
+    margin: 5px 5px;
+    -webkit-box-shadow: 0 2px 2px 1px #000000;
+    -moz-box-shadow: 0 2px 2px 1px #000000;
+    box-shadow: 0 2px 2px 1px #000000;
+    @media (max-width: 680px) {
+        grid-template-columns: 1fr;
+    }
+`;
+
+const ImgContainer = styled.div`
+    max-height: 200px;
+    max-width: 275px;
+    min-height: 200px;
+    min-width: 275px;
+    overflow: hidden;
+    position: relative;
+    border-right: 1px solid grey;
+    background-color: black;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    @media (max-width: 680px) {
+        margin: 5px auto;
+    }
+`;
+
+const Img = styled.img`
+    max-width: 300px;
+`;
+
+const PhotoCountContainer = styled.div`
+    height: 25px;
+    width: 50px;
+    background-color: black;
+    opacity: 0.5;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+`;
+
+const Image = ({ src, count }) => {
+    return (
+        <ImgContainer>
+            <Img src={src} alt="No Photos"></Img>
+            <PhotoCountContainer>
+                <i className="fas fa-camera">{" " + count}</i>
+            </PhotoCountContainer>
+        </ImgContainer>
+    );
+};
+
+Image.propTypes = {
+    src: PropTypes.string,
+    count: PropTypes.number
+};
+
+const InfoContainer = styled.div`
+    background-color: #f2f5f2;
+    padding: 5px 10px;
+`;
+
+const AddressPriceContainer = styled.div`
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    width: 100%;
+    box-sizing: border-box;
+`;
+
+const AddressContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const AddressFirstLine = styled.div`
+    font-size: 1.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`;
+
+const AddressSecondLine = styled.div`
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`;
+
+const Price = styled.div`
+    font-size: 1.2rem;
+    font-weight: bold;
+    justify-self: end;
+`;
+
+const AddressPrice = ({ address, city, state, price }) => {
+    const confAddress = !address ? "Confidential" : address;
+    const confPrice = price ? (
+        <NumberFormat mask="Call" value={price} displayType={"text"} thousandSeparator={true} prefix={"$"} />
+    ) : (
+        "Call"
+    );
+    const confCity = city ? `${city}, ${state}` : `${state}`;
+    return (
+        <AddressPriceContainer>
+            <AddressContainer>
+                <AddressFirstLine>{confAddress}</AddressFirstLine>
+                <AddressSecondLine>{confCity}</AddressSecondLine>
+            </AddressContainer>
+            <Price>{confPrice}</Price>
+        </AddressPriceContainer>
+    );
+};
+
+AddressPrice.propTypes = {
+    address: PropTypes.string,
+    city: PropTypes.string,
+    state: PropTypes.string,
+    price: PropTypes.number
+};
+
+const StatusDateLineContainer = styled.div`
+    width: 100%;
+    veritical-align: middle;
+`;
+
+const StatusLine = styled.span`
+    color: red;
+    font-size: 1rem;
+`;
+
+const MiddleChar = styled.span`
+    font-size: 1.2rem;
+    color: grey;
+`;
+
+const TypeLine = styled.span`
+    font-size: 1rem;
+`;
+
+const DateLine = styled.span`
+    font-size: 1rem;
+`;
+
+const StatusDateLine = ({ status, type, listdate }) => {
+    const confType = type.includes("Conf") ? "Commercial" : type;
+    return (
+        <StatusDateLineContainer>
+            <StatusLine>{status}</StatusLine>
+            <MiddleChar> - </MiddleChar>
+            <TypeLine>{confType}</TypeLine>
+            <MiddleChar> - </MiddleChar>
+            <DateLine>
+                <Moment parse="YYYY-MM-DDTHH:mm:ss.SSSZ" format="LL">
+                    {listdate}
+                </Moment>
+            </DateLine>
+        </StatusDateLineContainer>
+    );
+};
 
 const ListingItem = ({
     auth: { isAuthenticated, user, loading },
-    listing: {
-        agentid,
-        photos,
-        listdate,
-        status,
-        type,
-        address,
-        city,
-        state,
-        zipcode,
-        price,
-        bedroom,
-        bathroom,
-        squarefeet,
-        agentinfo
-    },
+    listing: { agentid, photos, listdate, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, agentinfo },
     listingId
 }) => (
-    <div className="profiles">
-        <div className="profile bg-light">
-            {photos && photos.length > 0 ? (
-                <Fragment>
-                    <img className="img-icon" src={photos[0]} alt="" />
-                </Fragment>
-            ) : (
-                <Fragment>
-                    <div className="img-empty">No Photos</div>
-                </Fragment>
-            )}
-            <div>
-                {type.includes("Confidential") ? (
-                    <a href={`/listing/${listingId}`}>
-                        <h2 className="text-dark">
-                            {type}
-                            {state !== "" ? ", " + state : null}
-                        </h2>
-                    </a>
-                ) : (
-                    <Fragment>
-                        <a href={`/listing/${listingId}`}>
-                            <h2 className="text-dark">{address + " " + city + ", " + state + " " + zipcode}</h2>
-                        </a>
-                    </Fragment>
-                )}
-                {price ? (
-                    <p>
-                        <span className="span-item">$</span>
-                        {price.toLocaleString()}
-                    </p>
-                ) : null}
-                <p>
-                    <span className="span-item">Listed: </span>
-                    <Moment parse="YYYY-MM-DDTHH:mm:ss.SSSZ" format="LL">
-                        {listdate}
-                    </Moment>
-                </p>
-                <p>
-                    <span className="span-item">Type: </span>
-                    {type}
-                </p>
-                <p>
-                    <span className="span-item">Status: </span>
-                    {status}
-                </p>
-                {bedroom ? (
-                    <p>
-                        <span className="span-item">Bedrooms: </span>
-                        {bedroom}
-                    </p>
-                ) : null}
-                {bathroom ? (
-                    <p>
-                        <span className="span-item">Bathrooms: </span>
-                        {bathroom}
-                    </p>
-                ) : null}
-            </div>
-            <ul>
-                {!loading && isAuthenticated && user && user._id === agentid ? (
-                    <Fragment>
-                        <li className="text-primary">
-                            <a href={`/listing/${listingId}`} className="btn btn-primary btn-custom">
-                                View Details
-                            </a>
-                        </li>
-                        <li className="text-primary">
-                            <a href={`/editlisting/${listingId}`} className="btn btn-primary btn-custom">
-                                Edit Information
-                            </a>
-                        </li>
-                        <li className="text-primary">
-                            <a href={`/editlisting/addphotos/${listingId}`} className="btn btn-primary btn-custom">
-                                Add Photos
-                            </a>
-                        </li>
-                        <li className="text-primary">
-                            <a href={`/editlisting/sort/${listingId}`} className="btn btn-primary btn-custom">
-                                Sort Photos
-                            </a>
-                        </li>
-                        <li className="text-primary">
-                            <a href={`/editlisting/delete/${listingId}`} className="btn btn-primary btn-custom">
-                                Delete Photos
-                            </a>
-                        </li>
-                    </Fragment>
-                ) : (
-                    <Fragment>
-                        {agentinfo.name ? (
-                            <p>
-                                <span className="span-item">Agent: </span>
-                                {agentinfo.name}
-                            </p>
-                        ) : null}
-                        {agentinfo.phone ? (
-                            <p>
-                                <span className="span-item">Phone: </span>
-                                <NumberFormat displayType="text" format="(###) ###-####" value={agentinfo.phone} />
-                            </p>
-                        ) : null}
-                        {agentinfo.email ? (
-                            <p>
-                                <span className="span-item">Email: </span>
-                                {agentinfo.email}
-                            </p>
-                        ) : null}
-                        <li className="text-primary">
-                            <a href={`/listing/${listingId}`} className="btn btn-primary my-1">
-                                View Details
-                            </a>
-                        </li>
-                    </Fragment>
-                )}
-            </ul>
-        </div>
-    </div>
+    <SummaryContainer>
+        <Image src={photos[0]} count={photos.length} />
+        <InfoContainer>
+            <AddressPrice address={address} city={city} state={state} price={price} />
+            <StatusDateLine status={status} type={type} listdate={listdate} />
+        </InfoContainer>
+    </SummaryContainer>
 );
 
 ListingItem.propTypes = {
