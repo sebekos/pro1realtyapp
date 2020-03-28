@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { getRefinedListings } from "../../Redux/actions/listing";
 import { connect } from "react-redux";
@@ -7,7 +7,9 @@ const ListingSearch = ({ getRefinedListings }) => {
     const [formData, setFormData] = useState({
         zipcode: "",
         type: "Newest",
-        group: "All"
+        group: "All",
+        agentid: "",
+        page: "0"
     });
 
     const { zipcode, type, group } = formData;

@@ -720,11 +720,16 @@ progress {
     outline: none;
 }
 
+.right-align {
+    position: relative;
+    height: 35px;
+}
+
 .pagination-ul-container {
     display: flex;
     width: fit-content;
-    text-align: right;
     float: right;
+    height: 35px;
 }
 
 .pagination-ul-container li {

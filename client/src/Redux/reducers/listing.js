@@ -56,8 +56,8 @@ export default function(state = initialState, action) {
         case GET_LISTINGS_REFINED:
             return {
                 ...state,
-                listings: payload,
-                pages: Math.ceil(payload.length / 10),
+                listings: payload.data,
+                pages: Math.ceil(payload.totalCount / 10),
                 currentPage: 1,
                 loading: false
             };

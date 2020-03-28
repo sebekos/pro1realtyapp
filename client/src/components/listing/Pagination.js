@@ -1,9 +1,10 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
+import ListingSummaryItem from "./ListingSummaryItem";
 
-const Pagination = ({ pageClick, pages }) => {
-    return (
-        <div className="pagination-container">
+const Pagination = ({ pageClick, pages, listings }) => {
+    const paginateDiv = (
+        <div className="right-align">
             <ReactPaginate
                 previousLabel={"previous"}
                 nextLabel={"next"}
@@ -17,6 +18,17 @@ const Pagination = ({ pageClick, pages }) => {
                 subContainerClassName={"pages pagination"}
                 activeClassName={"active-pagination"}
             />
+        </div>
+    );
+    return (
+        <div className="pagination-container">
+            {paginateDiv}
+            {listings.map(listing => (
+                <ListingSummaryItem key={listing._id} listing={listing} listingId={listing._id}>
+                    Listing
+                </ListingSummaryItem>
+            ))}
+            {paginateDiv}
         </div>
     );
 };

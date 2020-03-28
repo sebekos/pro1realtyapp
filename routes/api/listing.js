@@ -249,7 +249,6 @@ router.post(
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-
         let order = req.body.type.includes("Low") || req.body.type.includes("Oldest") ? 1 : -1;
         let sortType = req.body.type.includes("Price") ? { price: order } : { listdate: order };
         let sortZip = req.body.zipcode !== "" ? { $eq: req.body.zipcode } : { $ne: "" };
@@ -263,6 +262,12 @@ router.post(
         };
 
         try {
+            const listingsCount = await Listing.aggregate([
+                match,
+                {
+                    $count: "count"
+                }
+            ]);
             const listings = await Listing.aggregate([
                 match,
                 {
@@ -286,7 +291,11 @@ router.post(
                     }
                 }
             ]).sort(sortType);
-            res.json(listings);
+            const returnData = {
+                data: listings,
+                totalCount: listingsCount[0]["count"]
+            };
+            res.json(returnData);
         } catch (err) {
             res.status(500).send("Server Error");
         }

@@ -53,7 +53,7 @@ export const addListing = (formData, history, edit = false) => async dispatch =>
 };
 
 // Get all active listings
-export const getListings = page => async dispatch => {
+export const getListings = (page = 0) => async dispatch => {
     dispatch(setLoadingTrue());
     try {
         const res = await axios.get(`/api/listing/${page}`);
@@ -74,9 +74,9 @@ export const getListings = page => async dispatch => {
 };
 
 // Get user listings
-export const getUserListings = () => async dispatch => {
+export const getUserListings = page => async dispatch => {
     try {
-        const res = await axios.get(`/api/listing/user`);
+        const res = await axios.get(`/api/listing/user/${page}`);
         dispatch({
             type: GET_USER_LISTINGS,
             payload: res.data
