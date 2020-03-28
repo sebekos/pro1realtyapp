@@ -3,15 +3,19 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
-import { getUserListings } from "../../Redux/actions/listing";
+import { getRefinedListings } from "../../Redux/actions/listing";
 import { getProfile } from "../../Redux/actions/profile";
 import ListingSummaryItem from "../listing/ListingSummaryItem";
 
-const Dashboard = ({ auth: { user }, listing: { listings }, profile: { profile }, getUserListings, getProfile }) => {
+const Dashboard = ({ auth: { user }, listing: { listings }, profile: { profile }, getRefinedListings, getProfile }) => {
     useEffect(() => {
-        getUserListings();
         getProfile();
-    }, [getProfile, getUserListings]);
+        if (user) {
+            getRefinedListings({
+                agentid: user._id
+            });
+        }
+    }, [user]);
 
     return (
         <Fragment>
@@ -54,7 +58,7 @@ const Dashboard = ({ auth: { user }, listing: { listings }, profile: { profile }
 Dashboard.propTypes = {
     auth: PropTypes.object.isRequired,
     listing: PropTypes.object.isRequired,
-    getUserListings: PropTypes.func.isRequired,
+    getRefinedListings: PropTypes.func.isRequired,
     getProfile: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired
 };
@@ -65,4 +69,4 @@ const mapStateToProps = state => ({
     profile: state.profile
 });
 
-export default connect(mapStateToProps, { getUserListings, getProfile })(Dashboard);
+export default connect(mapStateToProps, { getRefinedListings, getProfile })(Dashboard);

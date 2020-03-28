@@ -16,13 +16,13 @@ import AddListing from "./components/listing/AddListing";
 import EditListing from "./components/listing/EditListing";
 import AddProfile from "./components/profile/AddProfile";
 import EditProfile from "./components/profile/EditProfile";
-import Listings from "./components/listing/Listings";
+import AllListingSearch from "./components/listing/AllListingSearch";
 import Profiles from "./components/profile/Profiles";
 import Avatar from "./components/profile/Avatar";
 import AddPhotos from "./components/listing/AddPhotos";
 import ListingDetails from "./components/listing/ListingDetails";
 import PhotoSortable from "./components/listing/PhotoSortable";
-import AgentListings from "./components/listing/AgentListings";
+import AgentListingsSearch from "./components/listing/AgentListingsSearch";
 import Office from "./components/contact/Office";
 import DeletePhotos from "./components/deletephotos/DeletePhotos";
 import Pwreset from "./components/auth/Pwreset";
@@ -50,10 +50,10 @@ const App = () => {
                         <Switch>
                             <Route exact path="/register" component={Register} />
                             <Route exact path="/login" component={Login} />
-                            <Route exact path="/listings" component={Listings} />
-                            {/* <Route exact path="/agents" component={Profiles} /> */}
+                            <Route exact path="/listings" component={AllListingSearch} />
+                            <Route exact path="/agents" component={Profiles} />
                             <Route exact path="/listing/:id" component={ListingDetails} />
-                            <Route exact path="/listings/:id" component={AgentListings} />
+                            <Route exact path="/listings/:id" component={AgentListingsSearch} />
                             <Route exact path="/contact" component={Office} />
                             <Route exact path="/pwreset" component={Pwreset} />
                             <Route exact path="/pwresetsave/:hash" component={Pwresetsave} />

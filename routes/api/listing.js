@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
+const { refinedMatch, listingQuery } = require("../../utils/listing/listing");
 ObjectId = require("mongodb").ObjectID;
 
 const auth = require("../../middleware/auth");
@@ -95,7 +96,7 @@ router.post(
 // @route       GET api/listing
 // @description Get all listings
 // @access      Public
-router.get("/:page", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const currPage = req.params.page;
         if (currPage < 0) {
@@ -235,72 +236,31 @@ router.get("/user/:id", async (req, res) => {
 // @route       POST /api/listing/reorderphotos/:id
 // @description Reorder listing photos
 // @access      Public
-router.post(
-    "/refined",
-    [
-        [
-            check("zipcode", "Zipcode not valid").isLength({ min: 0, max: 5 }),
-            check("type", "Type not valid").isLength({ min: 0, max: 15 }),
-            check("group", "Group not valid").isLength({ min: 3, max: 15 })
-        ]
-    ],
-    async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-        let order = req.body.type.includes("Low") || req.body.type.includes("Oldest") ? 1 : -1;
-        let sortType = req.body.type.includes("Price") ? { price: order } : { listdate: order };
-        let sortZip = req.body.zipcode !== "" ? { $eq: req.body.zipcode } : { $ne: "" };
-        let sortGroup = req.body.group !== "All" ? { $regex: req.body.group } : { $ne: "" };
-        let match = {
-            $match: {
-                active: "1",
-                zipcode: sortZip,
-                type: sortGroup
-            }
-        };
-
-        try {
-            const listingsCount = await Listing.aggregate([
-                match,
-                {
-                    $count: "count"
-                }
-            ]);
-            const listings = await Listing.aggregate([
-                match,
-                {
-                    $lookup: {
-                        from: "profiles",
-                        localField: "agentid",
-                        foreignField: "user",
-                        as: "agentinfo"
-                    }
-                },
-                {
-                    $unwind: "$agentinfo"
-                },
-                {
-                    $project: {
-                        "agentinfo.active": 0,
-                        "agentinfo.user": 0,
-                        "agentinfo._id": 0,
-                        "agentinfo.date": 0,
-                        "agentinfo.__v": 0
-                    }
-                }
-            ]).sort(sortType);
-            const returnData = {
-                data: listings,
-                totalCount: listingsCount[0]["count"]
-            };
-            res.json(returnData);
-        } catch (err) {
-            res.status(500).send("Server Error");
-        }
+router.post("/refined", async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
     }
-);
+    const reqData = req.body ? req.body : {};
+    const match = refinedMatch(reqData);
+    try {
+        let listingsCount = await Listing.aggregate([
+            match[0],
+            {
+                $count: "count"
+            }
+        ]);
+        const listings = await Listing.aggregate(match.concat(listingQuery));
+        listingsCount = listingsCount[0] ? listingsCount[0]["count"] : 0;
+        res.json({
+            data: listings,
+            totalCount: listingsCount
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Server Error");
+    }
+});
 
 // @route       GET api/listing/:id
 // @description Get one listing
