@@ -16,7 +16,6 @@ const Dashboard = ({ auth: { user }, getProfile, profile: { profile } }) => {
                 <i className="fas fa-user"></i> Welcome {user && user.name}
             </p>
             <div className="between"></div>
-            <h1 className="large text-primary">My Profile</h1>
             {profile ? (
                 <Fragment>
                     <Link to="/editprofile" className="btn btn-primary my-1">

@@ -42,6 +42,9 @@ const ImgContainer = styled.div`
 
 const Img = styled.img`
     max-width: 300px;
+    @media (max-width: 680px) {
+        max-width: 315px;
+    }
 `;
 
 const PhotoCountContainer = styled.div`
@@ -92,20 +95,20 @@ const AddressContainer = styled.div`
 
 const AddressFirstLine = styled.div`
     font-size: 1.3rem;
-    white-space: nowrap;
+    width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #17a2b8;
 `;
 
 const AddressFirstLineLink = styled.a`
     text-decoration: none;
+    white-space: nowrap;
+    color: #17a2b8;
 `;
 
 const AddressSecondLine = styled.div`
     font-size: 0.8rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 `;
 
 const Price = styled.div`
@@ -197,6 +200,7 @@ const BlockLineContainer = styled.div`
 const BlockTextContainer = styled.div`
     min-height: 40px;
     max-height: 40px;
+    min-width: 70px;
     text-align: center;
     border-right: 1px solid grey;
     padding: 0 10px;
@@ -224,7 +228,7 @@ const BlockText = ({ bedroom, bathroom, squarefeet }) => {
             {squarefeet ? (
                 <BlockTextContainer>
                     <div>{squarefeet}</div>
-                    <div>Squarefeet</div>
+                    <div>Sqft</div>
                 </BlockTextContainer>
             ) : null}
         </BlockLineContainer>
@@ -241,7 +245,7 @@ const ButtonContainer = styled.div`
     position: absolute;
     bottom: 0;
     right: 0;
-    margin-bottom: 5px;
+    margin: 0 2px 2px 0;
     @media (max-width: 680px) {
         position: relative;
         margin: auto;
@@ -258,13 +262,20 @@ const DetailsButton = styled(ButtonLink)`
 
 const EditButton = styled(ButtonLink)`
     background-color: red;
-    color: white;
+    margin-right: 5px;
+    & > a {
+        color: white;
+    }
 `;
 
 const Buttons = ({ listingId, user, agentid }) => {
     return (
         <ButtonContainer>
-            {user && user._id === agentid ? <EditButton href={`/edit/${listingId}`}>Edit</EditButton> : null}
+            {user && user._id === agentid ? (
+                <EditButton href={`/edit/${listingId}`}>
+                    <Link to={`/editlisting/${listingId}`}>Edit</Link>
+                </EditButton>
+            ) : null}
             <DetailsButton>
                 <Link to={`/listing/${listingId}`}>More Details</Link>
             </DetailsButton>

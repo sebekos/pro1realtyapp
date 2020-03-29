@@ -348,7 +348,7 @@ button {
     margin: auto;
     border: 1px solid grey;
     padding: 1rem;
-    background-color: var(--light-color);
+    background-color: #f2f5f2;
 }
 
 /* Navbar */

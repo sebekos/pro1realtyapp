@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
@@ -25,7 +25,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
         ldate: ""
     });
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         getListing(match.params.id);
         setFormData({
             id: loading || !listing._id ? "" : listing._id,
@@ -49,20 +49,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
         setListDate(new Date(date));
     };
 
-    const {
-        id,
-        status,
-        type,
-        address,
-        city,
-        state,
-        zipcode,
-        price,
-        bedroom,
-        bathroom,
-        squarefeet,
-        description
-    } = formData;
+    const { id, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, description } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -93,12 +80,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
             <h1 className="large text-primary">Listing Information</h1>
             <form className="form" onSubmit={onSubmit}>
                 <div className="form-group">
-                    <DatePicker
-                        placeholderText="* Select listed date"
-                        selected={listdate}
-                        onChange={onDate}
-                        maxDate={new Date()}
-                    />
+                    <DatePicker placeholderText="* Select listed date" selected={listdate} onChange={onDate} maxDate={new Date()} />
                 </div>
                 <div className="form-group">
                     <select name="status" value={status} onChange={onChange}>
@@ -138,22 +120,10 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
                     <input type="text" placeholder="Bathroom" name="bathroom" value={bathroom} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input
-                        type="text"
-                        placeholder="Squarefeet"
-                        name="squarefeet"
-                        value={squarefeet}
-                        onChange={onChange}
-                    />
+                    <input type="text" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input
-                        type="text"
-                        placeholder="Description"
-                        name="description"
-                        value={description}
-                        onChange={onChange}
-                    />
+                    <input type="text" placeholder="Description" name="description" value={description} onChange={onChange} />
                 </div>
                 <input type="submit" className="btn btn-primary my-1" />
                 <Link className="btn btn-light my-1" to="/mylistings">

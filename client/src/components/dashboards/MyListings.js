@@ -47,14 +47,9 @@ const Dashboard = ({ auth: { user }, listing: { listings, loading, pages }, prof
 
     return (
         <Fragment>
-            <p className="lead">
-                <i className="fas fa-user"></i> Welcome {user && user.name}
-            </p>
-            <div className="between"></div>
-            <h1 className="large text-primary">My Listings</h1>
             {profile ? (
                 <Link to="/addlisting" className="btn btn-primary my-1">
-                    Add Listing
+                    Add New Listing
                 </Link>
             ) : (
                 <Fragment>

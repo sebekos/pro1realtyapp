@@ -14,6 +14,11 @@ const ListingDetailsContainer = styled.div`
     width: 800px;
     box-sizing: border-box;
     margin: auto;
+    @media (max-width: 680px) {
+        grid-template-columns: 1fr;
+        text-align: center;
+        width: auto;
+    }
 `;
 
 const ListingPhotosContainer = styled.div`
@@ -24,6 +29,11 @@ const TitleContainer = styled.div`
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    @media (max-width: 680px) {
+        grid-template-columns: 1fr;
+        text-align: center;
+        width: auto;
+    }
 `;
 
 const AddressLine1 = styled.span`
@@ -48,6 +58,10 @@ const PriceLineText = styled.div`
     right: 0;
     bottom: 0;
     font-size: 1.5rem;
+    @media (max-width: 680px) {
+        position: relative;
+        margin: auto;
+    }
 `;
 
 const Title = ({ listing: { address, city, state, price } }) => {
@@ -94,6 +108,7 @@ const DescriptionText = styled.div`
     -webkit-box-shadow: 0 1px 2px 1px #000000;
     -moz-box-shadow: 0 1px 2px 1px #000000;
     box-shadow: 0 1px 2px 1px #000000;
+    background-color: #f2f5f2;
 `;
 
 const Description = ({ description }) => {
@@ -110,11 +125,13 @@ const DetailsContactContainer = styled.div`
     padding: 5px;
     margin-top: 5px;
     box-sizing: border-box;
-    // -webkit-box-shadow: 0 1px 2px 1px #000000;
-    // -moz-box-shadow: 0 1px 2px 1px #000000;
-    // box-shadow: 0 1px 2px 1px #000000;
     border: 1px solid black;
-    box-shadow: 1px 1px 1px 1px #000000;
+    background-color: #f2f5f2;
+    @media (max-width: 680px) {
+        grid-template-columns: 1fr;
+        text-align: center;
+        width: auto;
+    }
 `;
 
 const DetailContactColumnTitle = styled.div`

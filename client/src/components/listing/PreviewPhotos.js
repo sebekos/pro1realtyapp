@@ -45,6 +45,13 @@ const ColumnPhoto = styled.img`
     max-width: 200px;
 `;
 
+const ColumnPhotoThumb = styled.img`
+    max-width: 200px;
+    @media (max-width: 680px) {
+        dispaly: none;
+    }
+`;
+
 const PreviewPhotos = ({ click, photos }) => {
     return (
         <PhotosContainer>
@@ -53,13 +60,13 @@ const PreviewPhotos = ({ click, photos }) => {
             </MainPhotoContainer>
             <ColumnContainer>
                 <ColumnPhotoContainer>
-                    <ColumnPhoto onClick={click} src={photos[1]} alt="photo2" />
+                    <ColumnPhotoThumb onClick={click} src={photos[1]} alt="photo2" />
                 </ColumnPhotoContainer>
                 <ColumnPhotoContainer>
-                    <ColumnPhoto onClick={click} src={photos[2]} alt="photo3" />
+                    <ColumnPhotoThumb onClick={click} src={photos[2]} alt="photo3" />
                 </ColumnPhotoContainer>
                 <ColumnPhotoContainer>
-                    <ColumnPhoto onClick={click} src={photos[3]} alt="photo4" />
+                    <ColumnPhotoThumb onClick={click} src={photos[3]} alt="photo4" />
                 </ColumnPhotoContainer>
             </ColumnContainer>
             {/* <img style={{ justifySelf: "start" }} onClick={click} src={photos[1]} alt="photo2" />

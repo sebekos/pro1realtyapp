@@ -33,7 +33,7 @@ const AddProfile = ({ addProfile, history }) => {
             <h1 className="large text-primary">Profile Information</h1>
             <form className="form" onSubmit={onSubmit}>
                 <div className="form-group">
-                    <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} />
+                    <input type="text" placeholder="Visible Name" name="name" value={name} onChange={onChange} />
                 </div>
                 <div className="form-group">
                     <input type="text" placeholder="Position" name="position" value={position} onChange={onChange} />
@@ -48,7 +48,7 @@ const AddProfile = ({ addProfile, history }) => {
                         format="(###) ###-####"
                         mask=""
                         name="phone"
-                        placeholder="Phone Number Here"
+                        placeholder="Phone Number"
                         onValueChange={e => onPhone(e)}
                         value={phone}
                     />
