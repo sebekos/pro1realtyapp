@@ -34,7 +34,6 @@ const Pagination = ({ pageClick, pages, listings }) => {
     );
     return (
         <div className="pagination-container">
-            {paginateDiv}
             <ListingsContainer>
                 {listings.map(listing => (
                     <ListingSummaryItem key={listing._id} listing={listing} listingId={listing._id}>
@@ -42,7 +41,6 @@ const Pagination = ({ pageClick, pages, listings }) => {
                     </ListingSummaryItem>
                 ))}
             </ListingsContainer>
-
             {paginateDiv}
         </div>
     );

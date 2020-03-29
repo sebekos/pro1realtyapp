@@ -1,11 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import ButtonLink from "../universal/ButtonLink";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import NumberFormat from "react-number-format";
 import styled from "styled-components";
 
 const SummaryContainer = styled.div`
+    position: relative;
     display: grid;
     grid-template-columns: 275px 337px;
     box-sizing: border-box;
@@ -32,7 +34,8 @@ const ImgContainer = styled.div`
     text-align: center;
     vertical-align: middle;
     @media (max-width: 680px) {
-        margin: 5px auto;
+        margin: auto;
+        min-width: 315px;
     }
 `;
 
@@ -93,6 +96,10 @@ const AddressFirstLine = styled.div`
     text-overflow: ellipsis;
 `;
 
+const AddressFirstLineLink = styled.a`
+    text-decoration: none;
+`;
+
 const AddressSecondLine = styled.div`
     font-size: 0.8rem;
     white-space: nowrap;
@@ -106,7 +113,7 @@ const Price = styled.div`
     justify-self: end;
 `;
 
-const AddressPrice = ({ address, city, state, price }) => {
+const AddressPrice = ({ address, city, state, price, listingid }) => {
     const confAddress = !address ? "Confidential" : address;
     const confPrice = price ? (
         <NumberFormat mask="Call" value={price} displayType={"text"} thousandSeparator={true} prefix={"$"} />
@@ -114,10 +121,13 @@ const AddressPrice = ({ address, city, state, price }) => {
         "Call"
     );
     const confCity = city ? `${city}, ${state}` : `${state}`;
+    const confLink = "";
     return (
         <AddressPriceContainer>
             <AddressContainer>
-                <AddressFirstLine>{confAddress}</AddressFirstLine>
+                <AddressFirstLine>
+                    <AddressFirstLineLink href={`/listing/${listingid}`}>{confAddress}</AddressFirstLineLink>
+                </AddressFirstLine>
                 <AddressSecondLine>{confCity}</AddressSecondLine>
             </AddressContainer>
             <Price>{confPrice}</Price>
@@ -129,12 +139,12 @@ AddressPrice.propTypes = {
     address: PropTypes.string,
     city: PropTypes.string,
     state: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.number,
+    listingid: PropTypes.string
 };
 
 const StatusDateLineContainer = styled.div`
     width: 100%;
-    veritical-align: middle;
 `;
 
 const StatusLine = styled.span`
@@ -172,6 +182,99 @@ const StatusDateLine = ({ status, type, listdate }) => {
     );
 };
 
+StatusDateLine.propTypes = {
+    status: PropTypes.string,
+    type: PropTypes.string,
+    listdate: PropTypes.string
+};
+
+const BlockLineContainer = styled.div`
+    width: 100%;
+    display: flex;
+    padding: 10px 0px;
+`;
+
+const BlockTextContainer = styled.div`
+    min-height: 40px;
+    max-height: 40px;
+    text-align: center;
+    border-right: 1px solid grey;
+    padding: 0 10px;
+    font-size: 0.8rem;
+    &:last-child {
+        border-right: none;
+    }
+`;
+
+const BlockText = ({ bedroom, bathroom, squarefeet }) => {
+    return (
+        <BlockLineContainer>
+            {bedroom ? (
+                <BlockTextContainer>
+                    <div>{bedroom}</div>
+                    <div>Bedroom</div>
+                </BlockTextContainer>
+            ) : null}
+            {bathroom ? (
+                <BlockTextContainer>
+                    <div>{bathroom}</div>
+                    <div>Bathroom</div>
+                </BlockTextContainer>
+            ) : null}
+            {squarefeet ? (
+                <BlockTextContainer>
+                    <div>{squarefeet}</div>
+                    <div>Squarefeet</div>
+                </BlockTextContainer>
+            ) : null}
+        </BlockLineContainer>
+    );
+};
+
+BlockText.propTypes = {
+    bedroom: PropTypes.number,
+    bathroom: PropTypes.number,
+    squarefeet: PropTypes.number
+};
+
+const ButtonContainer = styled.div`
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 5px;
+    @media (max-width: 680px) {
+        position: relative;
+        margin: auto;
+        width: fit-content;
+    }
+`;
+
+const DetailsButton = styled(ButtonLink)`
+    background-color: green;
+    color: white;
+`;
+
+const EditButton = styled(ButtonLink)`
+    background-color: red;
+    color: white;
+`;
+
+const Buttons = ({ isAuthenticated, listingId, user, agentid }) => {
+    return (
+        <ButtonContainer>
+            {isAuthenticated && user._id === agentid ? <EditButton href={`/edit/${listingId}`}>Edit</EditButton> : null}
+            <DetailsButton href={`/listing/${listingId}`}>More Details</DetailsButton>
+        </ButtonContainer>
+    );
+};
+
+Buttons.propTypes = {
+    isAuthenticated: PropTypes.bool,
+    listingId: PropTypes.string,
+    user: PropTypes.object,
+    agentid: PropTypes.string
+};
+
 const ListingItem = ({
     auth: { isAuthenticated, user, loading },
     listing: { agentid, photos, listdate, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, agentinfo },
@@ -180,8 +283,10 @@ const ListingItem = ({
     <SummaryContainer>
         <Image src={photos[0]} count={photos.length} />
         <InfoContainer>
-            <AddressPrice address={address} city={city} state={state} price={price} />
+            <AddressPrice address={address} city={city} state={state} price={price} listingid={listingId} />
             <StatusDateLine status={status} type={type} listdate={listdate} />
+            <BlockText bedroom={bedroom} bathroom={bathroom} squarefeet={squarefeet} />
+            <Buttons isAuthenticated={isAuthenticated} listingId={listingId} userid={user} agentid={agentid} />
         </InfoContainer>
     </SummaryContainer>
 );

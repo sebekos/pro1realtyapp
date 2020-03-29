@@ -27,6 +27,7 @@ import Office from "./components/contact/Office";
 import DeletePhotos from "./components/deletephotos/DeletePhotos";
 import Pwreset from "./components/auth/Pwreset";
 import Pwresetsave from "./components/auth/Pwresetsave";
+import Edit from "./components/dashboards/Edit";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./App.css";
 
@@ -59,6 +60,7 @@ const App = () => {
                             <Route exact path="/pwresetsave/:hash" component={Pwresetsave} />
                             <PrivateRoute exact path="/myprofile" component={MyProfile} />
                             <PrivateRoute exact path="/mylistings" component={MyListings} />
+                            <PrivateRoute exact path="/edit/:id" component={Edit} />
                             <PrivateRoute exact path="/addlisting" component={AddListing} />
                             <PrivateRoute exact path="/editlisting/:id" component={EditListing} />
                             <PrivateRoute exact path="/editlisting/addphotos/:id" component={AddPhotos} />
