@@ -23,7 +23,20 @@ router.post(
                 .isEmpty(),
             check("type", "Type is required")
                 .not()
-                .isEmpty()
+                .isEmpty(),
+            check("bedroom", "Bedrooms is required")
+                .not()
+                .isEmpty(),
+            check("bathroom", "Bathrooms is required")
+                .not()
+                .isEmpty(),
+            check("squarefeet", "Squarefeet is required")
+                .not()
+                .isEmpty(),
+            check("price", "Price is required")
+                .not()
+                .isEmpty(),
+            check("description", "Description is required (min 30 characters, max 1000)").isLength({ min: 30, max: 1000 })
         ]
     ],
     async (req, res) => {

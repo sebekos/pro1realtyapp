@@ -1,165 +1,242 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useLayoutEffect, useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { getListing } from "../../Redux/actions/listing";
+import NumberFormat from "react-number-format";
 import PropTypes from "prop-types";
-// import PhotoViewer from "./PhotoViewer";
 import PhotoViewer2 from "./PhotoViewer2";
 import Spinner from "../layout/Spinner";
 import Moment from "react-moment";
-import NumberFormat from "react-number-format";
+import styled from "styled-components";
+
+const ListingDetailsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    box-sizing: border-box;
+    margin: auto;
+`;
+
+const ListingPhotosContainer = styled.div`
+    width: 100%;
+`;
+
+const TitleContainer = styled.div`
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+`;
+
+const AddressLine1 = styled.span`
+    font-size: 1.5rem;
+`;
+
+const AddressLine2 = styled.span`
+    font-size: 1rem;
+`;
+
+const AddressLine = styled.div`
+    font-color: blue;
+`;
+
+const PriceLine = styled.div`
+    position: relative;
+`;
+
+const PriceLineText = styled.div`
+    width: fit-content;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 1.5rem;
+`;
+
+const Title = ({ listing: { address, city, state, price } }) => {
+    const confAddress = !address ? "Confidential" : address;
+    const confPrice = price ? <NumberFormat value={price} displayType={"text"} thousandSeparator={true} prefix={"$"} /> : "";
+    const confCity = city ? `${city}, ${state}` : `${state}`;
+    return (
+        <TitleContainer>
+            <AddressLine>
+                <AddressLine1>{confAddress} </AddressLine1>
+                <AddressLine2> {confCity}</AddressLine2>
+            </AddressLine>
+            <PriceLine>
+                <PriceLineText>{confPrice}</PriceLineText>
+            </PriceLine>
+        </TitleContainer>
+    );
+};
+
+Title.propTypes = {
+    address: PropTypes.string,
+    city: PropTypes.string,
+    state: PropTypes.string,
+    price: PropTypes.number
+};
+
+const ListingPhotos = ({ photos }) => {
+    return (
+        <ListingPhotosContainer>
+            <PhotoViewer2 photos={photos} />
+        </ListingPhotosContainer>
+    );
+};
+
+ListingPhotos.propTypes = {
+    photos: PropTypes.array.isRequired
+};
+
+const DescriptionText = styled.div`
+    font-size: 1rem;
+    box-sizing: border-box;
+    padding: 5px;
+    margin-top: 5px;
+    -webkit-box-shadow: 0 1px 2px 1px #000000;
+    -moz-box-shadow: 0 1px 2px 1px #000000;
+    box-shadow: 0 1px 2px 1px #000000;
+`;
+
+const Description = ({ description }) => {
+    return <DescriptionText>{description}</DescriptionText>;
+};
+
+Description.propTypes = {
+    description: PropTypes.string
+};
+
+const DetailsContactContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 5px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    // -webkit-box-shadow: 0 1px 2px 1px #000000;
+    // -moz-box-shadow: 0 1px 2px 1px #000000;
+    // box-shadow: 0 1px 2px 1px #000000;
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px 1px #000000;
+`;
+
+const DetailContactColumnTitle = styled.div`
+    font-size: 1.2rem;
+    text-decoration: underline;
+`;
+
+const DetailsContainer = styled.div`
+    color: grey;
+`;
+
+const DetailTextContainer = styled.div`
+    width: 100%;
+`;
+
+const LeadText = styled.span`
+    color: black;
+`;
+
+const LagText = styled.span`
+    color: grey;
+`;
+
+const Details = ({ listing }) => {
+    const listingProps = {
+        status: "Status",
+        listdate: "List Date",
+        type: "Type",
+        bedroom: "Bedrooms",
+        bathroom: "Bathrooms",
+        squarefeet: "Squarefeet"
+    };
+    const detailsHtml = Object.keys(listingProps).map((memo, index) => {
+        return (
+            <DetailTextContainer key={`dtc-${index}`}>
+                <LeadText>{listingProps[memo]}: </LeadText>
+                {memo === "listdate" ? (
+                    <LagText>
+                        <Moment parse="YYYY-MM-DDTHH:mm:ss.SSSZ" format="LL">
+                            {listing[memo]}
+                        </Moment>
+                    </LagText>
+                ) : (
+                    <LagText> {listing[memo]}</LagText>
+                )}
+            </DetailTextContainer>
+        );
+    });
+    return (
+        <DetailsContainer>
+            <DetailContactColumnTitle>Details</DetailContactColumnTitle>
+            {detailsHtml}
+        </DetailsContainer>
+    );
+};
+
+Details.propTypes = {
+    listing: PropTypes.object
+};
+
+const ContactContainer = styled.div`
+    color: grey;
+`;
+
+const Contact = ({ listing: { agentinfo } }) => {
+    const listingProps = {
+        name: "Agent",
+        phone: "Phone",
+        email: "Email"
+    };
+    const detailsHtml = Object.keys(listingProps).map((memo, index) => {
+        return (
+            <DetailTextContainer key={`dtc-${index}`}>
+                <LeadText>{listingProps[memo]}: </LeadText>
+                {memo === "phone" ? (
+                    <LagText>
+                        <NumberFormat displayType="text" format="(###) ###-####" value={agentinfo[memo]} />
+                    </LagText>
+                ) : (
+                    <LagText> {agentinfo[memo]}</LagText>
+                )}
+            </DetailTextContainer>
+        );
+    });
+    return (
+        <ContactContainer>
+            <DetailContactColumnTitle>Contact</DetailContactColumnTitle>
+            {detailsHtml}
+        </ContactContainer>
+    );
+};
+
+Details.propTypes = {
+    agentinfo: PropTypes.object
+};
+
+const DetailsContact = ({ listing }) => {
+    return (
+        <DetailsContactContainer>
+            <Details listing={listing} />
+            <Contact listing={listing} />
+        </DetailsContactContainer>
+    );
+};
 
 const ListingDetails = ({ getListing, match, listing: { loading, listing } }) => {
-    const [formData, setFormData] = useState({
-        listdate: "",
-        status: "",
-        type: "",
-        address: "",
-        city: "",
-        state: "",
-        zipcode: "",
-        price: "",
-        bedroom: "",
-        bathroom: "",
-        squarefeet: "",
-        description: "",
-        photos: [],
-        gallery: []
-    });
-
-    useEffect(() => {
+    useLayoutEffect(() => {
         getListing(match.params.id);
-        setFormData({
-            listdate: loading || !listing.listdate ? "" : listing.listdate,
-            status: loading || !listing.status ? "" : listing.status,
-            type: loading || !listing.type ? "" : listing.type,
-            address: loading || !listing.address ? "" : listing.address,
-            city: loading || !listing.city ? "" : listing.city,
-            state: loading || !listing.state ? "" : listing.state,
-            zipcode: loading || !listing.zipcode ? "" : listing.zipcode,
-            price: loading || !listing.price ? "" : listing.price,
-            bedroom: loading || !listing.bedroom ? "" : listing.bedroom,
-            bathroom: loading || !listing.bathroom ? "" : listing.bathroom,
-            squarefeet: loading || !listing.squarefeet ? "" : listing.squarefeet,
-            description: loading || !listing.description ? "" : listing.description,
-            photos: loading || !listing.photos ? "" : listing.photos
-        });
-    }, [getListing, loading]);
-
-    const {
-        listdate,
-        status,
-        type,
-        address,
-        city,
-        state,
-        zipcode,
-        price,
-        bedroom,
-        bathroom,
-        squarefeet,
-        description,
-        photos
-    } = formData;
+    }, [getListing]);
 
     return (
-        <Fragment>
-            {!loading && listing !== null ? (
-                <div className="profiles">
-                    <div className="listingdetails bg-light">
-                        <Fragment>
-                            {photos.length > 0 ? (
-                                <PhotoViewer2 photos={photos} />
-                            ) : (
-                                <div className="listingdetails-nophotos">No Photos Exist For This Listing</div>
-                            )}
-                            <div>
-                                {type.includes("Confidential") ? (
-                                    <Fragment>
-                                        <div className="listing-details-address1">{type}</div>
-                                    </Fragment>
-                                ) : (
-                                    <Fragment>
-                                        <div className="listing-details-address1">{address}</div>
-                                        <div className="listing-details-address2">
-                                            {city + ", " + state + " " + zipcode}
-                                        </div>
-                                    </Fragment>
-                                )}
-                                {price ? (
-                                    <p className="p-important2">
-                                        <span className="span-item">$</span>
-                                        {price.toLocaleString()}
-                                    </p>
-                                ) : null}
-                                <p>
-                                    <span className="span-item">Listed: </span>
-                                    <Moment parse="YYYY-MM-DDTHH:mm:ss.SSSZ" format="LL">
-                                        {listdate}
-                                    </Moment>
-                                </p>
-                                <p>
-                                    <span className="span-item">Type: </span>
-                                    {type}
-                                </p>
-                                <p>
-                                    <span className="span-item">Status: </span>
-                                    {status}
-                                </p>
-                                {bedroom ? (
-                                    <p>
-                                        <span className="span-item">Bedrooms: </span>
-                                        {bedroom}
-                                    </p>
-                                ) : null}
-                                {bathroom ? (
-                                    <p>
-                                        <span className="span-item">Bathrooms: </span>
-                                        {bathroom}
-                                    </p>
-                                ) : null}
-                                {squarefeet ? (
-                                    <p>
-                                        <span className="span-item">Squarefeet: </span>
-                                        {squarefeet}
-                                    </p>
-                                ) : null}
-                                {description ? (
-                                    <p>
-                                        <span className="span-item">Description: </span>
-                                        {description}
-                                    </p>
-                                ) : null}
-                                <div className="listing-contact">Contact</div>
-                                {listing.agentinfo.name ? (
-                                    <p>
-                                        <span className="span-item">Agent: </span>
-                                        {listing.agentinfo.name}
-                                    </p>
-                                ) : null}
-                                {listing.agentinfo.phone ? (
-                                    <p>
-                                        <span className="span-item">Phone: </span>
-                                        <NumberFormat
-                                            displayType="text"
-                                            format="(###) ###-####"
-                                            value={listing.agentinfo.phone}
-                                        />
-                                    </p>
-                                ) : null}
-                                {listing.agentinfo.email ? (
-                                    <p>
-                                        <span className="span-item">Email: </span>
-                                        {listing.agentinfo.email}
-                                    </p>
-                                ) : null}
-                            </div>
-                        </Fragment>
-                    </div>
-                </div>
-            ) : (
-                <Spinner />
+        <>
+            {loading ? <Spinner /> : null}
+            {loading || !listing ? null : (
+                <ListingDetailsContainer>
+                    <Title listing={listing} />
+                    <ListingPhotos photos={listing.photos} />
+                    <Description description={listing.description} />
+                    <DetailsContact listing={listing} />
+                </ListingDetailsContainer>
             )}
-        </Fragment>
+        </>
     );
 };
 
@@ -172,4 +249,8 @@ const mapStateToProps = state => ({
     listing: state.listing
 });
 
-export default connect(mapStateToProps, { getListing })(ListingDetails);
+const mapDispatchToProps = {
+    getListing
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListingDetails);

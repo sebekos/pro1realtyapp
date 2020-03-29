@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import ButtonLink from "../universal/ButtonLink";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
@@ -121,7 +122,6 @@ const AddressPrice = ({ address, city, state, price, listingid }) => {
         "Call"
     );
     const confCity = city ? `${city}, ${state}` : `${state}`;
-    const confLink = "";
     return (
         <AddressPriceContainer>
             <AddressContainer>
@@ -251,7 +251,9 @@ const ButtonContainer = styled.div`
 
 const DetailsButton = styled(ButtonLink)`
     background-color: green;
-    color: white;
+    & > a {
+        color: white;
+    }
 `;
 
 const EditButton = styled(ButtonLink)`
@@ -259,41 +261,42 @@ const EditButton = styled(ButtonLink)`
     color: white;
 `;
 
-const Buttons = ({ isAuthenticated, listingId, user, agentid }) => {
+const Buttons = ({ listingId, user, agentid }) => {
     return (
         <ButtonContainer>
-            {isAuthenticated && user._id === agentid ? <EditButton href={`/edit/${listingId}`}>Edit</EditButton> : null}
-            <DetailsButton href={`/listing/${listingId}`}>More Details</DetailsButton>
+            {user && user._id === agentid ? <EditButton href={`/edit/${listingId}`}>Edit</EditButton> : null}
+            <DetailsButton>
+                <Link to={`/listing/${listingId}`}>More Details</Link>
+            </DetailsButton>
         </ButtonContainer>
     );
 };
 
 Buttons.propTypes = {
-    isAuthenticated: PropTypes.bool,
     listingId: PropTypes.string,
     user: PropTypes.object,
     agentid: PropTypes.string
 };
 
 const ListingItem = ({
-    auth: { isAuthenticated, user, loading },
-    listing: { agentid, photos, listdate, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, agentinfo },
-    listingId
+    auth: { user },
+    listing: { agentid, photos, listdate, status, type, address, city, state, price, bedroom, bathroom, squarefeet, _id }
 }) => (
     <SummaryContainer>
         <Image src={photos[0]} count={photos.length} />
         <InfoContainer>
-            <AddressPrice address={address} city={city} state={state} price={price} listingid={listingId} />
+            <AddressPrice address={address} city={city} state={state} price={price} listingid={_id} />
             <StatusDateLine status={status} type={type} listdate={listdate} />
             <BlockText bedroom={bedroom} bathroom={bathroom} squarefeet={squarefeet} />
-            <Buttons isAuthenticated={isAuthenticated} listingId={listingId} userid={user} agentid={agentid} />
+            <Buttons listingId={_id} user={user} agentid={agentid} />
         </InfoContainer>
     </SummaryContainer>
 );
 
 ListingItem.propTypes = {
     listing: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    listingId: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({

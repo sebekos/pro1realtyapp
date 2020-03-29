@@ -6,7 +6,7 @@ import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
 import Spinner from "../layout/Spinner";
 
-const AllListingSearch = ({ getRefinedListings, listing: { listings, pages, loading }, match }) => {
+const AgentListingSearch = ({ getRefinedListings, listing: { listings, pages, loading }, match }) => {
     useEffect(() => {
         getRefinedListings({
             agentid: match.params.id
@@ -47,7 +47,7 @@ const AllListingSearch = ({ getRefinedListings, listing: { listings, pages, load
     );
 };
 
-AllListingSearch.propTypes = {
+AgentListingSearch.propTypes = {
     getRefinedListings: PropTypes.func.isRequired
 };
 
@@ -59,4 +59,4 @@ const mapDispatchToProps = {
     getRefinedListings
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllListingSearch);
+export default connect(mapStateToProps, mapDispatchToProps)(AgentListingSearch);
