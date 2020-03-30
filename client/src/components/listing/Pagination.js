@@ -14,7 +14,7 @@ const ListingsContainer = styled.div`
     }
 `;
 
-const Pagination = ({ pageClick, pages, listings }) => {
+const Pagination = ({ pageClick, pages, listings, currPage }) => {
     const paginateDiv = (
         <div className="right-align">
             <ReactPaginate
@@ -29,11 +29,13 @@ const Pagination = ({ pageClick, pages, listings }) => {
                 containerClassName={"pagination-ul-container"}
                 subContainerClassName={"pages pagination"}
                 activeClassName={"active-pagination"}
+                forcePage={currPage}
             />
         </div>
     );
     return (
         <div className="pagination-container">
+            {paginateDiv}
             <ListingsContainer>
                 {listings.map(listing => (
                     <ListingSummaryItem key={listing._id} listing={listing} listingId={listing._id}>

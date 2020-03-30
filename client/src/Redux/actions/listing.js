@@ -10,7 +10,8 @@ import {
     SET_LOADING_TRUE,
     PROGRESS_BAR_VALUE,
     TOGGLE_PROGRESS_BAR,
-    GET_LISTING_COUNT
+    GET_LISTING_COUNT,
+    SET_SEARCH
 } from "./types";
 
 // Add Listing or Update
@@ -222,5 +223,13 @@ export const progressBarValue = payload => async dispatch => {
 export const setLoadingTrue = () => async dispatch => {
     dispatch({
         type: SET_LOADING_TRUE
+    });
+};
+
+// Update search
+export const setSearch = data => async dispatch => {
+    dispatch({
+        type: SET_SEARCH,
+        payload: data
     });
 };

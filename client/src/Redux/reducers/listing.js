@@ -8,7 +8,8 @@ import {
     PROGRESS_BAR_VALUE,
     UPLOAD_SUCCESS,
     SET_LOADING_TRUE,
-    GET_LISTING_COUNT
+    GET_LISTING_COUNT,
+    SET_SEARCH
 } from "../actions/types";
 
 const initialState = {
@@ -19,6 +20,11 @@ const initialState = {
     progressbarvalue: 0,
     count: 0,
     pages: 0,
+    zipcode: "",
+    type: "Newest",
+    group: "All",
+    agentid: "",
+    page: 0,
     error: {}
 };
 
@@ -82,6 +88,11 @@ export default function(state = initialState, action) {
                 ...state,
                 error: payload,
                 loading: false
+            };
+        case SET_SEARCH:
+            return {
+                ...state,
+                [payload.field]: payload.data
             };
         default:
             return state;

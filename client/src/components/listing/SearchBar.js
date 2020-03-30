@@ -1,6 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const SearchBar = ({ onChange, onSearch, data: { zipcode, type, group } }) => {
+const SearchBar = ({ onChange, onSearch, listing: { zipcode, type, group } }) => {
     return (
         <div className="listing-search-bar form">
             <input onChange={onChange} name="zipcode" value={zipcode} type="text" placeholder="Zipcode" />
@@ -22,4 +23,8 @@ const SearchBar = ({ onChange, onSearch, data: { zipcode, type, group } }) => {
     );
 };
 
-export default SearchBar;
+const mapStateToProps = state => ({
+    listing: state.listing
+});
+
+export default connect(mapStateToProps, null)(SearchBar);
