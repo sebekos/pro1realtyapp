@@ -25,12 +25,16 @@ const AllListingSearch = ({ getRefinedListings, setSearch, listing: { listings, 
     };
 
     const onSearch = () => {
+        setSearch({
+            field: "page",
+            data: 0
+        });
         getRefinedListings({
             zipcode,
             type,
             group,
             agentid: "",
-            page
+            page: 0
         });
     };
 
