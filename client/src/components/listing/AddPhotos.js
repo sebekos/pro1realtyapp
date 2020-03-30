@@ -4,9 +4,12 @@ import { uploadPhotos, getListing, setLoadingTrue, progressBarValue, toggleProgr
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { bulkResize } from "../../utils/photo";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Spinner from "../layout/Spinner";
 import ProgressBar from "../layout/ProgressBar";
+import GreenButton from "../universal/GreenButton";
+import DarkButton from "../universal/DarkButton";
 
 const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listing }, getListing, setLoadingTrue }) => {
     const [pictures, setPictures] = useState([]);
@@ -61,13 +64,13 @@ const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listi
                     withPreview={true}
                 />
                 {uploadBtn ? (
-                    <button className="upload-btn" onClick={onUpload}>
+                    <GreenButton className="upload-btn" onClick={onUpload}>
                         Upload Images
-                    </button>
+                    </GreenButton>
                 ) : null}
                 {redir ? (
-                    <a href={`/listing/${match.params.id}`} className="upload-finished">
-                        Go To Listing
+                    <a href={`/listing/${match.params.id}`}>
+                        <DarkButton>Go To Listing</DarkButton>
                     </a>
                 ) : null}
                 {progressbar ? <ProgressBar /> : null}

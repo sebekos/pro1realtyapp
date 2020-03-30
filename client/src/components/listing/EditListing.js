@@ -6,6 +6,26 @@ import { addListing, getListing, deleteListing } from "../../Redux/actions/listi
 import DatePicker from "react-datepicker";
 import States from "../layout/States";
 import "react-datepicker/dist/react-datepicker.css";
+import styled from "styled-components";
+import ButtonLink from "../universal/ButtonLink";
+
+const ButtonContainer = styled.div`
+    display: flex;
+`;
+
+const AddPhotoButton = styled(ButtonLink)`
+    background-color: #28a745;
+    margin-right: 5px;
+`;
+
+const DeletePhotoButton = styled(ButtonLink)`
+    background-color: #dc3545;
+    margin-right: 5px;
+`;
+
+const SortPhotoButton = styled(ButtonLink)`
+    background-color: #343a40;
+`;
 
 const EditListing = ({ addListing, getListing, history, match, listing: { loading, listing }, deleteListing }) => {
     const [listdate, setListDate] = useState("");
@@ -83,6 +103,17 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
     return (
         <Fragment>
             <h1 className="large text-primary">Listing Information</h1>
+            <ButtonContainer>
+                <Link to={`/editlisting/addphotos/${id}`}>
+                    <AddPhotoButton>Add Photos</AddPhotoButton>
+                </Link>
+                <Link to={`/editlisting/delete/${id}`}>
+                    <DeletePhotoButton>Delete Photos</DeletePhotoButton>
+                </Link>
+                <Link to={`/editlisting/sort/${id}`}>
+                    <SortPhotoButton>Sort Photos</SortPhotoButton>
+                </Link>
+            </ButtonContainer>
             <form className="form" onSubmit={onSubmit}>
                 <div className="form-group">
                     <DatePicker placeholderText="* Select listed date" selected={listdate} onChange={onDate} maxDate={new Date()} />

@@ -25,14 +25,7 @@ const Pwreset = ({ pwreset }) => {
             </p>
             <form className="form" onSubmit={onSubmitHandler}>
                 <div className="form-group">
-                    <input
-                        type="email"
-                        placeholder="Email Address"
-                        name="email"
-                        value={email}
-                        onChange={onChangeHandler}
-                        required
-                    />
+                    <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChangeHandler} required />
                 </div>
                 <input type="submit" className="btn btn-primary" value="Submit" />
             </form>

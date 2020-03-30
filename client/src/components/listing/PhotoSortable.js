@@ -15,11 +15,7 @@ const PhotoSortable = ({ match, listing: { listing, loading }, getListing }) => 
 
     return (
         <Fragment>
-            {!loading && sortphotos.length > 0 ? (
-                <Sortable importImages={sortphotos} listingId={listing._id} />
-            ) : (
-                <Spinner />
-            )}
+            {!loading && sortphotos.length > 0 ? <Sortable importImages={sortphotos} listingId={listing._id} /> : <Spinner />}
         </Fragment>
     );
 };

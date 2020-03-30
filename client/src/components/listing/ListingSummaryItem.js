@@ -255,30 +255,24 @@ const ButtonContainer = styled.div`
 
 const DetailsButton = styled(ButtonLink)`
     background-color: green;
-    & > a {
-        color: white;
-    }
 `;
 
 const EditButton = styled(ButtonLink)`
     background-color: red;
     margin-right: 5px;
-    & > a {
-        color: white;
-    }
 `;
 
 const Buttons = ({ listingId, user, agentid }) => {
     return (
         <ButtonContainer>
             {user && user._id === agentid ? (
-                <EditButton href={`/edit/${listingId}`}>
-                    <Link to={`/editlisting/${listingId}`}>Edit</Link>
-                </EditButton>
+                <Link to={`/editlisting/${listingId}`}>
+                    <EditButton href={`/edit/${listingId}`}>Edit</EditButton>
+                </Link>
             ) : null}
-            <DetailsButton>
-                <Link to={`/listing/${listingId}`}>More Details</Link>
-            </DetailsButton>
+            <Link to={`/listing/${listingId}`}>
+                <DetailsButton>More Details</DetailsButton>
+            </Link>
         </ButtonContainer>
     );
 };

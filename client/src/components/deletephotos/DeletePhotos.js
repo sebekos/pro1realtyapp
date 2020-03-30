@@ -1,10 +1,36 @@
 import React, { useEffect, Fragment, useState } from "react";
 import PropTypes from "prop-types";
-import Spinner from "../layout/Spinner";
 import DeleteItem from "./DeleteItem";
 import { getListing, reOrderPhotos } from "../../Redux/actions/listing";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import GreenButton from "../universal/GreenButton";
+import DarkButton from "../universal/DarkButton";
+import Spinner from "../layout/Spinner";
+
+const DeletePhotosContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+    background-color: #f2f5f2;
+    border: 1px solid grey;
+    padding: 5px;
+`;
+
+const ButtonContainer = styled.div`
+    width: fit-content;
+    margin: auto;
+`;
+
+const SaveButton = styled(GreenButton)`
+    margin-right: 5px;
+`;
+
+const DeleteContainer = styled.div`
+    display: flex;
+`;
 
 const DeletePhotos = ({ match, getListing, reOrderPhotos, listing: { listing, loading } }) => {
     const [photos, setPhotos] = useState([]);
@@ -29,23 +55,27 @@ const DeletePhotos = ({ match, getListing, reOrderPhotos, listing: { listing, lo
     };
 
     return (
-        <Fragment>
-            <div>
-                <button onClick={onSave} type="button" className="btn btn-success">
-                    Save
-                </button>
-                <Link className="btn btn-light my-1" to="/mylistings">
-                    Go To Listings
-                </Link>
-            </div>
-            <div className="delete-container">
-                {!loading ? (
-                    photos.map((photo, index) => <DeleteItem image={photo} ondelete={onDelete} key={index} />)
-                ) : (
-                    <Spinner />
-                )}
-            </div>
-        </Fragment>
+        <DeletePhotosContainer>
+            {loading ? (
+                <Spinner />
+            ) : (
+                <>
+                    <ButtonContainer>
+                        <SaveButton onClick={onSave}>Save</SaveButton>
+                        <DarkButton>
+                            <Link to={`/listing/${listing._id}`}>Go To Listing</Link>
+                        </DarkButton>
+                    </ButtonContainer>
+                    <DeleteContainer>
+                        {!loading ? (
+                            photos.map((photo, index) => <DeleteItem image={photo} ondelete={onDelete} key={index} />)
+                        ) : (
+                            <Spinner />
+                        )}
+                    </DeleteContainer>
+                </>
+            )}
+        </DeletePhotosContainer>
     );
 };
 

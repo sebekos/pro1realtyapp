@@ -5,7 +5,6 @@ import "rc-slider/assets/index.css";
 import { uploadAvatar } from "../../Redux/actions/profile";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 const Avatar = ({ uploadAvatar, profile, history }) => {
     const [filenames, setFilenames] = useState("Choose File");
@@ -52,9 +51,6 @@ const Avatar = ({ uploadAvatar, profile, history }) => {
 
     return (
         <div className="avatareditor">
-            <Link className="btn btn-primary my-1" to="/myprofile">
-                Go To Profile
-            </Link>
             {file !== "" ? (
                 <button onClick={e => onPreview(e)} className="btn btn-secondary mb-1">
                     Preview
@@ -71,14 +67,7 @@ const Avatar = ({ uploadAvatar, profile, history }) => {
                 rotate={0}
             />
             <div className="custom-file mb-2">
-                <input
-                    type="file"
-                    className="custom-file-input"
-                    id="customFile"
-                    onChange={onChange}
-                    multiple
-                    accept="image/*"
-                />
+                <input type="file" className="custom-file-input" id="customFile" onChange={onChange} multiple accept="image/*" />
                 <label className="custom-file-label" htmlFor="customFile">
                     {filenames}
                 </label>
@@ -92,11 +81,7 @@ const Avatar = ({ uploadAvatar, profile, history }) => {
             ) : null}
             <div className="gen-center">
                 <img
-                    src={
-                        preview !== ""
-                            ? preview
-                            : "https://pro1realty.s3.us-east-2.amazonaws.com/avatars/1565831781133.png"
-                    }
+                    src={preview !== "" ? preview : "https://pro1realty.s3.us-east-2.amazonaws.com/avatars/1565831781133.png"}
                     alt=""
                     className="avatar-preview"
                 />

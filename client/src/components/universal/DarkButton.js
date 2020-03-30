@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ButtonLink = styled.button`
+const DarkButton = styled.button`
     color: white;
     padding: 0.2rem 1.3rem;
     font-size: 0.9rem;
@@ -8,6 +8,7 @@ const ButtonLink = styled.button`
     cursor: pointer;
     transition: opacity 0.2s ease-in;
     outline: none;
+    background-color: #343a40;
     &:hover {
         opacity: 0.8;
     }
@@ -16,4 +17,4 @@ const ButtonLink = styled.button`
     }
 `;
 
-export default ButtonLink;
+export default DarkButton;
