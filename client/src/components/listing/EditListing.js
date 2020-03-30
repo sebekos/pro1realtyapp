@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useLayoutEffect } from "react";
+import React, { Fragment, useState, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
@@ -27,22 +27,27 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
 
     useLayoutEffect(() => {
         getListing(match.params.id);
-        setFormData({
-            id: loading || !listing._id ? "" : listing._id,
-            status: loading || !listing.status ? "" : listing.status,
-            type: loading || !listing.type ? "" : listing.type,
-            address: loading || !listing.address ? "" : listing.address,
-            city: loading || !listing.city ? "" : listing.city,
-            state: loading || !listing.state ? "" : listing.state,
-            zipcode: loading || !listing.zipcode ? "" : listing.zipcode,
-            price: loading || !listing.price ? "" : listing.price,
-            bedroom: loading || !listing.bedroom ? "" : listing.bedroom,
-            bathroom: loading || !listing.bathroom ? "" : listing.bathroom,
-            squarefeet: loading || !listing.squarefeet ? "" : listing.squarefeet,
-            description: loading || !listing.description ? "" : listing.description,
-            ldate: loading || !listing.listdate ? "" : setUpDate(listing.listdate)
-        });
-    }, [loading, getListing]);
+    }, []);
+
+    useLayoutEffect(() => {
+        if (listing) {
+            setFormData({
+                id: loading || !listing._id ? "" : listing._id,
+                status: loading || !listing.status ? "" : listing.status,
+                type: loading || !listing.type ? "" : listing.type,
+                address: loading || !listing.address ? "" : listing.address,
+                city: loading || !listing.city ? "" : listing.city,
+                state: loading || !listing.state ? "" : listing.state,
+                zipcode: loading || !listing.zipcode ? "" : listing.zipcode,
+                price: loading || !listing.price ? "" : listing.price,
+                bedroom: loading || !listing.bedroom ? "" : listing.bedroom,
+                bathroom: loading || !listing.bathroom ? "" : listing.bathroom,
+                squarefeet: loading || !listing.squarefeet ? "" : listing.squarefeet,
+                description: loading || !listing.description ? "" : listing.description,
+                ldate: loading || !listing.listdate ? "" : setUpDate(listing.listdate)
+            });
+        }
+    }, [listing]);
 
     const setUpDate = data => {
         var date = new Date(data);
