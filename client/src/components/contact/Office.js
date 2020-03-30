@@ -4,8 +4,63 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import OfficeMap from "./OfficeMap";
 import Spinner from "../layout/Spinner";
+import styled from "styled-components";
 
-const Office = ({ getOffice, office: { office, loading } }) => {
+const ContactContainer = styled.div`
+    width: 600px;
+    margin: auto;
+    background-color: #f2f5f2;
+    border: 1px solid grey;
+`;
+
+const TextContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+`;
+
+const TitleText = styled.div`
+    font-size: 2rem;
+`;
+
+const DescriptionText = styled.div`
+    font-size: 1rem;
+`;
+
+const Text = ({ address, zipcode, phone, state, city }) => {
+    return (
+        <TextContainer>
+            <TitleText>Main Office</TitleText>
+            <DescriptionText>{phone}</DescriptionText>
+            <DescriptionText>{address}</DescriptionText>
+            <DescriptionText>
+                {city}, {state} {zipcode}
+            </DescriptionText>
+        </TextContainer>
+    );
+};
+
+Text.propTypes = {
+    address: PropTypes.string,
+    phone: PropTypes.string,
+    city: PropTypes.string,
+    state: PropTypes.string,
+    zipcode: PropTypes.string
+};
+
+const MapContainer = styled.div`
+    width: fit-content;
+    margin: 0 auto 5px;
+    border: 1px solid grey;
+`;
+
+const Office = ({
+    getOffice,
+    office: {
+        office: { address, phone, city, state, zipcode },
+        loading
+    }
+}) => {
     useEffect(() => {
         getOffice();
     }, [getOffice]);
@@ -13,23 +68,12 @@ const Office = ({ getOffice, office: { office, loading } }) => {
     return loading ? (
         <Spinner />
     ) : (
-        <Fragment>
-            <div className="dash-profile bg-light">
-                <h1 className="large text-primary">Main Office</h1>
-                <ul>
-                    <li className="text-secondary">
-                        <span className="span-item">Phone: </span>
-                        {office.phone}
-                    </li>
-                    <li className="text-secondary">{office.address}</li>
-                    <li className="text-secondary">
-                        {office.city}, {office.state} {office.zipcode}
-                    </li>
-                    {office.fax ? <li className="text-secondary">Fax: {office.fax}</li> : null}
-                </ul>
-            </div>
-            <OfficeMap />
-        </Fragment>
+        <ContactContainer>
+            <Text address={address} phone={phone} city={city} state={state} zipcode={zipcode} />
+            <MapContainer>
+                <OfficeMap />
+            </MapContainer>
+        </ContactContainer>
     );
 };
 
