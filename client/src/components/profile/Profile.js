@@ -11,7 +11,7 @@ const ProfileItemContainer = styled.div`
     grid-template-columns: 200px 400px;
     box-sizing: border-box;
     border-top: 1px solid grey;
-    margin: 10px 5px;
+    margin: 5px 5px;
     width: 600px;
     height: 200px;
     -webkit-box-shadow: 0 2px 2px 1px #000000;
