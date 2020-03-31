@@ -28,6 +28,9 @@ const ContactContainer = styled.div`
     box-shadow: 1px 1px 3px 2px #ccc;
     background-color: white;
     opacity: 0.9;
+    @media (max-width: 680px) {
+        width: auto;
+    }
 `;
 
 const BioContainer = styled.div`
@@ -37,6 +40,9 @@ const BioContainer = styled.div`
     padding: 10px;
     color: #343a40;
     border-bottom: 1px solid grey;
+    @media (max-width: 680px) {
+        width: auto;
+    }
 `;
 
 const AboutTitleText = styled.div`
@@ -122,6 +128,9 @@ const MapContainer = styled.div`
     width: fit-content;
     margin: 5px auto;
     border: 1px solid grey;
+    @media (max-width: 680px) {
+        display: none;
+    }
 `;
 
 const Office = ({
