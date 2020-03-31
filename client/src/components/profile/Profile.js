@@ -4,6 +4,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import ButtonLink from "../universal/ButtonLink";
 import { Link } from "react-router-dom";
+import DefaultAvatar from "../../img/defaultavatar.png";
 
 const ProfileItemContainer = styled.div`
     position: relative;
@@ -75,7 +76,7 @@ const ImageItem = styled.img`
 const Image = ({ photo }) => {
     return (
         <ImageContainer>
-            <ImageItem src={photo ? photo : "https://pro1realty.s3.us-east-2.amazonaws.com/avatars/1565831781133.png"} />
+            <ImageItem src={photo ? photo : DefaultAvatar} />
         </ImageContainer>
     );
 };

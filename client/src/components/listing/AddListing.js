@@ -94,7 +94,7 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
                     <input type="text" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Description" name="description" value={description} onChange={onChange} />
+                    <textarea rows="4" type="text" placeholder="Description" name="description" value={description} onChange={onChange} />
                 </div>
                 <input type="submit" className="btn btn-primary my-1" />
             </form>

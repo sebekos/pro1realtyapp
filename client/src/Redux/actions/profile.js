@@ -49,7 +49,7 @@ export const addProfile = (formData, history, edit = false) => async dispatch =>
             type: ADD_PROFILE,
             payload: res.data
         });
-        toast.success(edit ? "Profile Updated" : "Profile Added");
+        toast.success("Profile updated");
         history.push("/myprofile");
     } catch (err) {
         const errors = err.response.data.errors;
