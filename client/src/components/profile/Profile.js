@@ -10,13 +10,12 @@ const ProfileItemContainer = styled.div`
     display: grid;
     grid-template-columns: 200px 400px;
     box-sizing: border-box;
-    border-top: 1px solid grey;
     margin: 5px 5px;
     width: 600px;
     height: 200px;
-    -webkit-box-shadow: 0 2px 2px 1px #000000;
-    -moz-box-shadow: 0 2px 2px 1px #000000;
-    box-shadow: 0 2px 2px 1px #000000;
+    -webkit-box-shadow: 1px 1px 3px 2px #ccc;
+    -moz-box-shadow: 1px 1px 3px 2px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
     @media (max-width: 680px) {
         grid-template-columns: 1fr;
         height: auto;
@@ -90,7 +89,6 @@ const TextContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f2f5f2;
     padding: 10px;
 `;
 

@@ -105,10 +105,9 @@ const DescriptionText = styled.div`
     box-sizing: border-box;
     padding: 5px;
     margin-top: 5px;
-    -webkit-box-shadow: 0 1px 2px 1px #000000;
-    -moz-box-shadow: 0 1px 2px 1px #000000;
-    box-shadow: 0 1px 2px 1px #000000;
-    background-color: #f2f5f2;
+    -webkit-box-shadow: 1px 1px 3px 2px #ccc;
+    -moz-box-shadow: 1px 1px 3px 2px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
 `;
 
 const Description = ({ description }) => {
@@ -125,8 +124,9 @@ const DetailsContactContainer = styled.div`
     padding: 5px;
     margin-top: 5px;
     box-sizing: border-box;
-    border: 1px solid black;
-    background-color: #f2f5f2;
+    -webkit-box-shadow: 1px 1px 3px 2px #ccc;
+    -moz-box-shadow: 1px 1px 3px 2px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
     @media (max-width: 680px) {
         grid-template-columns: 1fr;
         text-align: center;

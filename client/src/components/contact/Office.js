@@ -5,22 +5,92 @@ import PropTypes from "prop-types";
 import OfficeMap from "./OfficeMap";
 import Spinner from "../layout/Spinner";
 import styled from "styled-components";
+import BackImg from "../../img/aboutme.jpg";
+
+const Background = styled.div`
+    background: url(${BackImg}) no-repeat center center fixed;
+    min-height: 100%;
+    min-width: 1024px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.5;
+`;
 
 const ContactContainer = styled.div`
-    width: 600px;
+    width: 800px;
     margin: auto;
-    background-color: #f2f5f2;
-    border: 1px solid grey;
+    -webkit-box-shadow: 1px 1px 3px 2px #ccc;
+    -moz-box-shadow: 1px 1px 3px 2px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
+    background-color: white;
+    opacity: 0.9;
 `;
+
+const BioContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    padding: 10px;
+    color: #343a40;
+    border-bottom: 1px solid grey;
+`;
+
+const AboutTitleText = styled.div`
+    font-size: 2rem;
+    margin-left: 1rem;
+`;
+
+const BioText1 = styled.div`
+    font-size: 1rem;
+    margin-bottom: 20px;
+`;
+
+const BioText2 = styled.div`
+    font-size: 1rem;
+    margin-bottom: 20px;
+`;
+
+const BioText3 = styled.div`
+    font-size: 1rem;
+    margin-bottom: 20px;
+`;
+
+const Bio = () => {
+    return (
+        <BioContainer>
+            <AboutTitleText>About</AboutTitleText>
+            <BioText1>
+                Al Kosela has been an active member of his real community for 15 years now, and is so excited to be turning that community
+                focus toward real estate.
+            </BioText1>
+            <BioText2>
+                With a passion for service in the Chicago area, Pro 1 Realty is ready to help with your home buying and selling needs. As a
+                proud member of the Pro 1 family, Al carries the values of hard work, integrity, and outstanding client service into
+                everything he does.
+            </BioText2>
+            <BioText3>
+                When Al isn’t making home ownership dreams come true for his/her clients, he enjoys spending time cycling and with his
+                friends. Al lives in Downers Grove with his family.
+            </BioText3>
+        </BioContainer>
+    );
+};
 
 const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    width: 800px;
+    padding: 10px;
+    margin: auto;
 `;
 
 const TitleText = styled.div`
     font-size: 2rem;
+    margin-left: 1rem;
 `;
 
 const DescriptionText = styled.div`
@@ -50,7 +120,7 @@ Text.propTypes = {
 
 const MapContainer = styled.div`
     width: fit-content;
-    margin: 0 auto 5px;
+    margin: 5px auto;
     border: 1px solid grey;
 `;
 
@@ -68,12 +138,16 @@ const Office = ({
     return loading ? (
         <Spinner />
     ) : (
-        <ContactContainer>
-            <Text address={address} phone={phone} city={city} state={state} zipcode={zipcode} />
-            <MapContainer>
-                <OfficeMap />
-            </MapContainer>
-        </ContactContainer>
+        <>
+            <Background />
+            <ContactContainer>
+                <Bio />
+                <Text address={address} phone={phone} city={city} state={state} zipcode={zipcode} />
+                <MapContainer>
+                    <OfficeMap />
+                </MapContainer>
+            </ContactContainer>
+        </>
     );
 };
 

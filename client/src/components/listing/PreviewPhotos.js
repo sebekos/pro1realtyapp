@@ -13,6 +13,7 @@ const PhotosContainer = styled.div`
 `;
 
 const MainPhotoContainer = styled.div`
+    position: relative;
     padding-right: 5px;
     min-height: 400px;
     background-color: black;
@@ -52,11 +53,27 @@ const ColumnPhotoThumb = styled.img`
     }
 `;
 
+const PhotoCountContainer = styled.div`
+    height: 30px;
+    width: 50px;
+    background-color: black;
+    opacity: 0.5;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+`;
+
 const PreviewPhotos = ({ click, photos }) => {
     return (
         <PhotosContainer>
             <MainPhotoContainer>
                 <MainPhoto onClick={click} src={photos[0]} alt="photo1" />
+                <PhotoCountContainer>
+                    <i className="fas fa-camera">{" " + photos.length}</i>
+                </PhotoCountContainer>
             </MainPhotoContainer>
             <ColumnContainer>
                 <ColumnPhotoContainer>
@@ -69,9 +86,6 @@ const PreviewPhotos = ({ click, photos }) => {
                     <ColumnPhotoThumb onClick={click} src={photos[3]} alt="photo4" />
                 </ColumnPhotoContainer>
             </ColumnContainer>
-            {/* <img style={{ justifySelf: "start" }} onClick={click} src={photos[1]} alt="photo2" />
-            <img style={{ justifySelf: "end" }} onClick={click} src={photos[2]} alt="photo3" />
-            <img style={{ justifySelf: "start" }} onClick={click} src={photos[3]} alt="photo4" /> */}
         </PhotosContainer>
     );
 };

@@ -27,7 +27,7 @@ const listingQuery = [
 const refinedMatch = body => {
     const order = (body.type && body.type.includes("Low")) || (body.type && body.type.includes("Oldest")) ? 1 : -1;
     const sortType = body.type && body.type.includes("Price") ? { price: order } : { listdate: order };
-    const sortZip = body.zipcode && body.zipcode !== "" ? { $eq: body.zipcode } : { $ne: "" };
+    const sortZip = body.zipcode && body.zipcode !== "" ? { $eq: body.zipcode } : { $ne: "---" };
     const sortGroup = body.group && body.group !== "All" ? { $regex: body.group } : { $ne: "" };
     const agent = body.agentid && body.agentid !== "" ? { $eq: body.agentid } : { $ne: "" };
     const currPage = body.page && body.page > -1 ? body.page : 0;
@@ -93,19 +93,12 @@ const setListingFields = req => {
         "bedroom",
         "bathroom",
         "squarefeet",
-        "description",
-        "mainphoto",
-        "photos",
-        "agentid"
+        "description"
     ];
 
     let listingFields = listingProps.reduce((memo, val) => {
-        if (req.body[val]) {
-            if (val === "photos") {
-                memo[val] = memo[val].split(",").map(photo => photo.trim());
-            }
-            memo[val] = req.body[val];
-        }
+        console.log(memo);
+        memo[val] = req.body[val];
         return memo;
     }, {});
 

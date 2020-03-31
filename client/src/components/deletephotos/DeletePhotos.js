@@ -29,7 +29,8 @@ const SaveButton = styled(GreenButton)`
 `;
 
 const DeleteContainer = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
 `;
 
 const DeletePhotos = ({ match, getListing, reOrderPhotos, listing: { listing, loading } }) => {
