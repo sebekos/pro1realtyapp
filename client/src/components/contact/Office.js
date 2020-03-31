@@ -77,9 +77,9 @@ const Bio = () => {
                 needs first.
             </BioText1>
             <BioText2>
-                With a passion for service in the Chicago area, Pro 1 Realty is ready to help with your home buying and selling needs. As a
-                proud member of the Pro 1 family, Al carries the values of hard work, integrity, and outstanding client service into
-                everything he does.
+                With a passion for realty in the Chicago area, Al and his team at Pro 1 are ready to help with your residential and
+                commercial buying and selling needs. Our team carries the values of hard work, integrity, and outstanding client service
+                into everything we do.
             </BioText2>
             <BioText3>
                 Pro 1 is truly invested in the Midwest region. Our teams experience in Realty and familiarity with the Chicago region will
