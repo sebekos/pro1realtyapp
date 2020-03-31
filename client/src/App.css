@@ -346,9 +346,12 @@ button {
 .login-container {
     max-width: 600px;
     margin: auto;
-    border: 1px solid grey;
     padding: 1rem;
-    background-color: #f2f5f2;
+    box-sizing: border-box;
+    height: fit-content;
+    -webkit-box-shadow: 1px 1px 3px 2px #ccc;
+    -moz-box-shadow: 1px 1px 3px 2px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
 }
 
 /* Navbar */

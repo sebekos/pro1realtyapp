@@ -4,6 +4,32 @@ import { connect } from "react-redux";
 import { login } from "../../Redux/actions/auth";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+import GenForm from "../universal/GenForm";
+import GenInput from "../universal/GenInput";
+import PrimaryButton from "../universal/PrimaryButton";
+
+const LoginContainer = styled.div`
+    max-width: 400px;
+    margin: auto;
+    box-sizing: border-box;
+    -webkit-box-shadow: 1px 1px 3px 2px #ccc;
+    -moz-box-shadow: 1px 1px 3px 2px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
+`;
+
+const FormContainer = styled(GenForm)`
+    max-width: 400px;
+    padding: 0 20px 20px;
+`;
+
+const SignInContainer = styled.div`
+    padding: 20px 20px;
+`;
+
+const LoginButton = styled(PrimaryButton)`
+    margin-right: 5px;
+`;
 
 const Login = ({ login, isAuthenticated }) => {
     const [formData, setFormData] = useState({
@@ -26,24 +52,37 @@ const Login = ({ login, isAuthenticated }) => {
     }
 
     return (
-        <div className="login-container">
-            <h1 className="large text-primary">Sign In</h1>
-            <p className="lead">
-                <i className="fas fa-user"></i> Sign Into Your Account
-            </p>
-            <form className="form" onSubmit={onSubmitHandler}>
-                <div className="form-group">
-                    <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChangeHandler} required />
-                </div>
-                <div className="form-group">
-                    <input type="password" placeholder="Password" name="password" value={password} onChange={onChangeHandler} required />
-                </div>
-                <input type="submit" className="btn btn-primary" value="Login" />
+        <LoginContainer>
+            <SignInContainer>
+                <p className="lead">
+                    <i className="fas fa-user"></i> Sign Into Your Account
+                </p>
+            </SignInContainer>
+            <FormContainer onSubmit={onSubmitHandler}>
+                <GenInput
+                    type="email"
+                    placeholder="Email Address"
+                    name="email"
+                    value={email}
+                    onChange={onChangeHandler}
+                    required
+                ></GenInput>
+                <GenInput
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    value={password}
+                    onChange={onChangeHandler}
+                    required
+                ></GenInput>
+                <LoginButton type="submit" onClick={onSubmitHandler}>
+                    Login
+                </LoginButton>
                 <Link to="/pwreset">
                     <small>Forgot password?</small>
                 </Link>
-            </form>
-        </div>
+            </FormContainer>
+        </LoginContainer>
     );
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect } from "react";
 import { getOffice } from "../../Redux/actions/office";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -28,6 +28,7 @@ const ContactContainer = styled.div`
     box-shadow: 1px 1px 3px 2px #ccc;
     background-color: white;
     opacity: 0.9;
+    padding-bottom: 20px;
     @media (max-width: 680px) {
         width: auto;
     }
@@ -70,8 +71,10 @@ const Bio = () => {
         <BioContainer>
             <AboutTitleText>About</AboutTitleText>
             <BioText1>
-                Al Kosela has been an active member of his real community for 15 years now, and is so excited to be turning that community
-                focus toward real estate.
+                Al Kosela (Managing Broker), of Pro 1 Realty, based in Downers Grove, is a 15 year veteran of the real estate industry and
+                has represented clients all over Chicago in over hundreds of real estate transactions. Al has built a solid foundation of
+                clients in this community through his professionalism, attention to detail, and commitment to always put their client’s
+                needs first.
             </BioText1>
             <BioText2>
                 With a passion for service in the Chicago area, Pro 1 Realty is ready to help with your home buying and selling needs. As a
@@ -79,8 +82,8 @@ const Bio = () => {
                 everything he does.
             </BioText2>
             <BioText3>
-                When Al isn’t making home ownership dreams come true for his/her clients, he enjoys spending time cycling and with his
-                friends. Al lives in Downers Grove with his family.
+                Pro 1 is truly invested in the Midwest region. Our teams experience in Realty and familiarity with the Chicago region will
+                be assets to both buyers and sellers.
             </BioText3>
         </BioContainer>
     );
@@ -126,8 +129,8 @@ Text.propTypes = {
 
 const MapContainer = styled.div`
     width: fit-content;
-    margin: 5px auto;
     border: 1px solid grey;
+    margin: auto;
     @media (max-width: 680px) {
         display: none;
     }

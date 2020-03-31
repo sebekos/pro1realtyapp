@@ -3,6 +3,32 @@ import { connect } from "react-redux";
 import { pwreset } from "../../Redux/actions/auth";
 import Spinner from "../layout/Spinner";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+import GenForm from "../universal/GenForm";
+import GenInput from "../universal/GenInput";
+import PrimaryButton from "../universal/PrimaryButton";
+
+const LoginContainer = styled.div`
+    max-width: 400px;
+    margin: auto;
+    box-sizing: border-box;
+    -webkit-box-shadow: 1px 1px 3px 2px #ccc;
+    -moz-box-shadow: 1px 1px 3px 2px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
+`;
+
+const FormContainer = styled(GenForm)`
+    max-width: 400px;
+    padding: 0 20px 20px;
+`;
+
+const ResetTextContainer = styled.div`
+    padding: 20px 20px;
+`;
+
+const ResetButton = styled(PrimaryButton)`
+    margin-right: 5px;
+`;
 
 const Pwreset = ({ pwreset }) => {
     const [email, setEmail] = useState("");
@@ -18,19 +44,40 @@ const Pwreset = ({ pwreset }) => {
     };
 
     return (
-        <div className="login-container">
-            <h1 className="large text-primary">Password Reset</h1>
-            <p className="lead">
-                <i className="fas fa-user"></i> Enter the email associated with your account.
-            </p>
-            <form className="form" onSubmit={onSubmitHandler}>
-                <div className="form-group">
-                    <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChangeHandler} required />
-                </div>
-                <input type="submit" className="btn btn-primary" value="Submit" />
-            </form>
+        <LoginContainer>
+            <ResetTextContainer>
+                <p className="lead">
+                    <i className="fas fa-user"></i> Reset account password
+                </p>
+            </ResetTextContainer>
+            <FormContainer>
+                <GenInput
+                    type="email"
+                    placeholder="Account Email Address"
+                    name="email"
+                    value={email}
+                    onChange={onChangeHandler}
+                    required
+                ></GenInput>
+                <ResetButton type="submit" onClick={onSubmitHandler}>
+                    Reset
+                </ResetButton>
+            </FormContainer>
             {loading ? <Spinner /> : null}
-        </div>
+        </LoginContainer>
+        // <div className="login-container">
+        //     <h1 className="large text-primary">Password Reset</h1>
+        //     <p className="lead">
+        //         <i className="fas fa-user"></i> Enter the email associated with your account.
+        //     </p>
+        //     <form className="form" onSubmit={onSubmitHandler}>
+        //         <div className="form-group">
+        //             <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChangeHandler} required />
+        //         </div>
+        //         <input type="submit" className="btn btn-primary" value="Submit" />
+        //     </form>
+        //     {loading ? <Spinner /> : null}
+        // </div>
     );
 };
 
