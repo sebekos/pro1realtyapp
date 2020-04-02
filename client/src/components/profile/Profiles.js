@@ -16,6 +16,10 @@ const ProfileContainer = styled.div`
     }
 `;
 
+const NoResults = styled.div`
+    text-align: center;
+`;
+
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
     useEffect(() => {
         getProfiles();
@@ -24,7 +28,11 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
     return (
         <ProfileContainer>
             {loading ? <Spinner /> : null}
-            {profiles.length > 0 ? profiles.map(profile => <Profile key={profile._id} profile={profile} />) : null}
+            {profiles.length > 0 ? (
+                profiles.map(profile => <Profile key={profile._id} profile={profile} />)
+            ) : (
+                <NoResults>No agents found</NoResults>
+            )}
         </ProfileContainer>
     );
 };

@@ -65,19 +65,6 @@ const Pwreset = ({ pwreset }) => {
             </FormContainer>
             {loading ? <Spinner /> : null}
         </LoginContainer>
-        // <div className="login-container">
-        //     <h1 className="large text-primary">Password Reset</h1>
-        //     <p className="lead">
-        //         <i className="fas fa-user"></i> Enter the email associated with your account.
-        //     </p>
-        //     <form className="form" onSubmit={onSubmitHandler}>
-        //         <div className="form-group">
-        //             <input type="email" placeholder="Email Address" name="email" value={email} onChange={onChangeHandler} required />
-        //         </div>
-        //         <input type="submit" className="btn btn-primary" value="Submit" />
-        //     </form>
-        //     {loading ? <Spinner /> : null}
-        // </div>
     );
 };
 
