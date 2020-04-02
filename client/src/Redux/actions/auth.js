@@ -98,7 +98,7 @@ export const pwreset = email => async dispatch => {
     };
 
     const body = JSON.stringify({ email });
-
+    console.log(body);
     try {
         await axios.post("/api/user/pwreset", body, config);
         dispatch({

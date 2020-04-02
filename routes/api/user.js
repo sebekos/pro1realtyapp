@@ -96,9 +96,7 @@ router.post(
         // Check attempts
         const pwresetcheck = await Pwreset.findOne({ email });
         if (pwresetcheck && pwresetcheck.attempts >= 3) {
-            return res
-                .status(400)
-                .json({ errors: [{ msg: "Account disabled, please contact the admin to reset your password" }] });
+            return res.status(400).json({ errors: [{ msg: "Account disabled, please contact the admin to reset your password" }] });
         }
 
         // Delete previous reset links
@@ -194,11 +192,7 @@ router.post(
         // Delete many
         await Pwreset.deleteMany({ email: email });
 
-        user = await User.findOneAndUpdate(
-            { email: req.body.email },
-            { $set: { password: newPassword } },
-            { new: true }
-        );
+        user = await User.findOneAndUpdate({ email: req.body.email }, { $set: { password: newPassword } }, { new: true });
         return res.json(user);
     }
 );
