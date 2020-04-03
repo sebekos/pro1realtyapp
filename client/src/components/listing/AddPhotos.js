@@ -70,7 +70,7 @@ const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listi
                 ) : null}
                 {redir ? (
                     <a href={`/listing/${match.params.id}`}>
-                        <DarkButton>Go To Listing</DarkButton>
+                        <GreenButton>Go To Listing</GreenButton>
                     </a>
                 ) : null}
                 {progressbar ? <ProgressBar /> : null}

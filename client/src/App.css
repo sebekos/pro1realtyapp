@@ -320,6 +320,10 @@ ul {
     margin-right: 2px;
 }
 
+input:disabled {
+    background: #dddddd;
+}
+
 .form select {
     -webkit-appearance: none;
     border-radius: 0px;

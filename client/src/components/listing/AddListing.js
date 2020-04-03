@@ -26,7 +26,21 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
 
     const { status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, description } = formData;
 
-    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onChange = e => {
+        if (e.target.name === "type" && e.target.value.includes("Conf")) {
+            setFormData({
+                ...formData,
+                city: "",
+                zipcode: "",
+                type: e.target.value
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [e.target.name]: e.target.value
+            });
+        }
+    };
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -70,16 +84,37 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Address" name="address" value={address} onChange={onChange} />
+                    <input
+                        type="text"
+                        placeholder="Address"
+                        name="address"
+                        value={address}
+                        onChange={onChange}
+                        disabled={type.includes("Conf") ? true : false}
+                    />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="City" name="city" value={city} onChange={onChange} />
+                    <input
+                        type="text"
+                        placeholder="City"
+                        name="city"
+                        value={city}
+                        onChange={onChange}
+                        disabled={type.includes("Conf") ? true : false}
+                    />
                 </div>
                 <div className="form-group">
                     <States update={onChange} chosen={state} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Zipcode" name="zipcode" value={zipcode} onChange={onChange} />
+                    <input
+                        type="text"
+                        placeholder="Zipcode"
+                        name="zipcode"
+                        value={zipcode}
+                        onChange={onChange}
+                        disabled={type.includes("Conf") ? true : false}
+                    />
                 </div>
                 <div className="form-group">
                     <input type="text" placeholder="Price" name="price" value={price} onChange={onChange} />

@@ -47,8 +47,9 @@ const Dashboard = ({ auth: { user }, listing: { listings, loading, pages }, prof
 
     return (
         <Fragment>
+            {loading ? <Spinner /> : null}
             {profile ? (
-                <Link to="/addlisting" className="btn btn-primary my-1">
+                <Link to="/addlisting" className="btn btn-success my-1">
                     Add New Listing
                 </Link>
             ) : (
@@ -59,12 +60,13 @@ const Dashboard = ({ auth: { user }, listing: { listings, loading, pages }, prof
                     </Link>
                 </Fragment>
             )}
-            <div className="listings-view">
-                {loading ? <Spinner /> : null}
-                <SearchBar onChange={onChange} onSearch={onSearch} data={formData} />
-                {listings.length > 0 ? <Pagination pageClick={pageClick} pages={pages} listings={listings} /> : null}
-                {!loading && listings.length === 0 ? <div className="text-center">No listings matching criteria</div> : null}
-            </div>
+            {profile ? (
+                <div className="listings-view">
+                    <SearchBar onChange={onChange} onSearch={onSearch} data={formData} />
+                    {listings.length > 0 ? <Pagination pageClick={pageClick} pages={pages} listings={listings} /> : null}
+                    {!loading && listings.length === 0 ? <div className="text-center">No listings matching criteria</div> : null}
+                </div>
+            ) : null}
         </Fragment>
     );
 };
