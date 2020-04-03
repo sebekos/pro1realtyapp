@@ -17,7 +17,9 @@ const ProfileContainer = styled.div`
 `;
 
 const NoResults = styled.div`
+    width: fit-content;
     text-align: center;
+    margin: auto;
 `;
 
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
@@ -26,14 +28,13 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
     }, [getProfiles]);
 
     return (
-        <ProfileContainer>
-            {loading ? <Spinner /> : null}
-            {profiles.length > 0 ? (
-                profiles.map(profile => <Profile key={profile._id} profile={profile} />)
-            ) : (
-                <NoResults>No agents found</NoResults>
-            )}
-        </ProfileContainer>
+        <>
+            {!loading && profiles.length === 0 ? <NoResults>No agents found</NoResults> : null}
+            <ProfileContainer>
+                {loading ? <Spinner /> : null}
+                {profiles.length > 0 ? profiles.map(profile => <Profile key={profile._id} profile={profile} />) : null}
+            </ProfileContainer>
+        </>
     );
 };
 
