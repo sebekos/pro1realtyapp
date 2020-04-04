@@ -42,10 +42,6 @@ const ColumnPhotoContainer = styled.div`
     text-align: center;
 `;
 
-const ColumnPhoto = styled.img`
-    max-width: 200px;
-`;
-
 const ColumnPhotoThumb = styled.img`
     max-width: 200px;
     @media (max-width: 680px) {

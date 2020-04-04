@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import DeleteItem from "./DeleteItem";
 import { getListing, reOrderPhotos } from "../../Redux/actions/listing";
@@ -41,16 +41,16 @@ const DeletePhotos = ({ match, getListing, reOrderPhotos, listing: { listing, lo
         setPhotos(loading || !listing.photos ? [] : listing.photos);
     }, [getListing, loading]);
 
-    const onDelete = e => {
+    const onDelete = (e) => {
         let newPhotos = [];
         let image = e.target.getAttribute("image");
-        newPhotos = photos.filter(photo => {
+        newPhotos = photos.filter((photo) => {
             return photo !== image;
         });
         setPhotos(newPhotos);
     };
 
-    const onSave = e => {
+    const onSave = (e) => {
         e.preventDefault();
         reOrderPhotos(photos, match.params.id);
     };
@@ -83,11 +83,11 @@ const DeletePhotos = ({ match, getListing, reOrderPhotos, listing: { listing, lo
 DeletePhotos.propTypes = {
     getListing: PropTypes.func.isRequired,
     reOrderPhotos: PropTypes.func.isRequired,
-    listing: PropTypes.object.isRequired
+    listing: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-    listing: state.listing
+const mapStateToProps = (state) => ({
+    listing: state.listing,
 });
 
 export default connect(mapStateToProps, { getListing, reOrderPhotos })(DeletePhotos);

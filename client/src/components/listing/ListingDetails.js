@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, Fragment } from "react";
+import React, { useLayoutEffect } from "react";
 import { connect } from "react-redux";
 import { getListing } from "../../Redux/actions/listing";
 import NumberFormat from "react-number-format";
@@ -85,7 +85,7 @@ Title.propTypes = {
     address: PropTypes.string,
     city: PropTypes.string,
     state: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.number,
 };
 
 const ListingPhotos = ({ photos }) => {
@@ -97,7 +97,7 @@ const ListingPhotos = ({ photos }) => {
 };
 
 ListingPhotos.propTypes = {
-    photos: PropTypes.array.isRequired
+    photos: PropTypes.array.isRequired,
 };
 
 const DescriptionText = styled.div`
@@ -115,7 +115,7 @@ const Description = ({ description }) => {
 };
 
 Description.propTypes = {
-    description: PropTypes.string
+    description: PropTypes.string,
 };
 
 const DetailsContactContainer = styled.div`
@@ -162,7 +162,7 @@ const Details = ({ listing }) => {
         type: "Type",
         bedroom: "Bedrooms",
         bathroom: "Bathrooms",
-        squarefeet: "Squarefeet"
+        squarefeet: "Squarefeet",
     };
     const detailsHtml = Object.keys(listingProps).map((memo, index) => {
         return (
@@ -189,7 +189,7 @@ const Details = ({ listing }) => {
 };
 
 Details.propTypes = {
-    listing: PropTypes.object
+    listing: PropTypes.object,
 };
 
 const ContactContainer = styled.div`
@@ -200,7 +200,7 @@ const Contact = ({ listing: { agentinfo } }) => {
     const listingProps = {
         name: "Agent",
         phone: "Phone",
-        email: "Email"
+        email: "Email",
     };
     const detailsHtml = Object.keys(listingProps).map((memo, index) => {
         return (
@@ -225,7 +225,7 @@ const Contact = ({ listing: { agentinfo } }) => {
 };
 
 Details.propTypes = {
-    agentinfo: PropTypes.object
+    agentinfo: PropTypes.object,
 };
 
 const DetailsContact = ({ listing }) => {
@@ -259,15 +259,15 @@ const ListingDetails = ({ getListing, match, listing: { loading, listing } }) =>
 
 ListingDetails.propTypes = {
     getListing: PropTypes.func.isRequired,
-    listing: PropTypes.object.isRequired
+    listing: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-    listing: state.listing
+const mapStateToProps = (state) => ({
+    listing: state.listing,
 });
 
 const mapDispatchToProps = {
-    getListing
+    getListing,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListingDetails);

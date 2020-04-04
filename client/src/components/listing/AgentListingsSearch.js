@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { getRefinedListings, setSearch } from "../../Redux/actions/listing";
 import { connect } from "react-redux";
@@ -10,7 +10,7 @@ const AgentListingSearch = ({
     getRefinedListings,
     setSearch,
     listing: { listings, pages, loading, zipcode, type, group, page },
-    match
+    match,
 }) => {
     useEffect(() => {
         getRefinedListings({
@@ -18,42 +18,42 @@ const AgentListingSearch = ({
             type,
             group,
             agentid: match.params.id,
-            page: 0
+            page: 0,
         });
     }, [getRefinedListings]);
 
-    const onChange = e => {
+    const onChange = (e) => {
         setSearch({
             field: e.target.name,
-            data: e.target.value
+            data: e.target.value,
         });
     };
 
     const onSearch = () => {
         setSearch({
             field: "page",
-            data: 0
+            data: 0,
         });
         getRefinedListings({
             zipcode,
             type,
             group,
             agentid: match.params.id,
-            page: 0
+            page: 0,
         });
     };
 
-    const pageClick = data => {
+    const pageClick = (data) => {
         setSearch({
             field: "page",
-            data: data.selected
+            data: data.selected,
         });
         getRefinedListings({
             zipcode,
             type,
             group,
             agentid: "",
-            page: data.selected
+            page: data.selected,
         });
     };
 
@@ -69,16 +69,16 @@ const AgentListingSearch = ({
 
 AgentListingSearch.propTypes = {
     getRefinedListings: PropTypes.func.isRequired,
-    setSearch: PropTypes.func.isRequired
+    setSearch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-    listing: state.listing
+const mapStateToProps = (state) => ({
+    listing: state.listing,
 });
 
 const mapDispatchToProps = {
     getRefinedListings,
-    setSearch
+    setSearch,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AgentListingSearch);

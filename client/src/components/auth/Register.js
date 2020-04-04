@@ -27,26 +27,22 @@ const RegisterTextContainer = styled.div`
     padding: 20px 20px;
 `;
 
-const LoginButton = styled(PrimaryButton)`
-    margin-right: 5px;
-`;
-
 const Register = ({ register, isAuthenticated }) => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
         password2: "",
-        registerkey: ""
+        registerkey: "",
     });
 
     const { name, email, password, password2, registerkey } = formData;
 
-    const onChangeHandler = e => {
+    const onChangeHandler = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const onSubmitHandler = async e => {
+    const onSubmitHandler = async (e) => {
         e.preventDefault();
         if (password !== password2) {
             toast.error("Passwords do not match");
@@ -97,11 +93,11 @@ const Register = ({ register, isAuthenticated }) => {
 
 Register.propTypes = {
     register: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { register })(Register);

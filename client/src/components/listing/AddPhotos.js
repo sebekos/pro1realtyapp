@@ -4,12 +4,10 @@ import { uploadPhotos, getListing, setLoadingTrue, progressBarValue, toggleProgr
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { bulkResize } from "../../utils/photo";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Spinner from "../layout/Spinner";
 import ProgressBar from "../layout/ProgressBar";
 import GreenButton from "../universal/GreenButton";
-import DarkButton from "../universal/DarkButton";
 
 const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listing }, getListing, setLoadingTrue }) => {
     const [pictures, setPictures] = useState([]);
@@ -20,7 +18,7 @@ const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listi
         getListing(match.params.id);
     }, [match.params.id]);
 
-    const onDrop = picture => {
+    const onDrop = (picture) => {
         setPictures(picture);
         if (picture.length > 0) {
             setUploadBtn(true);
@@ -30,7 +28,7 @@ const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listi
         }
     };
 
-    const onUpload = async e => {
+    const onUpload = async (e) => {
         const total = listing.photos.length + pictures.length;
         if (total > 10) {
             toast.error("Max photos is 10, currently at " + total);
@@ -58,7 +56,7 @@ const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listi
                 <ImageUploader
                     withIcon={false}
                     buttonText="Choose Images"
-                    onChange={pictures => onDrop(pictures)}
+                    onChange={(pictures) => onDrop(pictures)}
                     imgExtension={[".jpg", ".gif", ".png", ".gif", "jpeg"]}
                     maxFileSize={30485760}
                     withPreview={true}
@@ -84,11 +82,11 @@ AddPhotos.propTypes = {
     uploadPhotos: PropTypes.func.isRequired,
     setLoadingTrue: PropTypes.func.isRequired,
     progressBarValue: PropTypes.func.isRequired,
-    toggleProgressBar: PropTypes.func.isRequired
+    toggleProgressBar: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-    listing: state.listing
+const mapStateToProps = (state) => ({
+    listing: state.listing,
 });
 
 export default connect(mapStateToProps, {
@@ -96,5 +94,5 @@ export default connect(mapStateToProps, {
     getListing,
     setLoadingTrue,
     progressBarValue,
-    toggleProgressBar
+    toggleProgressBar,
 })(AddPhotos);
