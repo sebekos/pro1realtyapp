@@ -23,10 +23,6 @@ const Background = styled.div`
 const ContactContainer = styled.div`
     width: 800px;
     margin: auto;
-    -webkit-box-shadow: 1px 1px 3px 2px #ccc;
-    -moz-box-shadow: 1px 1px 3px 2px #ccc;
-    box-shadow: 1px 1px 3px 2px #ccc;
-    background-color: white;
     opacity: 0.9;
     padding-bottom: 20px;
     @media (max-width: 680px) {
@@ -124,7 +120,7 @@ Text.propTypes = {
     phone: PropTypes.string,
     city: PropTypes.string,
     state: PropTypes.string,
-    zipcode: PropTypes.string
+    zipcode: PropTypes.string,
 };
 
 const MapContainer = styled.div`
@@ -140,8 +136,8 @@ const Office = ({
     getOffice,
     office: {
         office: { address, phone, city, state, zipcode },
-        loading
-    }
+        loading,
+    },
 }) => {
     useEffect(() => {
         getOffice();
@@ -165,11 +161,11 @@ const Office = ({
 
 Office.propTypes = {
     getOffice: PropTypes.func.isRequired,
-    office: PropTypes.object.isRequired
+    office: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-    office: state.office
+const mapStateToProps = (state) => ({
+    office: state.office,
 });
 
 export default connect(mapStateToProps, { getOffice })(Office);
