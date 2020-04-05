@@ -21,37 +21,37 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
         bedroom: "",
         bathroom: "",
         squarefeet: "",
-        description: ""
+        description: "",
     });
 
     const { status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, description } = formData;
 
-    const onChange = e => {
+    const onChange = (e) => {
         if (e.target.name === "type" && e.target.value.includes("Conf")) {
             setFormData({
                 ...formData,
                 city: "",
                 zipcode: "",
-                type: e.target.value
+                type: e.target.value,
             });
         } else {
             setFormData({
                 ...formData,
-                [e.target.name]: e.target.value
+                [e.target.name]: e.target.value,
             });
         }
     };
 
-    const onSubmit = async e => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         const listingData = {
             ...formData,
-            listdate: listdate
+            listdate: listdate,
         };
         await addListing(listingData, history);
     };
 
-    const onDate = date => {
+    const onDate = (date) => {
         setListDate(date);
     };
 
@@ -63,7 +63,7 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
                     <DatePicker
                         placeholderText="* Select listed date"
                         selected={listdate}
-                        onChange={date => onDate(date)}
+                        onChange={(date) => onDate(date)}
                         maxDate={new Date()}
                     />
                 </div>
@@ -117,16 +117,16 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
                     />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Price" name="price" value={price} onChange={onChange} />
+                    <input type="number" placeholder="Price" name="price" value={price} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Bedroom" name="bedroom" value={bedroom} onChange={onChange} />
+                    <input type="number" placeholder="Bedroom" name="bedroom" value={bedroom} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Bathroom" name="bathroom" value={bathroom} onChange={onChange} />
+                    <input type="number" placeholder="Bathroom" name="bathroom" value={bathroom} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={onChange} />
+                    <input type="number" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={onChange} />
                 </div>
                 <div className="form-group">
                     <textarea rows="4" type="text" placeholder="Description" name="description" value={description} onChange={onChange} />
@@ -138,11 +138,11 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
 };
 
 AddListing.propTypes = {
-    addListing: PropTypes.func.isRequired
+    addListing: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth
+const mapStateToProps = (state) => ({
+    auth: state.auth,
 });
 
 export default connect(mapStateToProps, { addListing })(withRouter(AddListing));

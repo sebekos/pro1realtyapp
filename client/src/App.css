@@ -307,6 +307,7 @@ ul {
 }
 
 .form input[type="text"],
+.form input[type="number"],
 .form input[type="email"],
 .form input[type="password"],
 .form input[type="date"],
@@ -531,69 +532,6 @@ progress {
     margin: auto;
 }
 
-.listing-details-address1 {
-    font-size: 2rem;
-    text-align: center;
-}
-
-.listing-details-address2 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    text-align: center;
-}
-
-.listing-contact {
-    font-size: 1.5rem;
-    margin-top: 1.2rem;
-    text-align: center;
-    border-top: 1px solid grey;
-}
-
-.p-important {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-}
-
-.p-important2 {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    border-bottom: 1px solid grey;
-}
-
-/* Profiles Page */
-.profiles {
-    margin-bottom: 10px;
-}
-
-.profile {
-    display: grid;
-    grid-template-columns: 2fr 4fr 2fr;
-    align-items: center;
-    grid-gap: 1rem;
-    padding: 0.5rem;
-}
-
-/* Profile Page */
-.profile-grid {
-    display: grid;
-    grid-gap: 1rem;
-}
-
-.profile-top {
-    grid-area: top;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.profile-top img {
-    width: 250px;
-    margin: auto;
-}
-
 /* Sortable */
 .sortable-container {
     width: 300px;
@@ -750,6 +688,10 @@ progress {
 
 .pagination-ul-container li {
     margin: 4px;
+}
+
+.Toastify__toast-container {
+    margin-top: 50px;
 }
 
 /* Mobile Styles */

@@ -1,17 +1,17 @@
 const listingQuery = [
     {
-        $limit: 10
+        $limit: 10,
     },
     {
         $lookup: {
             from: "profiles",
             localField: "agentid",
             foreignField: "user",
-            as: "agentinfo"
-        }
+            as: "agentinfo",
+        },
     },
     {
-        $unwind: "$agentinfo"
+        $unwind: "$agentinfo",
     },
     {
         $project: {
@@ -19,12 +19,12 @@ const listingQuery = [
             "agentinfo.user": 0,
             "agentinfo._id": 0,
             "agentinfo.date": 0,
-            "agentinfo.__v": 0
-        }
-    }
+            "agentinfo.__v": 0,
+        },
+    },
 ];
 
-const refinedMatch = body => {
+const refinedMatch = (body) => {
     const order = (body.type && body.type.includes("Low")) || (body.type && body.type.includes("Oldest")) ? 1 : -1;
     const sortType = body.type && body.type.includes("Price") ? { price: order } : { listdate: order };
     const sortZip = body.zipcode && body.zipcode !== "" ? { $eq: body.zipcode } : { $ne: "---" };
@@ -37,36 +37,36 @@ const refinedMatch = body => {
                 active: "1",
                 zipcode: sortZip,
                 type: sortGroup,
-                agentid: agent
-            }
+                agentid: agent,
+            },
         },
         {
-            $sort: sortType
+            $sort: sortType,
         },
         {
-            $skip: currPage * 10
-        }
+            $skip: currPage * 10,
+        },
     ];
 };
 
-const singleMatch = id => {
+const singleMatch = (id) => {
     return [
         {
             $match: {
                 _id: ObjectId(`${id}`),
-                active: "1"
-            }
+                active: "1",
+            },
         },
         {
             $lookup: {
                 from: "profiles",
                 localField: "agentid",
                 foreignField: "user",
-                as: "agentinfo"
-            }
+                as: "agentinfo",
+            },
         },
         {
-            $unwind: "$agentinfo"
+            $unwind: "$agentinfo",
         },
         {
             $project: {
@@ -74,13 +74,13 @@ const singleMatch = id => {
                 "agentinfo.user": 0,
                 "agentinfo._id": 0,
                 "agentinfo.date": 0,
-                "agentinfo.__v": 0
-            }
-        }
+                "agentinfo.__v": 0,
+            },
+        },
     ];
 };
 
-const setListingFields = req => {
+const setListingFields = (req) => {
     const listingProps = [
         "listdate",
         "status",
@@ -93,11 +93,10 @@ const setListingFields = req => {
         "bedroom",
         "bathroom",
         "squarefeet",
-        "description"
+        "description",
     ];
 
     let listingFields = listingProps.reduce((memo, val) => {
-        console.log(memo);
         memo[val] = req.body[val];
         return memo;
     }, {});
@@ -110,5 +109,5 @@ module.exports = {
     listingQuery,
     refinedMatch,
     singleMatch,
-    setListingFields
+    setListingFields,
 };

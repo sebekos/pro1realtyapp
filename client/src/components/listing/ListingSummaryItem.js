@@ -18,6 +18,7 @@ const SummaryContainer = styled.div`
     box-shadow: 1px 1px 3px 2px #ccc;
     @media (max-width: 680px) {
         grid-template-columns: 1fr;
+        max-width: 315px;
     }
 `;
 
@@ -36,6 +37,7 @@ const ImgContainer = styled.div`
     @media (max-width: 680px) {
         margin: auto;
         min-width: 315px;
+        border-right: none;
     }
 `;
 
@@ -72,7 +74,7 @@ const Image = ({ src, count }) => {
 
 Image.propTypes = {
     src: PropTypes.string,
-    count: PropTypes.number
+    count: PropTypes.number,
 };
 
 const InfoContainer = styled.div`
@@ -141,7 +143,7 @@ AddressPrice.propTypes = {
     city: PropTypes.string,
     state: PropTypes.string,
     price: PropTypes.number,
-    listingid: PropTypes.string
+    listingid: PropTypes.string,
 };
 
 const StatusDateLineContainer = styled.div`
@@ -186,7 +188,7 @@ const StatusDateLine = ({ status, type, listdate }) => {
 StatusDateLine.propTypes = {
     status: PropTypes.string,
     type: PropTypes.string,
-    listdate: PropTypes.string
+    listdate: PropTypes.string,
 };
 
 const BlockLineContainer = styled.div`
@@ -214,18 +216,20 @@ const BlockText = ({ bedroom, bathroom, squarefeet }) => {
             {bedroom ? (
                 <BlockTextContainer>
                     <div>{bedroom}</div>
-                    <div>Bedroom</div>
+                    <div>Bed</div>
                 </BlockTextContainer>
             ) : null}
             {bathroom ? (
                 <BlockTextContainer>
                     <div>{bathroom}</div>
-                    <div>Bathroom</div>
+                    <div>Bath</div>
                 </BlockTextContainer>
             ) : null}
             {squarefeet ? (
                 <BlockTextContainer>
-                    <div>{squarefeet}</div>
+                    <div>
+                        <NumberFormat value={squarefeet} displayType={"text"} thousandSeparator={true} />
+                    </div>
                     <div>Sqft</div>
                 </BlockTextContainer>
             ) : null}
@@ -236,7 +240,7 @@ const BlockText = ({ bedroom, bathroom, squarefeet }) => {
 BlockText.propTypes = {
     bedroom: PropTypes.number,
     bathroom: PropTypes.number,
-    squarefeet: PropTypes.number
+    squarefeet: PropTypes.number,
 };
 
 const ButtonContainer = styled.div`
@@ -278,12 +282,12 @@ const Buttons = ({ listingId, user, agentid }) => {
 Buttons.propTypes = {
     listingId: PropTypes.string,
     user: PropTypes.object,
-    agentid: PropTypes.string
+    agentid: PropTypes.string,
 };
 
 const ListingItem = ({
     auth: { user },
-    listing: { agentid, photos, listdate, status, type, address, city, state, price, bedroom, bathroom, squarefeet, _id }
+    listing: { agentid, photos, listdate, status, type, address, city, state, price, bedroom, bathroom, squarefeet, _id },
 }) => (
     <SummaryContainer>
         <Image src={photos[0]} count={photos.length} />
@@ -299,11 +303,11 @@ const ListingItem = ({
 ListingItem.propTypes = {
     listing: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
-    listingId: PropTypes.string.isRequired
+    listingId: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth
+const mapStateToProps = (state) => ({
+    auth: state.auth,
 });
 
 export default connect(mapStateToProps, {})(ListingItem);

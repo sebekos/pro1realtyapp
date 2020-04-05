@@ -42,7 +42,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
         bathroom: "",
         squarefeet: "",
         description: "",
-        ldate: ""
+        ldate: "",
     });
 
     useLayoutEffect(() => {
@@ -60,49 +60,49 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
                 state: loading || !listing.state ? "" : listing.state,
                 zipcode: loading || !listing.zipcode ? "" : listing.zipcode,
                 price: loading || !listing.price ? "" : listing.price,
-                bedroom: loading || !listing.bedroom ? "" : listing.bedroom,
-                bathroom: loading || !listing.bathroom ? "" : listing.bathroom,
+                bedroom: loading || !listing.bedroom ? 0 : listing.bedroom,
+                bathroom: loading || !listing.bathroom ? 0 : listing.bathroom,
                 squarefeet: loading || !listing.squarefeet ? "" : listing.squarefeet,
                 description: loading || !listing.description ? "" : listing.description,
-                ldate: loading || !listing.listdate ? "" : setUpDate(listing.listdate)
+                ldate: loading || !listing.listdate ? "" : setUpDate(listing.listdate),
             });
         }
     }, [listing]);
 
-    const setUpDate = data => {
+    const setUpDate = (data) => {
         var date = new Date(data);
         setListDate(new Date(date));
     };
 
     const { id, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, description } = formData;
 
-    const onChange = e => {
+    const onChange = (e) => {
         if (e.target.name === "type" && e.target.value.includes("Conf")) {
             setFormData({
                 ...formData,
                 city: "",
                 zipcode: "",
-                type: e.target.value
+                type: e.target.value,
             });
         } else {
             setFormData({
                 ...formData,
-                [e.target.name]: e.target.value
+                [e.target.name]: e.target.value,
             });
         }
     };
 
-    const onSubmit = async e => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         const listingData = {
             ...formData,
-            listdate: listdate
+            listdate: listdate,
         };
         console.log(listingData);
         await addListing(listingData, history, true);
     };
 
-    const onDelete = e => {
+    const onDelete = (e) => {
         e.preventDefault();
         if (!window.confirm("This will delete this listing. Press OK to continue")) {
             return;
@@ -110,7 +110,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
         deleteListing(listing._id, history);
     };
 
-    const onDate = date => {
+    const onDate = (date) => {
         setListDate(date);
     };
 
@@ -182,16 +182,16 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
                     />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Price" name="price" value={price} onChange={onChange} />
+                    <input type="number" placeholder="Price" name="price" value={price} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Bedroom" name="bedroom" value={bedroom} onChange={onChange} />
+                    <input type="number" placeholder="Bedroom" name="bedroom" value={bedroom} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Bathroom" name="bathroom" value={bathroom} onChange={onChange} />
+                    <input type="number" placeholder="Bathroom" name="bathroom" value={bathroom} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={onChange} />
+                    <input type="number" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={onChange} />
                 </div>
                 <div className="form-group">
                     <textarea rows="4" type="text" placeholder="Description" name="description" value={description} onChange={onChange} />
@@ -212,12 +212,12 @@ EditListing.propTypes = {
     addListing: PropTypes.func.isRequired,
     getListing: PropTypes.func.isRequired,
     listing: PropTypes.object.isRequired,
-    deleteListing: PropTypes.func.isRequired
+    deleteListing: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     auth: state.auth,
-    listing: state.listing
+    listing: state.listing,
 });
 
 export default connect(mapStateToProps, { addListing, getListing, deleteListing })(withRouter(EditListing));

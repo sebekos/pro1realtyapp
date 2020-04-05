@@ -67,7 +67,7 @@ const Bio = () => {
         <BioContainer>
             <AboutTitleText>About</AboutTitleText>
             <BioText1>
-                Al Kosela (Managing Broker), of Pro 1 Realty, based in Downers Grove, is a 15 year veteran of the real estate industry and
+                Al Kosela (Managing Broker), of Pro 1 Realty, based in Downers Grove, is a 17 year veteran of the real estate industry and
                 has represented clients all over Chicago in over hundreds of real estate transactions. Al has built a solid foundation of
                 clients in this community through his professionalism, attention to detail, and commitment to always put their client’s
                 needs first.

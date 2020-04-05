@@ -54,7 +54,7 @@ const Button = ({ agentid }) => {
 };
 
 Button.propTypes = {
-    agentid: PropTypes.string
+    agentid: PropTypes.string,
 };
 
 const ImageContainer = styled.div`
@@ -70,6 +70,7 @@ const ImageItem = styled.img`
     margin: auto;
     @media (max-width: 680px) {
         width: fit-content;
+        border-right: none;
     }
 `;
 
@@ -82,7 +83,7 @@ const Image = ({ photo }) => {
 };
 
 Image.propTypes = {
-    photo: PropTypes.string
+    photo: PropTypes.string,
 };
 
 const TextContainer = styled.div`
@@ -135,7 +136,7 @@ Text.propTypes = {
     location: PropTypes.string,
     phone: PropTypes.string,
     email: PropTypes.string,
-    agentid: PropTypes.string
+    agentid: PropTypes.string,
 };
 
 const Profile = ({ profile: { name, position, location, phone, email, photo, user } }) => (
@@ -152,7 +153,7 @@ Profile.propTypes = {
     phone: PropTypes.string,
     email: PropTypes.string,
     photo: PropTypes.string,
-    user: PropTypes.string
+    user: PropTypes.string,
 };
 
 export default Profile;

@@ -47,7 +47,7 @@ const App = () => {
                     <Navbar />
                     <Route exact path="/" component={Landing} />
                     <section className="container">
-                        <ToastContainer />
+                        <ToastContainer hideProgressBar pauseOnHover={false} />
                         <Switch>
                             <Route exact path="/register" component={Register} />
                             <Route exact path="/login" component={Login} />
