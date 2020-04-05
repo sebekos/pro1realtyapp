@@ -13,7 +13,7 @@ const ProfileItemContainer = styled.div`
     box-sizing: border-box;
     margin: 5px 5px;
     width: 600px;
-    height: 200px;
+    height: 195px;
     -webkit-box-shadow: 1px 1px 3px 2px #ccc;
     -moz-box-shadow: 1px 1px 3px 2px #ccc;
     box-shadow: 1px 1px 3px 2px #ccc;
