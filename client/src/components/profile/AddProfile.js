@@ -8,22 +8,21 @@ import NumberFormat from "react-number-format";
 const AddProfile = ({ addProfile, history }) => {
     const [formData, setFormData] = useState({
         name: "",
-        position: "",
         location: "",
         phone: "",
         email: ""
     });
 
-    const { name, position, location, phone, email } = formData;
+    const { name, location, phone, email } = formData;
 
-    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const onSubmit = e => {
+    const onSubmit = (e) => {
         e.preventDefault();
         addProfile(formData, history);
     };
 
-    const onPhone = e => {
+    const onPhone = (e) => {
         formData.phone = e.value;
         setFormData({ ...formData, [phone]: "" });
     };
@@ -36,10 +35,6 @@ const AddProfile = ({ addProfile, history }) => {
                     <input type="text" placeholder="Visible Name" name="name" value={name} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Position" name="position" value={position} onChange={onChange} />
-                </div>
-                <small className="form-text">* Broker, agent, assistant, etc...</small>
-                <div className="form-group">
                     <input type="text" placeholder="Location" name="location" value={location} onChange={onChange} />
                 </div>
                 <small className="form-text">* Chicago Land Area, Great Lakes, etc...</small>
@@ -49,7 +44,7 @@ const AddProfile = ({ addProfile, history }) => {
                         mask=""
                         name="phone"
                         placeholder="Phone Number"
-                        onValueChange={e => onPhone(e)}
+                        onValueChange={(e) => onPhone(e)}
                         value={phone}
                     />
                 </div>

@@ -31,12 +31,10 @@ router.post(
     [
         auth,
         [
-            check("position", "Position is required")
-                .not()
-                .isEmpty(),
-            check("phone", "Phone is required")
-                .not()
-                .isEmpty(),
+            check("name", "Name is required").not().isEmpty(),
+            check("location", "Location is required").not().isEmpty(),
+            check("email", "Email is required").not().isEmpty(),
+            check("phone", "Phone is required").not().isEmpty(),
             check("phone", "Phone number must be 10 digits").isLength({ min: 10, max: 10 })
         ]
     ],
@@ -64,7 +62,6 @@ router.post(
                 profile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true });
                 return res.json(profile);
             }
-
             // Create new
             profile = new Profile(profileFields);
             await profile.save();

@@ -11,7 +11,8 @@ const ProfileSchema = new mongoose.Schema({
     },
     position: {
         type: String,
-        required: true
+        required: true,
+        default: "Agent"
     },
     location: {
         type: String

@@ -8,6 +8,7 @@ import { getProfile } from "../../Redux/actions/profile";
 import Pagination from "../listing/Pagination";
 import SearchBar from "../listing/SearchBar";
 import styled from "styled-components";
+import GreenButton from "../universal/GreenButton";
 import PrimaryButton from "../universal/PrimaryButton";
 
 const Container = styled.div`
@@ -42,7 +43,7 @@ const AddListing = () => {
     return (
         <AddListingContainer>
             <Link to="/addlisting">
-                <PrimaryButton>Add Listing</PrimaryButton>
+                <GreenButton>Add Listing</GreenButton>
             </Link>
         </AddListingContainer>
     );
