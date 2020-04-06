@@ -8,7 +8,7 @@ import GenForm from "../universal/GenForm";
 import GenInput from "../universal/GenInput";
 import PrimaryButton from "../universal/PrimaryButton";
 
-const LoginContainer = styled.div`
+const Container = styled.div`
     max-width: 400px;
     margin: auto;
     box-sizing: border-box;
@@ -34,9 +34,9 @@ const Pwreset = ({ pwreset }) => {
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(0);
 
-    const onChangeHandler = e => setEmail(e.target.value);
+    const onChangeHandler = (e) => setEmail(e.target.value);
 
-    const onSubmitHandler = async e => {
+    const onSubmitHandler = async (e) => {
         e.preventDefault();
         setLoading(1);
         await pwreset(email);
@@ -44,7 +44,7 @@ const Pwreset = ({ pwreset }) => {
     };
 
     return (
-        <LoginContainer>
+        <Container>
             <ResetTextContainer>
                 <p className="lead">
                     <i className="fas fa-user"></i> Reset account password
@@ -64,7 +64,7 @@ const Pwreset = ({ pwreset }) => {
                 </ResetButton>
             </FormContainer>
             {loading ? <Spinner /> : null}
-        </LoginContainer>
+        </Container>
     );
 };
 
