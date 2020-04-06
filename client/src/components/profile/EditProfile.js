@@ -9,7 +9,6 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
     const [formData, setFormData] = useState({
         id: "",
         name: "",
-        position: "",
         location: "",
         phone: "",
         email: "",
@@ -21,7 +20,6 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
         setFormData({
             id: loading || !profile._id ? "" : profile._id,
             name: loading || !profile.name ? "" : profile.name,
-            position: loading || !profile.position ? "" : profile.position,
             location: loading || !profile.location ? "" : profile.location,
             phone: loading || !profile.phone ? "" : profile.phone,
             email: loading || !profile.email ? "" : profile.email,
@@ -29,16 +27,16 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
         });
     }, [loading, getProfile]);
 
-    const { id, name, position, location, phone, email, photo } = formData;
+    const { id, name, location, phone, email, photo } = formData;
 
-    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const onSubmit = e => {
+    const onSubmit = (e) => {
         e.preventDefault();
         addProfile(formData, history);
     };
 
-    const onDelete = e => {
+    const onDelete = (e) => {
         e.preventDefault();
         if (!window.confirm("This will delete your profile and listings. Press OK to continue")) {
             return;
@@ -46,7 +44,7 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
         deleteProfile();
     };
 
-    const onPhone = e => {
+    const onPhone = (e) => {
         formData.phone = e.value;
         setFormData({ ...formData, [phone]: "" });
     };
@@ -65,9 +63,6 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
                     <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="Position" name="position" value={position} onChange={onChange} />
-                </div>
-                <div className="form-group">
                     <input type="text" placeholder="Location" name="location" value={location} onChange={onChange} />
                 </div>
                 <div className="form-group">
@@ -76,7 +71,7 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
                         mask=""
                         name="phone"
                         placeholder="Phone Number Here"
-                        onValueChange={e => onPhone(e)}
+                        onValueChange={(e) => onPhone(e)}
                         value={phone}
                     />
                 </div>
@@ -102,7 +97,7 @@ EditProfile.propTypes = {
     deleteProfile: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     profile: state.profile
 });
 

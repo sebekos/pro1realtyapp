@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -70,11 +70,11 @@ Listings.propTypes = {
     pageClick: PropTypes.func.isRequired,
     formData: PropTypes.object,
     pages: PropTypes.number,
-    listings: PropTypes.object,
+    listings: PropTypes.array,
     loading: PropTypes.bool
 };
 
-const Dashboard = ({ auth: { user }, listing: { listings, loading, pages }, profile: { profile }, getRefinedListings, getProfile }) => {
+const MyListings = ({ auth: { user }, listing: { listings, loading, pages }, profile: { profile }, getRefinedListings, getProfile }) => {
     useEffect(() => {
         getProfile();
         if (user) {
@@ -114,8 +114,9 @@ const Dashboard = ({ auth: { user }, listing: { listings, loading, pages }, prof
     return (
         <Container>
             {loading ? <Spinner /> : null}
-            {profile ? <AddListing /> : <ProfileContainer />}
-            {profile ? (
+            {!loading && profile ? <AddListing /> : null}
+            {!loading && !profile ? <ProfileContainer /> : null}
+            {!loading && profile ? (
                 <Listings
                     onChange={onChange}
                     onSearch={onSearch}
@@ -130,14 +131,14 @@ const Dashboard = ({ auth: { user }, listing: { listings, loading, pages }, prof
     );
 };
 
-Dashboard.propTypes = {
+MyListings.propTypes = {
     auth: PropTypes.object.isRequired,
     listing: PropTypes.object.isRequired,
     getRefinedListings: PropTypes.func.isRequired,
     getProfile: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
     pages: PropTypes.number,
-    listings: PropTypes.object,
+    listings: PropTypes.array,
     loading: PropTypes.bool
 };
 
@@ -152,4 +153,4 @@ const mapDispatchToProps = {
     getProfile
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(MyListings);
