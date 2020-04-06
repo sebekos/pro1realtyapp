@@ -43,7 +43,7 @@ const DeletePhotos = ({ match, getListing, reOrderPhotos, listing: { listing, lo
 
     const onDelete = (e) => {
         let newPhotos = [];
-        let image = e.target.getAttribute("image");
+        let image = e.target.value;
         newPhotos = photos.filter((photo) => {
             return photo !== image;
         });
@@ -83,11 +83,11 @@ const DeletePhotos = ({ match, getListing, reOrderPhotos, listing: { listing, lo
 DeletePhotos.propTypes = {
     getListing: PropTypes.func.isRequired,
     reOrderPhotos: PropTypes.func.isRequired,
-    listing: PropTypes.object.isRequired,
+    listing: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    listing: state.listing,
+    listing: state.listing
 });
 
 export default connect(mapStateToProps, { getListing, reOrderPhotos })(DeletePhotos);

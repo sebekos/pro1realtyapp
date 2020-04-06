@@ -1,13 +1,28 @@
 import React from "react";
+import styled from "styled-components";
+import DangerButton from "../universal/DangerButton";
 
+const Container = styled.div`
+    display: block;
+    margin: 1rem;
+`;
+
+const DeleteImg = styled.img`
+    width: 200px !important;
+`;
+
+const DeleteButton = styled(DangerButton)`
+    position: absolute;
+    margin-left: -53px;
+`;
 const DeleteItem = ({ image, ondelete }) => {
     return (
-        <div className="img-delete-item" key={image}>
-            <img className="img-delete-img" src={image} alt="" />
-            <button image={image} className="btn btn-danger img-delete-btn" onClick={ondelete}>
+        <Container key={image}>
+            <DeleteImg src={image} alt="" />
+            <DeleteButton value={image} onClick={ondelete}>
                 X
-            </button>
-        </div>
+            </DeleteButton>
+        </Container>
     );
 };
 
