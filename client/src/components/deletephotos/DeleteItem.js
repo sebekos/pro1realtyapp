@@ -8,7 +8,7 @@ const Container = styled.div`
 `;
 
 const DeleteImg = styled.img`
-    width: 200px !important;
+    width: 200px;
 `;
 
 const DeleteButton = styled(DangerButton)`
