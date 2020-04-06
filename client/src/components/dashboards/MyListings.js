@@ -16,6 +16,28 @@ const Container = styled.div`
     margin: auto;
 `;
 
+const TitleContainer = styled.div`
+    margin: auto;
+`;
+
+const LeadText = styled.p`
+    font-size: 1.5rem;
+`;
+
+const Between = styled.div`
+    width: 100%;
+    border-bottom: 3px solid grey;
+`;
+
+const Title = () => {
+    return (
+        <TitleContainer>
+            <LeadText>My Listings</LeadText>
+            <Between />
+        </TitleContainer>
+    );
+};
+
 const AddProfileContainer = styled.div`
     margin: auto;
 `;
@@ -37,7 +59,7 @@ const ProfileContainer = () => {
 };
 
 const AddListingContainer = styled.div`
-    margin: auto;
+    margin: 10px auto;
 `;
 
 const AddListingButton = styled(GreenButton)`
@@ -121,6 +143,7 @@ const MyListings = ({ auth: { user }, listing: { listings, loading, pages }, pro
 
     return (
         <Container>
+            <Title />
             {loading ? <Spinner /> : null}
             {!loading && profile ? <AddListing /> : null}
             {!loading && !profile ? <ProfileContainer /> : null}
