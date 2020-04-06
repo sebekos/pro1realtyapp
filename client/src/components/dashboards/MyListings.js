@@ -10,6 +10,7 @@ import SearchBar from "../listing/SearchBar";
 import styled from "styled-components";
 import GreenButton from "../universal/GreenButton";
 import PrimaryButton from "../universal/PrimaryButton";
+import LightButton from "../universal/LightButton";
 
 const Container = styled.div`
     margin: auto;
@@ -39,11 +40,18 @@ const AddListingContainer = styled.div`
     margin: auto;
 `;
 
+const AddListingButton = styled(GreenButton)`
+    margin-right: 10px;
+`;
+
 const AddListing = () => {
     return (
         <AddListingContainer>
             <Link to="/addlisting">
-                <GreenButton>Add Listing</GreenButton>
+                <AddListingButton>Add Listing</AddListingButton>
+            </Link>
+            <Link to="/myprofile">
+                <LightButton>My Profile</LightButton>
             </Link>
         </AddListingContainer>
     );
