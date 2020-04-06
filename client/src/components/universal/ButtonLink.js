@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const ButtonLink = styled.button`
     color: white;
-    padding: 0.2rem 1.3rem;
+    padding: 0.2rem 1rem;
     font-size: 0.9rem;
     border: none;
     cursor: pointer;

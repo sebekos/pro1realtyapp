@@ -47,7 +47,7 @@ const ProfileContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-    margin: 10px auto;
+    margin: 10px auto 20px;
 `;
 
 const MyListingsButton = styled(GreenButton)`
