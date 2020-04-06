@@ -36,11 +36,17 @@ const LandingInner = styled.div`
 const Title = styled.h1`
     font-size: 4rem;
     margin-bottom: 0.3rem;
+    @media (max-width: 1230px) {
+        font-size: 3rem;
+    }
 `;
 
 const LeadText = styled.p`
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    @media (max-width: 1230px) {
+        font-size: 1rem;
+    }
 `;
 
 const ButtonContainer = styled.div``;

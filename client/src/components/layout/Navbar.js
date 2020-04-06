@@ -17,6 +17,10 @@ const NavbarContainer = styled.nav`
     border-bottom: solid 1px #17a2b8;
     opacity: 0.9;
     background-color: #343a40;
+    @media (max-width: 1230px) {
+        display: block;
+        text-align: center;
+    }
 `;
 
 const CompanyText = styled.h1`
@@ -28,6 +32,10 @@ const CompanyText = styled.h1`
 
 const ListContainer = styled.ul`
     display: flex;
+    @media (max-width: 1230px) {
+        width: fit-content;
+        margin: auto;
+    }
 `;
 
 const NavLink = styled.li`
