@@ -5,9 +5,28 @@ import { addListing } from "../../Redux/actions/listing";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import States from "../layout/States";
+import styled from "styled-components";
+import GenForm from "../universal/GenForm";
+import GenInput from "../universal/GenInput";
+import TextArea from "../universal/TextArea";
+import DropDown from "../universal/DropDown";
+import PrimaryButton from "../universal/PrimaryButton";
 import "react-datepicker/dist/react-datepicker.css";
 
-const AddListing = ({ addListing, history, auth: { user } }) => {
+const Form = styled(GenForm)`
+    margin: 1rem auto;
+`;
+
+const AddListingContainer = styled.div`
+    margin: auto;
+`;
+
+const TitleText = styled.h1`
+    font-size: 2rem;
+    color: #17a2b8;
+`;
+
+const AddListing = ({ addListing, history }) => {
     const [listdate, setListDate] = useState("");
 
     const [formData, setFormData] = useState({
@@ -21,7 +40,7 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
         bedroom: "",
         bathroom: "",
         squarefeet: "",
-        description: "",
+        description: ""
     });
 
     const { status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, description } = formData;
@@ -32,12 +51,12 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
                 ...formData,
                 city: "",
                 zipcode: "",
-                type: e.target.value,
+                type: e.target.value
             });
         } else {
             setFormData({
                 ...formData,
-                [e.target.name]: e.target.value,
+                [e.target.name]: e.target.value
             });
         }
     };
@@ -46,7 +65,7 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
         e.preventDefault();
         const listingData = {
             ...formData,
-            listdate: listdate,
+            listdate: listdate
         };
         await addListing(listingData, history);
     };
@@ -56,93 +75,74 @@ const AddListing = ({ addListing, history, auth: { user } }) => {
     };
 
     return (
-        <Fragment>
-            <h1 className="large text-primary">Listing Information</h1>
-            <form className="form" onSubmit={onSubmit}>
-                <div className="form-group">
-                    <DatePicker
-                        placeholderText="* Select listed date"
-                        selected={listdate}
-                        onChange={(date) => onDate(date)}
-                        maxDate={new Date()}
-                    />
-                </div>
-                <div className="form-group">
-                    <select name="status" value={status} onChange={onChange}>
-                        <option>Active</option>
-                        <option>Under Contract</option>
-                        <option>Pending</option>
-                        <option>Closed</option>
-                    </select>
-                </div>
-                <div className="form-group">
-                    <select name="type" value={type} onChange={onChange}>
-                        <option>Residential</option>
-                        <option>Commercial</option>
-                        <option>Confidential - Residential</option>
-                        <option>Confidential - Commercial</option>
-                    </select>
-                </div>
-                <div className="form-group">
-                    <input
-                        type="text"
-                        placeholder="Address"
-                        name="address"
-                        value={address}
-                        onChange={onChange}
-                        disabled={type.includes("Conf") ? true : false}
-                    />
-                </div>
-                <div className="form-group">
-                    <input
-                        type="text"
-                        placeholder="City"
-                        name="city"
-                        value={city}
-                        onChange={onChange}
-                        disabled={type.includes("Conf") ? true : false}
-                    />
-                </div>
-                <div className="form-group">
-                    <States update={onChange} chosen={state} />
-                </div>
-                <div className="form-group">
-                    <input
-                        type="text"
-                        placeholder="Zipcode"
-                        name="zipcode"
-                        value={zipcode}
-                        onChange={onChange}
-                        disabled={type.includes("Conf") ? true : false}
-                    />
-                </div>
-                <div className="form-group">
-                    <input type="number" placeholder="Price" name="price" value={price} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <input type="number" placeholder="Bedroom" name="bedroom" value={bedroom} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <input type="number" placeholder="Bathroom" name="bathroom" value={bathroom} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <input type="number" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <textarea rows="4" type="text" placeholder="Description" name="description" value={description} onChange={onChange} />
-                </div>
-                <input type="submit" className="btn btn-primary my-1" />
-            </form>
-        </Fragment>
+        <AddListingContainer>
+            <TitleText>Listing Information</TitleText>
+            <Form onSubmit={onSubmit}>
+                <DatePicker
+                    placeholderText="* Select listed date"
+                    selected={listdate}
+                    onChange={(date) => onDate(date)}
+                    maxDate={new Date()}
+                />
+                <DropDown name="status" value={status} onChange={onChange}>
+                    <option>Active</option>
+                    <option>Under Contract</option>
+                    <option>Pending</option>
+                    <option>Closed</option>
+                </DropDown>
+                <DropDown name="type" value={type} onChange={onChange}>
+                    <option>Residential</option>
+                    <option>Commercial</option>
+                    <option>Confidential - Residential</option>
+                    <option>Confidential - Commercial</option>
+                </DropDown>
+                <GenInput
+                    type="text"
+                    placeholder="Address"
+                    name="address"
+                    value={address}
+                    onChange={onChange}
+                    disabled={type.includes("Conf") ? true : false}
+                />
+                <GenInput
+                    type="text"
+                    placeholder="City"
+                    name="city"
+                    value={city}
+                    onChange={onChange}
+                    disabled={type.includes("Conf") ? true : false}
+                />
+                <States update={onChange} chosen={state} />
+                <GenInput
+                    type="text"
+                    placeholder="Zipcode"
+                    name="zipcode"
+                    value={zipcode}
+                    onChange={onChange}
+                    disabled={type.includes("Conf") ? true : false}
+                />
+                <GenInput type="number" placeholder="Price" name="price" value={price} onChange={onChange} />
+                <GenInput type="number" placeholder="Bedroom" name="bedroom" value={bedroom} onChange={onChange} />
+                <GenInput type="number" placeholder="Bathroom" name="bathroom" value={bathroom} onChange={onChange} />
+                <GenInput type="number" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={onChange} />
+                <TextArea rows="4" type="text" placeholder="Description" name="description" value={description} onChange={onChange} />
+                <PrimaryButton type="submit">Submit</PrimaryButton>
+            </Form>
+        </AddListingContainer>
     );
 };
 
 AddListing.propTypes = {
     addListing: PropTypes.func.isRequired,
+    history: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
-    auth: state.auth,
+    auth: state.auth
 });
 
-export default connect(mapStateToProps, { addListing })(withRouter(AddListing));
+const mapDispatchToProps = {
+    addListing
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddListing));

@@ -1,8 +1,9 @@
 import React from "react";
+import DropDown from "../universal/DropDown";
 
 const States = ({ update, chosen }) => {
     return (
-        <select data-dropup-auto="false" name="state" value={chosen} onChange={e => update(e)}>
+        <DropDown data-dropup-auto="false" name="state" value={chosen} onChange={(e) => update(e)}>
             <option value="AL">AL</option>
             <option value="AK">AK</option>
             <option value="AR">AR</option>
@@ -54,7 +55,7 @@ const States = ({ update, chosen }) => {
             <option value="WI">WI</option>
             <option value="WV">WV</option>
             <option value="WY">WY</option>
-        </select>
+        </DropDown>
     );
 };
 
