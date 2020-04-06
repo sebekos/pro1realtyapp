@@ -9,7 +9,7 @@ import GenForm from "../universal/GenForm";
 import GenInput from "../universal/GenInput";
 import PrimaryButton from "../universal/PrimaryButton";
 
-const RegisterContainer = styled.div`
+const Container = styled.div`
     max-width: 400px;
     margin: auto;
     box-sizing: border-box;
@@ -33,7 +33,7 @@ const Register = ({ register, isAuthenticated }) => {
         email: "",
         password: "",
         password2: "",
-        registerkey: "",
+        registerkey: ""
     });
 
     const { name, email, password, password2, registerkey } = formData;
@@ -56,7 +56,7 @@ const Register = ({ register, isAuthenticated }) => {
     }
 
     return (
-        <RegisterContainer>
+        <Container>
             <RegisterTextContainer>
                 <p className="lead">
                     <i className="fas fa-user"></i> Create Your Account
@@ -87,17 +87,21 @@ const Register = ({ register, isAuthenticated }) => {
                     Already have an account? <Link to="/login">Sign In</Link>
                 </p>
             </FormContainer>
-        </RegisterContainer>
+        </Container>
     );
 };
 
 Register.propTypes = {
     register: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool,
+    isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { register })(Register);
+const mapDispatchToProps = {
+    register
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

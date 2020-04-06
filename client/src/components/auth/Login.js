@@ -9,7 +9,7 @@ import GenForm from "../universal/GenForm";
 import GenInput from "../universal/GenInput";
 import PrimaryButton from "../universal/PrimaryButton";
 
-const LoginContainer = styled.div`
+const Container = styled.div`
     max-width: 400px;
     margin: auto;
     box-sizing: border-box;
@@ -39,9 +39,9 @@ const Login = ({ login, isAuthenticated }) => {
 
     const { email, password } = formData;
 
-    const onChangeHandler = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onChangeHandler = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const onSubmitHandler = async e => {
+    const onSubmitHandler = async (e) => {
         e.preventDefault();
         login(email, password);
     };
@@ -52,7 +52,7 @@ const Login = ({ login, isAuthenticated }) => {
     }
 
     return (
-        <LoginContainer>
+        <Container>
             <SignInContainer>
                 <p className="lead">
                     <i className="fas fa-user"></i> Sign Into Your Account
@@ -82,7 +82,7 @@ const Login = ({ login, isAuthenticated }) => {
                     <small>Forgot password?</small>
                 </Link>
             </FormContainer>
-        </LoginContainer>
+        </Container>
     );
 };
 
@@ -91,7 +91,7 @@ Login.propTypes = {
     isAuthenticated: PropTypes.bool
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
