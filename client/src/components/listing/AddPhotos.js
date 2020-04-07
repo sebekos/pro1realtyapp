@@ -6,8 +6,21 @@ import { connect } from "react-redux";
 import { bulkResize } from "../../utils/photo";
 import PropTypes from "prop-types";
 import Spinner from "../layout/Spinner";
+import styled from "styled-components";
 import ProgressBar from "../layout/ProgressBar";
 import GreenButton from "../universal/GreenButton";
+
+const Container = styled.div`
+    margin: auto;
+`;
+
+const UploadContainer = styled.div`
+    border: darkgrey solid 1px;
+    background: #e6e6e6;
+    padding: 2px;
+    text-align: center;
+    margin-top: 20px;
+`;
 
 const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listing }, getListing, setLoadingTrue }) => {
     const [pictures, setPictures] = useState([]);
@@ -50,9 +63,9 @@ const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listi
     };
 
     return (
-        <div>
+        <Container>
             {loading ? <Spinner /> : null}
-            <div className="upload-images">
+            <UploadContainer>
                 <ImageUploader
                     withIcon={false}
                     buttonText="Choose Images"
@@ -72,8 +85,8 @@ const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listi
                     </a>
                 ) : null}
                 {progressbar ? <ProgressBar /> : null}
-            </div>
-        </div>
+            </UploadContainer>
+        </Container>
     );
 };
 
@@ -82,11 +95,11 @@ AddPhotos.propTypes = {
     uploadPhotos: PropTypes.func.isRequired,
     setLoadingTrue: PropTypes.func.isRequired,
     progressBarValue: PropTypes.func.isRequired,
-    toggleProgressBar: PropTypes.func.isRequired,
+    toggleProgressBar: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    listing: state.listing,
+    listing: state.listing
 });
 
 export default connect(mapStateToProps, {
@@ -94,5 +107,5 @@ export default connect(mapStateToProps, {
     getListing,
     setLoadingTrue,
     progressBarValue,
-    toggleProgressBar,
+    toggleProgressBar
 })(AddPhotos);

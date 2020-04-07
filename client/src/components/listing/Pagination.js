@@ -14,6 +14,10 @@ const ListingsContainer = styled.div`
     }
 `;
 
+const PaginationContainer = styled.div`
+    margin: auto;
+`;
+
 const Pagination = ({ pageClick, pages, listings, currPage }) => {
     const paginateDiv = (
         <div className="right-align">
@@ -34,17 +38,17 @@ const Pagination = ({ pageClick, pages, listings, currPage }) => {
         </div>
     );
     return (
-        <div className="pagination-container">
+        <PaginationContainer>
             {paginateDiv}
             <ListingsContainer>
-                {listings.map(listing => (
+                {listings.map((listing) => (
                     <ListingSummaryItem key={listing._id} listing={listing} listingId={listing._id}>
                         Listing
                     </ListingSummaryItem>
                 ))}
             </ListingsContainer>
             {paginateDiv}
-        </div>
+        </PaginationContainer>
     );
 };
 

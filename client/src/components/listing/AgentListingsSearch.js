@@ -5,12 +5,18 @@ import { connect } from "react-redux";
 import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
 import Spinner from "../layout/Spinner";
+import styled from "styled-components";
+
+const Container = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+`;
 
 const AgentListingSearch = ({
     getRefinedListings,
     setSearch,
     listing: { listings, pages, loading, zipcode, type, group, page },
-    match,
+    match
 }) => {
     useEffect(() => {
         getRefinedListings({
@@ -18,67 +24,67 @@ const AgentListingSearch = ({
             type,
             group,
             agentid: match.params.id,
-            page: 0,
+            page: 0
         });
     }, [getRefinedListings]);
 
     const onChange = (e) => {
         setSearch({
             field: e.target.name,
-            data: e.target.value,
+            data: e.target.value
         });
     };
 
     const onSearch = () => {
         setSearch({
             field: "page",
-            data: 0,
+            data: 0
         });
         getRefinedListings({
             zipcode,
             type,
             group,
             agentid: match.params.id,
-            page: 0,
+            page: 0
         });
     };
 
     const pageClick = (data) => {
         setSearch({
             field: "page",
-            data: data.selected,
+            data: data.selected
         });
         getRefinedListings({
             zipcode,
             type,
             group,
             agentid: "",
-            page: data.selected,
+            page: data.selected
         });
     };
 
     return (
-        <div className="listings-view">
+        <Container>
             {loading ? <Spinner /> : null}
             <SearchBar onChange={onChange} onSearch={onSearch} />
             {listings.length > 0 ? <Pagination pageClick={pageClick} pages={pages} listings={listings} currPage={page} /> : null}
             {!loading && listings.length === 0 ? <div className="text-center">No listings matching criteria</div> : null}
-        </div>
+        </Container>
     );
 };
 
 AgentListingSearch.propTypes = {
     getRefinedListings: PropTypes.func.isRequired,
-    setSearch: PropTypes.func.isRequired,
+    setSearch: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    listing: state.listing,
+    listing: state.listing
 });
 
 const mapDispatchToProps = {
     getRefinedListings,
-    setSearch,
+    setSearch
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AgentListingSearch);

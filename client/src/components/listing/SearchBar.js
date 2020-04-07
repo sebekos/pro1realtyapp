@@ -1,29 +1,46 @@
 import React from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
+import GenInput from "../universal/GenInput";
+import DropDown from "../universal/DropDown";
+import PrimaryButton from "../universal/PrimaryButton";
+
+const Container = styled.div`
+    display: flex;
+    justify-self: end;
+    margin-bottom: 10px;
+    & > input {
+        margin-bottom: 0px;
+        margin-right: 2px;
+    }
+    & > select {
+        margin-bottom: 0px;
+    }
+`;
 
 const SearchBar = ({ onChange, onSearch, listing: { zipcode, type, group } }) => {
     return (
-        <div className="listing-search-bar form">
-            <input onChange={onChange} name="zipcode" value={zipcode} type="text" placeholder="Zipcode" />
-            <select name="group" value={group} onChange={onChange}>
+        <Container>
+            <GenInput onChange={onChange} name="zipcode" value={zipcode} type="text" placeholder="Zipcode" />
+            <DropDown name="group" value={group} onChange={onChange}>
                 <option>All</option>
                 <option>Commercial</option>
                 <option>Residential</option>
-            </select>
-            <select name="type" value={type} onChange={onChange}>
+            </DropDown>
+            <DropDown name="type" value={type} onChange={onChange}>
                 <option>Newest</option>
                 <option>Oldest</option>
                 <option>High Price</option>
                 <option>Low Price</option>
-            </select>
-            <button onClick={onSearch} type="submit" className="btn btn-primary">
+            </DropDown>
+            <PrimaryButton onClick={onSearch} type="submit">
                 Search
-            </button>
-        </div>
+            </PrimaryButton>
+        </Container>
     );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     listing: state.listing
 });
 

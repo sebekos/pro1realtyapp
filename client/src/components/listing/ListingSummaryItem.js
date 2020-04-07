@@ -74,7 +74,7 @@ const Image = ({ src, count }) => {
 
 Image.propTypes = {
     src: PropTypes.string,
-    count: PropTypes.number,
+    count: PropTypes.number
 };
 
 const InfoContainer = styled.div`
@@ -115,6 +115,8 @@ const Price = styled.div`
     font-size: 1.2rem;
     font-weight: bold;
     justify-self: end;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;
 
 const AddressPrice = ({ address, city, state, price, listingid }) => {
@@ -143,7 +145,7 @@ AddressPrice.propTypes = {
     city: PropTypes.string,
     state: PropTypes.string,
     price: PropTypes.number,
-    listingid: PropTypes.string,
+    listingid: PropTypes.string
 };
 
 const StatusDateLineContainer = styled.div`
@@ -188,7 +190,7 @@ const StatusDateLine = ({ status, type, listdate }) => {
 StatusDateLine.propTypes = {
     status: PropTypes.string,
     type: PropTypes.string,
-    listdate: PropTypes.string,
+    listdate: PropTypes.string
 };
 
 const BlockLineContainer = styled.div`
@@ -240,7 +242,7 @@ const BlockText = ({ bedroom, bathroom, squarefeet }) => {
 BlockText.propTypes = {
     bedroom: PropTypes.number,
     bathroom: PropTypes.number,
-    squarefeet: PropTypes.number,
+    squarefeet: PropTypes.number
 };
 
 const ButtonContainer = styled.div`
@@ -282,12 +284,12 @@ const Buttons = ({ listingId, user, agentid }) => {
 Buttons.propTypes = {
     listingId: PropTypes.string,
     user: PropTypes.object,
-    agentid: PropTypes.string,
+    agentid: PropTypes.string
 };
 
 const ListingItem = ({
     auth: { user },
-    listing: { agentid, photos, listdate, status, type, address, city, state, price, bedroom, bathroom, squarefeet, _id },
+    listing: { agentid, photos, listdate, status, type, address, city, state, price, bedroom, bathroom, squarefeet, _id }
 }) => (
     <SummaryContainer>
         <Image src={photos[0]} count={photos.length} />
@@ -303,11 +305,11 @@ const ListingItem = ({
 ListingItem.propTypes = {
     listing: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
-    listingId: PropTypes.string.isRequired,
+    listingId: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    auth: state.auth,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, {})(ListingItem);
