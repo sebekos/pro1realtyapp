@@ -7,6 +7,9 @@ const GenInput = styled.input`
     font-size: 0.9rem;
     border: 1px solid #ccc;
     margin-bottom: 1rem;
+    &:disabled {
+        background-color: lightgrey;
+    }
 `;
 
 export default GenInput;

@@ -66,6 +66,10 @@ const AddListingButton = styled(GreenButton)`
     margin-right: 10px;
 `;
 
+const TextCenter = styled.div`
+    text-align: center;
+`;
+
 const AddListing = () => {
     return (
         <AddListingContainer>
@@ -89,7 +93,7 @@ const Listings = ({ onChange, onSearch, pageClick, pages, page, listings, loadin
         <ListingsContainer>
             <SearchBar onChange={onChange} onSearch={onSearch} />
             {listings.length > 0 ? <Pagination pageClick={pageClick} pages={pages} listings={listings} currPage={page} /> : null}
-            {!loading && listings.length === 0 ? <div className="text-center">No listings matching criteria</div> : null}
+            {!loading && listings.length === 0 ? <TextCenter>No listings matching criteria</TextCenter> : null}
         </ListingsContainer>
     );
 };
