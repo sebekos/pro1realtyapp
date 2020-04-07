@@ -4,6 +4,36 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { addProfile } from "../../Redux/actions/profile";
 import NumberFormat from "react-number-format";
+import styled from "styled-components";
+import GenForm from "../universal/GenForm";
+import GenInput from "../universal/GenInput";
+import PrimaryButton from "../universal/PrimaryButton";
+import LightButton from "../universal/LightButton";
+
+const Container = styled.div`
+    margin: auto;
+`;
+
+const TextPrimary = styled.div`
+    color: #17a2b8;
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+`;
+
+const FormText = styled.small`
+    font-size: 0.7rem;
+    display: block;
+    margin-top: -1rem;
+    margin-bottom: 0.5rem;
+    color: #888;
+`;
+
+const ButtonContainer = styled.div`
+    & > button {
+        margin-right: 5px;
+    }
+`;
 
 const AddProfile = ({ addProfile, history }) => {
     const [formData, setFormData] = useState({
@@ -28,40 +58,40 @@ const AddProfile = ({ addProfile, history }) => {
     };
 
     return (
-        <Fragment>
-            <h1 className="large text-primary">Profile Information</h1>
-            <form className="form" onSubmit={onSubmit}>
-                <div className="form-group">
-                    <input type="text" placeholder="Visible Name" name="name" value={name} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <input type="text" placeholder="Location" name="location" value={location} onChange={onChange} />
-                </div>
-                <small className="form-text">* Chicago Land Area, Great Lakes, etc...</small>
-                <div className="form-group">
-                    <NumberFormat
-                        format="(###) ###-####"
-                        mask=""
-                        name="phone"
-                        placeholder="Phone Number"
-                        onValueChange={(e) => onPhone(e)}
-                        value={phone}
-                    />
-                </div>
-                <div className="form-group">
-                    <input type="text" placeholder="Email" name="email" value={email} onChange={onChange} />
-                </div>
-                <input type="submit" className="btn btn-primary my-1" />
-                <Link className="btn btn-light my-1" to="/myprofile">
-                    Go Back
+        <Container>
+            <TextPrimary>Profile Information</TextPrimary>
+            <GenForm className="form" onSubmit={onSubmit}>
+                <GenInput type="text" placeholder="Visible Name" name="name" value={name} onChange={onChange} />
+                <GenInput type="text" placeholder="Location" name="location" value={location} onChange={onChange} />
+                <FormText className="form-text">* Chicago Land Area, Great Lakes, etc...</FormText>
+                <NumberFormat
+                    className="number-format"
+                    format="(###) ###-####"
+                    mask=""
+                    name="phone"
+                    placeholder="Phone Number"
+                    onValueChange={(e) => onPhone(e)}
+                    value={phone}
+                />
+                <GenInput type="text" placeholder="Email" name="email" value={email} onChange={onChange} />
+            </GenForm>
+            <ButtonContainer>
+                <PrimaryButton onClick={onSubmit}>Submit</PrimaryButton>
+                <Link to="/myprofile">
+                    <LightButton>Go Back</LightButton>
                 </Link>
-            </form>
-        </Fragment>
+            </ButtonContainer>
+        </Container>
     );
 };
 
 AddProfile.propTypes = {
-    addProfile: PropTypes.func.isRequired
+    addProfile: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
 };
 
-export default connect(null, { addProfile })(withRouter(AddProfile));
+const mapDispatchToProps = {
+    addProfile
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(AddProfile));

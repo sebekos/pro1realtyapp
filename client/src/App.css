@@ -61,6 +61,15 @@ ul {
 }
 /* Date Picker Fix ------------------------------------ */
 
+.number-format {
+    display: block;
+    width: 100%;
+    padding: 0.2rem;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+}
+
 .img-icon {
     margin: auto;
     max-height: 175px;
