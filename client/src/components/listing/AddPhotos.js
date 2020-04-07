@@ -14,12 +14,17 @@ const Container = styled.div`
     margin: auto;
 `;
 
+const UploadButton = styled(GreenButton)`
+    margin-bottom: 1rem;
+`;
+
 const UploadContainer = styled.div`
-    border: darkgrey solid 1px;
-    background: #e6e6e6;
-    padding: 2px;
     text-align: center;
-    margin-top: 20px;
+    width: fit-content;
+    margin: 5px auto;
+    -webkit-box-shadow: 1px 1px 3px 2px #ccc;
+    -moz-box-shadow: 1px 1px 3px 2px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
 `;
 
 const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listing }, getListing, setLoadingTrue }) => {
@@ -75,13 +80,13 @@ const AddPhotos = ({ uploadPhotos, match, listing: { loading, progressbar, listi
                     withPreview={true}
                 />
                 {uploadBtn ? (
-                    <GreenButton className="upload-btn" onClick={onUpload}>
+                    <UploadButton className="upload-btn" onClick={onUpload}>
                         Upload Images
-                    </GreenButton>
+                    </UploadButton>
                 ) : null}
                 {redir ? (
                     <a href={`/listing/${match.params.id}`}>
-                        <GreenButton>Go To Listing</GreenButton>
+                        <UploadButton>Go To Listing</UploadButton>
                     </a>
                 ) : null}
                 {progressbar ? <ProgressBar /> : null}

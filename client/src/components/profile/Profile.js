@@ -2,9 +2,9 @@ import React from "react";
 import NumberFormat from "react-number-format";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import ButtonLink from "../universal/ButtonLink";
 import { Link } from "react-router-dom";
 import DefaultAvatar from "../../img/defaultavatar.png";
+import GreenButton from "../universal/GreenButton";
 
 const ProfileItemContainer = styled.div`
     position: relative;
@@ -36,12 +36,7 @@ const ButtonContainer = styled.div`
     }
 `;
 
-const ListingsButton = styled(ButtonLink)`
-    background-color: #17a2b8;
-    & > a {
-        color: white;
-    }
-`;
+const ListingsButton = styled(GreenButton)``;
 
 const Button = ({ agentid }) => {
     return (
@@ -54,7 +49,7 @@ const Button = ({ agentid }) => {
 };
 
 Button.propTypes = {
-    agentid: PropTypes.string,
+    agentid: PropTypes.string
 };
 
 const ImageContainer = styled.div`
@@ -83,7 +78,7 @@ const Image = ({ photo }) => {
 };
 
 Image.propTypes = {
-    photo: PropTypes.string,
+    photo: PropTypes.string
 };
 
 const TextContainer = styled.div`
@@ -136,7 +131,7 @@ Text.propTypes = {
     location: PropTypes.string,
     phone: PropTypes.string,
     email: PropTypes.string,
-    agentid: PropTypes.string,
+    agentid: PropTypes.string
 };
 
 const Profile = ({ profile: { name, position, location, phone, email, photo, user } }) => (
@@ -153,7 +148,7 @@ Profile.propTypes = {
     phone: PropTypes.string,
     email: PropTypes.string,
     photo: PropTypes.string,
-    user: PropTypes.string,
+    user: PropTypes.string
 };
 
 export default Profile;

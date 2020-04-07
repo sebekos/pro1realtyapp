@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const LightButton = styled.button`
     color: black;
-    padding: 0.2rem 1rem;
+    padding: 0.3rem 1rem;
     font-size: 0.9rem;
     border: none;
     cursor: pointer;

@@ -123,6 +123,7 @@ const DetailsContactContainer = styled.div`
     grid-template-columns: 1fr 1fr;
     padding: 5px;
     margin-top: 5px;
+    margin-bottom: 5px;
     box-sizing: border-box;
     -webkit-box-shadow: 1px 1px 3px 2px #ccc;
     -moz-box-shadow: 1px 1px 3px 2px #ccc;

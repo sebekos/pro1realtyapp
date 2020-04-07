@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import ButtonLink from "../universal/ButtonLink";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import NumberFormat from "react-number-format";
 import styled from "styled-components";
+import GreenButton from "../universal/GreenButton";
+import DangerButton from "../universal/DangerButton";
 
 const SummaryContainer = styled.div`
     position: relative;
@@ -257,12 +258,9 @@ const ButtonContainer = styled.div`
     }
 `;
 
-const DetailsButton = styled(ButtonLink)`
-    background-color: green;
-`;
+const DetailsButton = styled(GreenButton)``;
 
-const EditButton = styled(ButtonLink)`
-    background-color: red;
+const EditButton = styled(DangerButton)`
     margin-right: 5px;
 `;
 

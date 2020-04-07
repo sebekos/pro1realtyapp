@@ -20,6 +20,10 @@ const MainPhotoContainer = styled.div`
     color: white;
     text-align: center;
     overflow: hidden;
+    @media (max-width: 680px) {
+        min-height: auto;
+        max-height: 250px;
+    }
 `;
 
 const MainPhoto = styled.img`
@@ -31,6 +35,9 @@ const ColumnContainer = styled.div`
     flex-direction: column;
     max-height: 400px;
     margin-left: 2px;
+    @media (max-width: 680px) {
+        max-height: 250px;
+    }
 `;
 
 const ColumnPhotoContainer = styled.div`
