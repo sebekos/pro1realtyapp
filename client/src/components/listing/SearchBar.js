@@ -16,6 +16,9 @@ const Container = styled.div`
     & > select {
         margin-bottom: 0px;
     }
+    @media (max-width: 680px) {
+        margin-top 1rem;
+    }
 `;
 
 const SearchBar = ({ onChange, onSearch, listing: { zipcode, type, group } }) => {

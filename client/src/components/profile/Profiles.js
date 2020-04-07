@@ -14,6 +14,9 @@ const ProfileContainer = styled.div`
     @media (max-width: 1280px) {
         grid-template-columns: 1fr;
     }
+    @media (max-width: 680px) {
+        margin-top: 1rem;
+    }
 `;
 
 const NoResults = styled.div`
@@ -32,7 +35,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             {!loading && profiles.length === 0 ? <NoResults>No agents found</NoResults> : null}
             <ProfileContainer>
                 {loading ? <Spinner /> : null}
-                {profiles.length > 0 ? profiles.map(profile => <Profile key={profile._id} profile={profile} />) : null}
+                {profiles.length > 0 ? profiles.map((profile) => <Profile key={profile._id} profile={profile} />) : null}
             </ProfileContainer>
         </>
     );
@@ -44,7 +47,7 @@ Profiles.propTypes = {
     loading: PropTypes.bool
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     profile: state.profile
 });
 

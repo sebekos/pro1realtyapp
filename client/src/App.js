@@ -45,16 +45,17 @@ const App = () => {
                 <Fragment>
                     <Navbar />
                     <Route exact path="/" component={Landing} />
-                    <section className="container">
-                        <ToastContainer hideProgressBar pauseOnHover={false} />
-                        <Switch>
+                    <ToastContainer hideProgressBar pauseOnHover={false} />
+                    <Switch>
+                        <Route exact path="/contact" component={Office} />
+
+                        <section className="container">
                             <Route exact path="/register" component={Register} />
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/listings" component={AllListingSearch} />
                             <Route exact path="/agents" component={Profiles} />
                             <Route exact path="/listing/:id" component={ListingDetails} />
                             <Route exact path="/listings/:id" component={AgentListingsSearch} />
-                            <Route exact path="/contact" component={Office} />
                             <Route exact path="/pwreset" component={Pwreset} />
                             <Route exact path="/pwresetsave/:hash" component={Pwresetsave} />
                             <PrivateRoute exact path="/myprofile" component={MyProfile} />
@@ -67,8 +68,8 @@ const App = () => {
                             <PrivateRoute exact path="/addprofile" component={AddProfile} />
                             <PrivateRoute exact path="/editprofile" component={EditProfile} />
                             <PrivateRoute exact path="/editprofile/avatar" component={Avatar} />
-                        </Switch>
-                    </section>
+                        </section>
+                    </Switch>
                 </Fragment>
             </Router>
         </Provider>

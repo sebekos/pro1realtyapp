@@ -8,38 +8,47 @@ import styled from "styled-components";
 import BackImg from "../../img/aboutme.jpg";
 
 const Background = styled.div`
-    background: url(${BackImg}) no-repeat center center fixed;
-    min-height: 100%;
-    min-width: 1024px;
-    width: 100%;
-    height: auto;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    opacity: 0.5;
+    background-image: url(${BackImg});
+    min-height: 400px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @media (max-width: 680px) {
+        display: none;
+    }
+`;
+
+const Background2 = styled(Background)`
+    min-height: 300px;
+`;
+
+const Background3 = styled(Background)`
+    min-height: 600px;
 `;
 
 const ContactContainer = styled.div`
-    width: 800px;
+    max-width: 1000px;
     margin: auto;
     opacity: 0.9;
-    padding-bottom: 20px;
     @media (max-width: 680px) {
-        width: auto;
+        margin-top 6rem;
+        max-width: auto;
+    }
+`;
+
+const ContactContainer2 = styled(ContactContainer)`
+    margin-bottom: 1rem;
+    @media (max-width: 680px) {
+        margin-top: 0;
     }
 `;
 
 const BioContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 800px;
     padding: 10px;
     color: #343a40;
-    border-bottom: 1px solid grey;
-    @media (max-width: 680px) {
-        width: auto;
-    }
 `;
 
 const AboutTitleText = styled.div`
@@ -59,7 +68,6 @@ const BioText2 = styled.div`
 
 const BioText3 = styled.div`
     font-size: 1rem;
-    margin-bottom: 20px;
 `;
 
 const Bio = () => {
@@ -88,7 +96,6 @@ const Bio = () => {
 const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 800px;
     padding: 10px;
     margin: auto;
 `;
@@ -120,7 +127,7 @@ Text.propTypes = {
     phone: PropTypes.string,
     city: PropTypes.string,
     state: PropTypes.string,
-    zipcode: PropTypes.string,
+    zipcode: PropTypes.string
 };
 
 const MapContainer = styled.div`
@@ -136,8 +143,8 @@ const Office = ({
     getOffice,
     office: {
         office: { address, phone, city, state, zipcode },
-        loading,
-    },
+        loading
+    }
 }) => {
     useEffect(() => {
         getOffice();
@@ -150,22 +157,26 @@ const Office = ({
             <Background />
             <ContactContainer>
                 <Bio />
+            </ContactContainer>
+            <Background2 />
+            <ContactContainer2>
                 <Text address={address} phone={phone} city={city} state={state} zipcode={zipcode} />
                 <MapContainer>
                     <OfficeMap />
                 </MapContainer>
-            </ContactContainer>
+            </ContactContainer2>
+            <Background3 />
         </>
     );
 };
 
 Office.propTypes = {
     getOffice: PropTypes.func.isRequired,
-    office: PropTypes.object.isRequired,
+    office: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    office: state.office,
+    office: state.office
 });
 
 export default connect(mapStateToProps, { getOffice })(Office);
