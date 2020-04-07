@@ -19,6 +19,7 @@ const MainPhotoContainer = styled.div`
     background-color: black;
     color: white;
     text-align: center;
+    overflow: hidden;
 `;
 
 const MainPhoto = styled.img`

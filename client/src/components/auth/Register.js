@@ -27,6 +27,14 @@ const RegisterTextContainer = styled.div`
     padding: 20px 20px;
 `;
 
+const Lead = styled.p`
+    font-size: 1rem;
+`;
+
+const MyText = styled.p`
+    margin: 1rem 0;
+`;
+
 const Register = ({ register, isAuthenticated }) => {
     const [formData, setFormData] = useState({
         name: "",
@@ -58,9 +66,9 @@ const Register = ({ register, isAuthenticated }) => {
     return (
         <Container>
             <RegisterTextContainer>
-                <p className="lead">
+                <Lead>
                     <i className="fas fa-user"></i> Create Your Account
-                </p>
+                </Lead>
             </RegisterTextContainer>
             <FormContainer onSubmit={onSubmitHandler}>
                 <GenInput type="text" placeholder="Name" name="name" value={name} onChange={onChangeHandler}></GenInput>
@@ -83,9 +91,9 @@ const Register = ({ register, isAuthenticated }) => {
                 <PrimaryButton type="submit" className="btn btn-primary" value="Register">
                     Submit
                 </PrimaryButton>
-                <p className="my-1">
+                <MyText>
                     Already have an account? <Link to="/login">Sign In</Link>
-                </p>
+                </MyText>
             </FormContainer>
         </Container>
     );
