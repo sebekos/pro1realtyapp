@@ -1,9 +1,77 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import NumberFormat from "react-number-format";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { getProfile, addProfile, deleteProfile } from "../../Redux/actions/profile";
+import styled from "styled-components";
+import GenForm from "../universal/GenForm";
+import GenInput from "../universal/GenInput";
+import PrimaryButton from "../universal/PrimaryButton";
+import LightButton from "../universal/LightButton";
+import DangerButton from "../universal/DangerButton";
+
+const Container = styled.div`
+    margin: auto;
+`;
+
+const TextPrimary = styled.div`
+    color: #17a2b8;
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+`;
+
+const ButtonContainer = styled.div`
+    & > button {
+        margin-right: 5px;
+    }
+    & > a {
+        margin-right: 5px;
+    }
+`;
+
+const Buttons = ({ onSubmit, onDelete }) => {
+    return (
+        <ButtonContainer>
+            <PrimaryButton onClick={onSubmit}>Submit</PrimaryButton>
+            <Link to="/myprofile">
+                <LightButton>Go Back</LightButton>
+            </Link>
+            <DangerButton onClick={onDelete}>Delete</DangerButton>
+        </ButtonContainer>
+    );
+};
+
+Buttons.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
+};
+
+const AvatarContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+`;
+
+const Image = styled.img`
+    margin-bottom: 1rem;
+`;
+
+const Avatar = ({ photo }) => {
+    return (
+        <AvatarContainer>
+            <Image src={photo} alt="" />
+            <Link to="/editprofile/avatar">
+                <LightButton>Add/Edit Avatar</LightButton>
+            </Link>
+        </AvatarContainer>
+    );
+};
+
+const Form = styled(GenForm)`
+    margin-top: 1rem;
+`;
 
 const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile, loading }, history }) => {
     const [formData, setFormData] = useState({
@@ -50,43 +118,25 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
     };
 
     return (
-        <Fragment>
-            <h1 className="large text-primary">Profile Information</h1>
-            <img src={photo} alt="" />
-            <p>
-                <Link className="btn btn-light my-1" to="/editprofile/avatar">
-                    Add/Edit Avatar
-                </Link>
-            </p>
-            <form className="form" onSubmit={onSubmit}>
-                <div className="form-group">
-                    <input type="text" placeholder="Name" name="name" value={name} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <input type="text" placeholder="Location" name="location" value={location} onChange={onChange} />
-                </div>
-                <div className="form-group">
-                    <NumberFormat
-                        format="(###) ###-####"
-                        mask=""
-                        name="phone"
-                        placeholder="Phone Number Here"
-                        onValueChange={(e) => onPhone(e)}
-                        value={phone}
-                    />
-                </div>
-                <div className="form-group">
-                    <input type="text" placeholder="Email" name="email" value={email} onChange={onChange} />
-                </div>
-                <input type="submit" className="btn btn-primary my-1" />
-                <Link className="btn btn-light my-1" to="/myprofile">
-                    Go Back
-                </Link>
-                <button className="btn btn-danger my-1" onClick={onDelete} type="button">
-                    Delete
-                </button>
-            </form>
-        </Fragment>
+        <Container>
+            <TextPrimary>Profile Information</TextPrimary>
+            <Avatar photo={photo} />
+            <Form onSubmit={onSubmit}>
+                <GenInput type="text" placeholder="Visible Name" name="name" value={name} onChange={onChange} />
+                <GenInput type="text" placeholder="Location" name="location" value={location} onChange={onChange} />
+                <NumberFormat
+                    className="number-format"
+                    format="(###) ###-####"
+                    mask=""
+                    name="phone"
+                    placeholder="Phone Number"
+                    onValueChange={(e) => onPhone(e)}
+                    value={phone}
+                />
+                <GenInput type="text" placeholder="Email" name="email" value={email} onChange={onChange} />
+            </Form>
+            <Buttons onDelete={onDelete} onSubmit={onSubmit} />
+        </Container>
     );
 };
 
@@ -94,11 +144,18 @@ EditProfile.propTypes = {
     getProfile: PropTypes.func.isRequired,
     addProfile: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
-    deleteProfile: PropTypes.func.isRequired
+    deleteProfile: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
     profile: state.profile
 });
 
-export default connect(mapStateToProps, { getProfile, addProfile, deleteProfile })(withRouter(EditProfile));
+const mapDispatchToProps = {
+    getProfile,
+    addProfile,
+    deleteProfile
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditProfile));
