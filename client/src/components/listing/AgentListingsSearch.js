@@ -67,7 +67,7 @@ const AgentListingSearch = ({
             zipcode,
             type,
             group,
-            agentid: "",
+            agentid: match.params.id,
             page: data.selected
         });
     };

@@ -3,8 +3,10 @@ import NumberFormat from "react-number-format";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import DefaultAvatar from "../../img/defaultavatar.png";
 import GreenButton from "../universal/GreenButton";
+import { setNav } from "../../Redux/actions/navbar";
 
 const ProfileItemContainer = styled.div`
     position: relative;
@@ -38,18 +40,22 @@ const ButtonContainer = styled.div`
 
 const ListingsButton = styled(GreenButton)``;
 
-const Button = ({ agentid }) => {
+const Button = ({ agentid, setNav }) => {
+    const onClick = () => {
+        setNav("/listings");
+    };
     return (
         <ButtonContainer>
-            <ListingsButton>
-                <Link to={`/listings/${agentid}`}>View Listings</Link>
-            </ListingsButton>
+            <Link to={`/listings/${agentid}`} onClick={onClick}>
+                <ListingsButton>View Listings</ListingsButton>
+            </Link>
         </ButtonContainer>
     );
 };
 
 Button.propTypes = {
-    agentid: PropTypes.string
+    agentid: PropTypes.string,
+    setNav: PropTypes.func.isRequired
 };
 
 const ImageContainer = styled.div`
@@ -110,7 +116,7 @@ const EmailText = styled.div`
     color: black;
 `;
 
-const Text = ({ name, position, location, phone, email, agentid }) => {
+const Text = ({ name, position, location, phone, email, agentid, setNav }) => {
     return (
         <TextContainer>
             <NameText>{name}</NameText>
@@ -122,7 +128,7 @@ const Text = ({ name, position, location, phone, email, agentid }) => {
                 </a>
             </PhoneText>
             <EmailText>{email}</EmailText>
-            <Button agentid={agentid} />
+            <Button agentid={agentid} setNav={setNav} />
         </TextContainer>
     );
 };
@@ -133,13 +139,14 @@ Text.propTypes = {
     location: PropTypes.string,
     phone: PropTypes.string,
     email: PropTypes.string,
-    agentid: PropTypes.string
+    agentid: PropTypes.string,
+    setNav: PropTypes.func.isRequired
 };
 
-const Profile = ({ profile: { name, position, location, phone, email, photo, user } }) => (
+const Profile = ({ profile: { name, position, location, phone, email, photo, user }, setNav }) => (
     <ProfileItemContainer>
         <Image photo={photo} />
-        <Text name={name} position={position} location={location} phone={phone} email={email} agentid={user} />
+        <Text name={name} position={position} location={location} phone={phone} email={email} agentid={user} setNav={setNav} />
     </ProfileItemContainer>
 );
 
@@ -150,7 +157,12 @@ Profile.propTypes = {
     phone: PropTypes.string,
     email: PropTypes.string,
     photo: PropTypes.string,
-    user: PropTypes.string
+    user: PropTypes.string,
+    setNav: PropTypes.func.isRequired
 };
 
-export default Profile;
+const mapDispatchToProps = {
+    setNav
+};
+
+export default connect(null, mapDispatchToProps)(Profile);

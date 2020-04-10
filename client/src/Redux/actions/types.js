@@ -29,3 +29,4 @@ export const PROGRESS_BAR_VALUE = "PROGRESS_BAR_VALUE";
 export const GET_LISTING_COUNT = "GET_LISTING_COUNT";
 export const SET_AUTH_LOADING = "SET_AUTH_LOADING";
 export const SET_SEARCH = "SET_SEARCH";
+export const SET_NAV = "SET_NAV";

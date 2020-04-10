@@ -1,8 +1,9 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../Redux/actions/auth";
+import { setNav } from "../../Redux/actions/navbar";
 import styled from "styled-components";
 
 const NavbarContainer = styled.nav`
@@ -23,6 +24,7 @@ const NavbarContainer = styled.nav`
 
 const CompanyText = styled.h1`
     margin-left: 0.5rem;
+    font-size: 2rem;
     & > a {
         color: white;
     }
@@ -48,13 +50,10 @@ const NavLink = styled.li`
     }
 `;
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({ auth: { isAuthenticated, loading }, logout, setNav, nav }) => {
     useEffect(() => {
-        setPath(window.location.pathname);
-        console.log(window.location.pathname);
+        setNav(window.location.pathname);
     }, []);
-
-    const [path, setPath] = useState("");
 
     const onLogout = (e) => {
         e.preventDefault();
@@ -62,21 +61,19 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     };
 
     const onPath = (e) => {
-        console.log(e.target.href);
         const pathArr = e.target.href.split("3000");
-        setPath(pathArr[1]);
-        console.log(pathArr[1]);
+        setNav(pathArr[1]);
     };
 
     const authLinks = (
         <ListContainer>
             <NavLink>
-                <Link to="/myprofile" onClick={onPath} className={path === "/myprofile" ? "active-nav" : ""}>
+                <Link to="/myprofile" onClick={onPath} className={nav === "/myprofile" ? "active-nav" : ""}>
                     My Profile
                 </Link>
             </NavLink>
             <NavLink>
-                <Link to="/mylistings" onClick={onPath} className={path === "/mylistings" ? "active-nav" : ""}>
+                <Link to="/mylistings" onClick={onPath} className={nav === "/mylistings" ? "active-nav" : ""}>
                     My Properties
                 </Link>
             </NavLink>
@@ -91,22 +88,22 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     const guestLinks = (
         <ListContainer>
             <NavLink>
-                <Link to="/" onClick={onPath} className={path === "/" ? "active-nav" : ""}>
+                <Link to="/" onClick={onPath} className={nav === "/" ? "active-nav" : ""}>
                     Home
                 </Link>
             </NavLink>
             <NavLink>
-                <Link to="/listings" onClick={onPath} className={path.includes("/listings") ? "active-nav" : ""}>
+                <Link to="/listings" onClick={onPath} className={nav.includes("/listings") ? "active-nav" : ""}>
                     Properties
                 </Link>
             </NavLink>
             <NavLink>
-                <Link to="/agents" onClick={onPath} className={path === "/agents" ? "active-nav" : ""}>
+                <Link to="/agents" onClick={onPath} className={nav === "/agents" ? "active-nav" : ""}>
                     Agents
                 </Link>
             </NavLink>
             <NavLink>
-                <Link to="/login" onClick={onPath} className={path === "/login" ? "active-nav" : ""}>
+                <Link to="/login" onClick={onPath} className={nav === "/login" ? "active-nav" : ""}>
                     Login
                 </Link>
             </NavLink>
@@ -127,15 +124,18 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
 Navbar.propTypes = {
     logout: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    setNav: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    auth: state.auth
+    auth: state.auth,
+    nav: state.navbar.nav
 });
 
 const mapDispatchToProps = {
-    logout
+    logout,
+    setNav
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

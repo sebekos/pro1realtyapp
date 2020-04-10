@@ -10,7 +10,6 @@ import SearchBar from "../listing/SearchBar";
 import styled from "styled-components";
 import GreenButton from "../universal/GreenButton";
 import PrimaryButton from "../universal/PrimaryButton";
-import LightButton from "../universal/LightButton";
 
 const Container = styled.div`
     max-width: 1300px;

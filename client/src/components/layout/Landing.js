@@ -5,6 +5,9 @@ import BackgroundImage from "../../img/showcase.jpg";
 import Row1Img from "../../img/row1.jpeg";
 import Row2Img from "../../img/row2.jpg";
 import PrimaryButton from "../universal/PrimaryButton";
+import { connect } from "react-redux";
+import { setNav } from "../../Redux/actions/navbar";
+import PropTypes from "prop-types";
 
 const LandingContainer = styled.div``;
 
@@ -117,7 +120,10 @@ const AgentsButton = styled(PrimaryButton)`
     min-width: 150px;
 `;
 
-const Row1 = () => {
+const Row1 = ({ setNav }) => {
+    const onClick = () => {
+        setNav("/agents");
+    };
     return (
         <RowContainer>
             <ImgContainer>
@@ -129,7 +135,7 @@ const Row1 = () => {
                     When hiring a real estate agent to help you buy or sell a home, you want a REALTOR® who has the expertise and
                     professionalism to treat you and your home with the respect it deserves.
                 </RowTextDescription>
-                <Link to="/agents">
+                <Link to="/agents" onClick={onClick}>
                     <AgentsButton>Our Agents</AgentsButton>
                 </Link>
             </RowTextContainer>
@@ -137,7 +143,14 @@ const Row1 = () => {
     );
 };
 
-const Row2 = () => {
+Row1.propTypes = {
+    setNav: PropTypes.func.isRequired
+};
+
+const Row2 = ({ setNav }) => {
+    const onClick = () => {
+        setNav("/listings");
+    };
     return (
         <RowContainer>
             <RowTextContainer>
@@ -146,7 +159,7 @@ const Row2 = () => {
                     Since most of us buy or sell a home infrequently, you can count on Pro 1 Realty to provide excellent guidance and
                     education every step of the way - whether you’re buying your first home or selling your twentieth.
                 </RowTextDescription>
-                <Link to="/listings">
+                <Link to="/listings" onClick={onClick}>
                     <AgentsButton>Our Properties</AgentsButton>
                 </Link>
             </RowTextContainer>
@@ -157,16 +170,28 @@ const Row2 = () => {
     );
 };
 
-const Landing = () => {
+Row2.propTypes = {
+    setNav: PropTypes.func.isRequired
+};
+
+const Landing = ({ setNav }) => {
     return (
         <LandingContainer>
             <Background>
                 <LandingSection />
             </Background>
-            <Row1 />
-            <Row2 />
+            <Row1 setNav={setNav} />
+            <Row2 setNav={setNav} />
         </LandingContainer>
     );
 };
 
-export default Landing;
+Landing.propTypes = {
+    setNav: PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = {
+    setNav
+};
+
+export default connect(null, mapDispatchToProps)(Landing);

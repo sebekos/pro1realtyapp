@@ -1,9 +1,10 @@
 import axios from "axios";
+import { setNav } from "./navbar";
 import { toast } from "react-toastify";
 import { ADD_PROFILE, GET_PROFILE, GET_PROFILES, UPLOAD_AVATAR, DELETE_PROFILE, PROFILE_ERROR, LOGOUT } from "./types";
 
 // Get profile
-export const getProfile = () => async dispatch => {
+export const getProfile = () => async (dispatch) => {
     try {
         const res = await axios.get("/api/profile/me");
         dispatch({
@@ -19,7 +20,7 @@ export const getProfile = () => async dispatch => {
 };
 
 // Get all profile
-export const getProfiles = () => async dispatch => {
+export const getProfiles = () => async (dispatch) => {
     try {
         const res = await axios.get("/api/profile");
         dispatch({
@@ -36,7 +37,7 @@ export const getProfiles = () => async dispatch => {
 };
 
 // Add Profile
-export const addProfile = (formData, history, edit = false) => async dispatch => {
+export const addProfile = (formData, history, edit = false) => async (dispatch) => {
     try {
         const config = {
             headers: {
@@ -54,7 +55,7 @@ export const addProfile = (formData, history, edit = false) => async dispatch =>
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => toast.error(error.msg));
+            errors.forEach((error) => toast.error(error.msg));
         }
         dispatch({
             type: PROFILE_ERROR,
@@ -64,7 +65,7 @@ export const addProfile = (formData, history, edit = false) => async dispatch =>
 };
 
 // Get all profile
-export const uploadAvatar = (formData, profile, history) => async dispatch => {
+export const uploadAvatar = (formData, profile, history) => async (dispatch) => {
     try {
         const res = await axios.post("/api/upload/avatar", formData, {
             headers: {
@@ -84,7 +85,7 @@ export const uploadAvatar = (formData, profile, history) => async dispatch => {
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => toast.error(error.msg));
+            errors.forEach((error) => toast.error(error.msg));
         }
         dispatch({
             type: PROFILE_ERROR,
@@ -94,11 +95,12 @@ export const uploadAvatar = (formData, profile, history) => async dispatch => {
 };
 
 // Delete account
-export const deleteProfile = () => async dispatch => {
+export const deleteProfile = () => async (dispatch) => {
     try {
         await axios.delete("/api/profile");
         dispatch({ type: DELETE_PROFILE });
         dispatch({ type: LOGOUT });
+        dispatch(setNav("/login"));
         toast.success("Profile deleted");
     } catch (err) {
         dispatch({

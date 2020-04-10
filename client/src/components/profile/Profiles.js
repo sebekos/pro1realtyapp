@@ -28,6 +28,7 @@ const NoResults = styled.div`
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
     useEffect(() => {
         getProfiles();
+        window.scrollTo(0, 0);
     }, [getProfiles]);
 
     return (

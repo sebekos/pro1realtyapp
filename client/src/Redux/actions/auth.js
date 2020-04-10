@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { setNav } from "./navbar";
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
@@ -16,7 +17,7 @@ import {
 import setAuthToken from "../utils/setAuthToken";
 
 // Load user
-export const loadUser = () => async dispatch => {
+export const loadUser = () => async (dispatch) => {
     if (localStorage.token) {
         setAuthToken(localStorage.token);
     }
@@ -34,7 +35,7 @@ export const loadUser = () => async dispatch => {
 };
 
 // Register User
-export const register = ({ name, email, password, registerkey }) => async dispatch => {
+export const register = ({ name, email, password, registerkey }) => async (dispatch) => {
     const config = {
         headers: {
             "Content-Type": "application/json"
@@ -53,7 +54,7 @@ export const register = ({ name, email, password, registerkey }) => async dispat
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => toast.error(error.msg));
+            errors.forEach((error) => toast.error(error.msg));
         }
         dispatch({
             type: REGISTER_FAIL
@@ -62,7 +63,7 @@ export const register = ({ name, email, password, registerkey }) => async dispat
 };
 
 // Login User
-export const login = (email, password) => async dispatch => {
+export const login = (email, password) => async (dispatch) => {
     const config = {
         headers: {
             "Content-Type": "application/json"
@@ -77,11 +78,12 @@ export const login = (email, password) => async dispatch => {
             payload: res.data
         });
         dispatch(loadUser());
+        dispatch(setNav("/myprofile"));
         toast.dismiss();
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => toast.error(error.msg));
+            errors.forEach((error) => toast.error(error.msg));
         }
         dispatch({
             type: LOGIN_FAIL
@@ -90,7 +92,7 @@ export const login = (email, password) => async dispatch => {
 };
 
 // Reset password
-export const pwreset = email => async dispatch => {
+export const pwreset = (email) => async (dispatch) => {
     const config = {
         headers: {
             "Content-Type": "application/json"
@@ -108,7 +110,7 @@ export const pwreset = email => async dispatch => {
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => toast.error(error.msg));
+            errors.forEach((error) => toast.error(error.msg));
         }
         dispatch({
             type: AUTH_ERROR
@@ -117,7 +119,7 @@ export const pwreset = email => async dispatch => {
 };
 
 // Resset user save
-export const pwresetsave = (email, password, hash, history) => async dispatch => {
+export const pwresetsave = (email, password, hash, history) => async (dispatch) => {
     const config = {
         headers: {
             "Content-Type": "application/json"
@@ -135,7 +137,7 @@ export const pwresetsave = (email, password, hash, history) => async dispatch =>
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => toast.error(error.msg));
+            errors.forEach((error) => toast.error(error.msg));
         }
         dispatch({
             type: REGISTER_FAIL
@@ -144,13 +146,14 @@ export const pwresetsave = (email, password, hash, history) => async dispatch =>
 };
 
 // Logout / Clear profile
-export const logout = () => dispatch => {
+export const logout = () => (dispatch) => {
+    dispatch(setNav("/login"));
     dispatch({ type: CLEAR_PROFILE });
     dispatch({ type: LOGOUT });
 };
 
 // Loading true
-export const setAuthLoadingTrue = () => async dispatch => {
+export const setAuthLoadingTrue = () => async (dispatch) => {
     dispatch({
         type: SET_AUTH_LOADING
     });

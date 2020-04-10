@@ -15,7 +15,7 @@ import {
 } from "./types";
 
 // Add Listing or Update
-export const addListing = (formData, history, edit = false) => async dispatch => {
+export const addListing = (formData, history, edit = false) => async (dispatch) => {
     try {
         const config = {
             headers: {
@@ -37,7 +37,7 @@ export const addListing = (formData, history, edit = false) => async dispatch =>
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => toast.error(error.msg));
+            errors.forEach((error) => toast.error(error.msg));
         }
 
         dispatch({
@@ -51,7 +51,7 @@ export const addListing = (formData, history, edit = false) => async dispatch =>
 };
 
 // Get refined listings
-export const getRefinedListings = formData => async dispatch => {
+export const getRefinedListings = (formData) => async (dispatch) => {
     dispatch({
         type: SET_LOADING_TRUE
     });
@@ -66,10 +66,11 @@ export const getRefinedListings = formData => async dispatch => {
             type: GET_LISTINGS_REFINED,
             payload: res.data
         });
+        window.scrollTo(0, 0);
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => toast.error(error.msg));
+            errors.forEach((error) => toast.error(error.msg));
         }
         dispatch({
             type: LISTING_ERROR,
@@ -82,7 +83,7 @@ export const getRefinedListings = formData => async dispatch => {
 };
 
 // Get one listing
-export const getListing = id => async dispatch => {
+export const getListing = (id) => async (dispatch) => {
     try {
         const res = await axios.get(`/api/listing/${id}`);
         dispatch({
@@ -102,7 +103,7 @@ export const getListing = id => async dispatch => {
 };
 
 // Get one listing
-export const getListingCount = id => async dispatch => {
+export const getListingCount = (id) => async (dispatch) => {
     try {
         const res = await axios.get(`/api/listing/count/${id}`);
         dispatch({
@@ -122,7 +123,7 @@ export const getListingCount = id => async dispatch => {
 };
 
 // Delete listing - Set active to 0
-export const deleteListing = (id, history) => async dispatch => {
+export const deleteListing = (id, history) => async (dispatch) => {
     try {
         const res = await axios.delete(`/api/listing/${id}`);
         dispatch({
@@ -144,7 +145,7 @@ export const deleteListing = (id, history) => async dispatch => {
 };
 
 // Upload all photos
-export const uploadPhotos = formData => async dispatch => {
+export const uploadPhotos = (formData) => async (dispatch) => {
     try {
         dispatch({
             type: TOGGLE_PROGRESS_BAR
@@ -153,7 +154,7 @@ export const uploadPhotos = formData => async dispatch => {
             headers: {
                 "Content-Type": "multipart/form-data"
             },
-            onUploadProgress: progressEvent => {
+            onUploadProgress: (progressEvent) => {
                 const { loaded, total } = progressEvent;
                 dispatch({
                     type: PROGRESS_BAR_VALUE,
@@ -171,7 +172,7 @@ export const uploadPhotos = formData => async dispatch => {
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
-            errors.forEach(error => toast.error(error.msg));
+            errors.forEach((error) => toast.error(error.msg));
         }
         dispatch({
             type: LISTING_ERROR,
@@ -184,7 +185,7 @@ export const uploadPhotos = formData => async dispatch => {
 };
 
 // Reorder photos
-export const reOrderPhotos = (images, id) => async dispatch => {
+export const reOrderPhotos = (images, id) => async (dispatch) => {
     try {
         await axios.post(`/api/listing/reorderphotos/${id}`, images, {
             headers: {
@@ -205,14 +206,14 @@ export const reOrderPhotos = (images, id) => async dispatch => {
 };
 
 // Toggle progress bar
-export const toggleProgressBar = () => async dispatch => {
+export const toggleProgressBar = () => async (dispatch) => {
     dispatch({
         type: TOGGLE_PROGRESS_BAR
     });
 };
 
 // Progress bar increment
-export const progressBarValue = payload => async dispatch => {
+export const progressBarValue = (payload) => async (dispatch) => {
     dispatch({
         type: PROGRESS_BAR_VALUE,
         payload: payload
@@ -220,14 +221,14 @@ export const progressBarValue = payload => async dispatch => {
 };
 
 // Progress bar manual change
-export const setLoadingTrue = () => async dispatch => {
+export const setLoadingTrue = () => async (dispatch) => {
     dispatch({
         type: SET_LOADING_TRUE
     });
 };
 
 // Update search
-export const setSearch = data => async dispatch => {
+export const setSearch = (data) => async (dispatch) => {
     dispatch({
         type: SET_SEARCH,
         payload: data

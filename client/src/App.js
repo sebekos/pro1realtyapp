@@ -42,7 +42,7 @@ const App = () => {
     return (
         <Provider store={store}>
             <Router>
-                <Fragment>
+                <section className="main">
                     <Navbar />
                     <Route exact path="/" component={Landing} />
                     <ToastContainer hideProgressBar pauseOnHover={false} />
@@ -66,8 +66,8 @@ const App = () => {
                         <PrivateRoute exact path="/editprofile" component={EditProfile} />
                         <PrivateRoute exact path="/editprofile/avatar" component={Avatar} />
                     </Switch>
-                    <Footer />
-                </Fragment>
+                </section>
+                <Footer />
             </Router>
         </Provider>
     );
