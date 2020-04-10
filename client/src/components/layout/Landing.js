@@ -19,7 +19,9 @@ const Background = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
     @media (max-width: 1230px) {
-        min-height: 300px;
+        min-height: auto;
+        background-size: 100%;
+        background-attachment: inherit;
     }
 `;
 
@@ -34,6 +36,9 @@ const LandingInner = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
+    @media (max-width: 1230px) {
+        height: 300px;
+    }
 `;
 
 const Title = styled.h1`
