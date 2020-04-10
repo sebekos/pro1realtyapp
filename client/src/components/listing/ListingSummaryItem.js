@@ -9,6 +9,7 @@ import GreenButton from "../universal/GreenButton";
 import DangerButton from "../universal/DangerButton";
 
 const SummaryContainer = styled.div`
+    color: #333;
     position: relative;
     display: grid;
     grid-template-columns: 275px 337px;

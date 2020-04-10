@@ -113,7 +113,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout, setNav, nav }) => 
     return (
         <NavbarContainer>
             <CompanyText>
-                <Link to="/">
+                <Link to="/" onClick={onPath}>
                     <i className="fas fa-home"></i> Pro 1 Realty
                 </Link>
             </CompanyText>
