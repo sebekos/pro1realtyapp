@@ -61,8 +61,8 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout, setNav, nav }) => 
     };
 
     const onPath = (e) => {
-        const pathArr = e.target.href.split("3000");
-        setNav(pathArr[1]);
+        const pathArr = e.target.href.split("/");
+        setNav("/" + pathArr[pathArr.length - 1]);
     };
 
     const authLinks = (

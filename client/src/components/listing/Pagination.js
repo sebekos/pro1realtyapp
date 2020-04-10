@@ -4,6 +4,7 @@ import ListingSummaryItem from "./ListingSummaryItem";
 import styled from "styled-components";
 
 const ListingsContainer = styled.div`
+    color: #17a2b8;
     display: grid;
     grid-template-columns: 1fr 1fr;
     box-sizing: border-box;
