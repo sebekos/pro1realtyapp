@@ -15,7 +15,7 @@ const NavbarContainer = styled.nav`
     width: 100%;
     top: 0;
     opacity: 0.9;
-    background-color: #17a2b8;
+    background-color: #107484;
     @media (max-width: 1230px) {
         display: block;
         text-align: center;
