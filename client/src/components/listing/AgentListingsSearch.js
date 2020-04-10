@@ -10,6 +10,15 @@ import styled from "styled-components";
 const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr;
+    max-width: 1300px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
+    margin: 3rem auto;
+`;
+
+const NoListings = styled.div`
+    text-align: center;
 `;
 
 const AgentListingSearch = ({
@@ -68,7 +77,7 @@ const AgentListingSearch = ({
             {loading ? <Spinner /> : null}
             <SearchBar onChange={onChange} onSearch={onSearch} />
             {listings.length > 0 ? <Pagination pageClick={pageClick} pages={pages} listings={listings} currPage={page} /> : null}
-            {!loading && listings.length === 0 ? <div className="text-center">No listings matching criteria</div> : null}
+            {!loading && listings.length === 0 ? <NoListings>No listings matching criteria</NoListings> : null}
         </Container>
     );
 };

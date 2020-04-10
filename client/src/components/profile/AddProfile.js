@@ -11,7 +11,11 @@ import PrimaryButton from "../universal/PrimaryButton";
 import LightButton from "../universal/LightButton";
 
 const Container = styled.div`
+    max-width: 1300px;
     margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
+    margin: 3rem auto;
 `;
 
 const TextPrimary = styled.div`

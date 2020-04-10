@@ -19,7 +19,11 @@ import LightButton from "../universal/LightButton";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Container = styled.div`
+    max-width: 1300px;
     margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
+    margin: 3rem auto;
 `;
 
 const Form = styled(GenForm)`

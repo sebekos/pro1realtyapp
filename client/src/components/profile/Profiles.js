@@ -10,7 +10,7 @@ const ProfileContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: fit-content;
-    margin: auto;
+    margin: 3rem auto;
     @media (max-width: 1280px) {
         grid-template-columns: 1fr;
     }

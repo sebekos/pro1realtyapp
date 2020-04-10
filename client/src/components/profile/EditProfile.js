@@ -12,7 +12,11 @@ import LightButton from "../universal/LightButton";
 import DangerButton from "../universal/DangerButton";
 
 const Container = styled.div`
+    max-width: 1300px;
     margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
+    margin: 3rem auto;
 `;
 
 const TextPrimary = styled.div`

@@ -13,7 +13,11 @@ import PrimaryButton from "../universal/PrimaryButton";
 import LightButton from "../universal/LightButton";
 
 const Container = styled.div`
+    max-width: 1300px;
     margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
+    margin: 3rem auto;
 `;
 
 const TitleContainer = styled.div`
@@ -32,7 +36,7 @@ const Between = styled.div`
 const Title = () => {
     return (
         <TitleContainer>
-            <LeadText>My Listings</LeadText>
+            <LeadText>My Properties</LeadText>
             <Between />
         </TitleContainer>
     );
@@ -75,9 +79,6 @@ const AddListing = () => {
         <AddListingContainer>
             <Link to="/addlisting">
                 <AddListingButton>Add Listing</AddListingButton>
-            </Link>
-            <Link to="/myprofile">
-                <LightButton>My Profile</LightButton>
             </Link>
         </AddListingContainer>
     );
@@ -169,15 +170,17 @@ const MyListings = ({
             {loading ? <Spinner /> : null}
             {profile ? <AddListing /> : null}
             {!loading && !profile ? <ProfileContainer /> : null}
-            <Listings
-                onChange={onChange}
-                onSearch={onSearch}
-                pageClick={pageClick}
-                listings={listings}
-                loading={loading}
-                pages={pages}
-                page={page}
-            />
+            {!loading && profile ? (
+                <Listings
+                    onChange={onChange}
+                    onSearch={onSearch}
+                    pageClick={pageClick}
+                    listings={listings}
+                    loading={loading}
+                    pages={pages}
+                    page={page}
+                />
+            ) : null}
         </Container>
     );
 };

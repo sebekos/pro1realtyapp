@@ -40,6 +40,11 @@ input[type="file"] {
 }
 
 /* Date Picker ------------------------------------ */
+.active-nav {
+    border-bottom: 1px solid white;
+}
+
+/* Date Picker ------------------------------------ */
 .react-datepicker__input-container input {
     display: block;
     padding: 0.2rem;
@@ -82,7 +87,7 @@ input[type="file"] {
 
 /* Alerts ------------------------------------ */
 .Toastify__toast-container {
-    margin-top: 50px;
+    margin-top: 6rem;
 }
 
 /* Pagination ------------------------------------ */

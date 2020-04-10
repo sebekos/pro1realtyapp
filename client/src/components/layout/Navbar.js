@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -9,14 +9,12 @@ const NavbarContainer = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.6rem 2rem;
-    position: fixed;
+    padding: 2rem 2rem;
     z-index: 1;
     width: 100%;
     top: 0;
-    border-bottom: solid 1px #17a2b8;
     opacity: 0.9;
-    background-color: #343a40;
+    background-color: #17a2b8;
     @media (max-width: 1230px) {
         display: block;
         text-align: center;
@@ -43,7 +41,7 @@ const NavLink = styled.li`
     padding: 0.45rem;
     margin: 0 0.25rem;
     & > a:hover {
-        color: #17a2b8;
+        color: #deeaee;
     }
     & > a {
         color: white;
@@ -51,21 +49,36 @@ const NavLink = styled.li`
 `;
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+    useEffect(() => {
+        setPath(window.location.pathname);
+        console.log(window.location.pathname);
+    }, []);
+
+    const [path, setPath] = useState("");
+
     const onLogout = (e) => {
         e.preventDefault();
         logout();
     };
 
+    const onPath = (e) => {
+        console.log(e.target.href);
+        const pathArr = e.target.href.split("3000");
+        setPath(pathArr[1]);
+        console.log(pathArr[1]);
+    };
+
     const authLinks = (
         <ListContainer>
             <NavLink>
-                <Link to="/">Home</Link>
+                <Link to="/myprofile" onClick={onPath} className={path === "/myprofile" ? "active-nav" : ""}>
+                    My Profile
+                </Link>
             </NavLink>
             <NavLink>
-                <Link to="/myprofile">My Profile</Link>
-            </NavLink>
-            <NavLink>
-                <Link to="/mylistings">My Listings</Link>
+                <Link to="/mylistings" onClick={onPath} className={path === "/mylistings" ? "active-nav" : ""}>
+                    My Properties
+                </Link>
             </NavLink>
             <NavLink>
                 <a onClick={onLogout} href="#!">
@@ -78,19 +91,24 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     const guestLinks = (
         <ListContainer>
             <NavLink>
-                <Link to="/">Home</Link>
+                <Link to="/" onClick={onPath} className={path === "/" ? "active-nav" : ""}>
+                    Home
+                </Link>
             </NavLink>
             <NavLink>
-                <Link to="/listings">Listings</Link>
+                <Link to="/listings" onClick={onPath} className={path.includes("/listings") ? "active-nav" : ""}>
+                    Properties
+                </Link>
             </NavLink>
             <NavLink>
-                <Link to="/agents">Agents</Link>
+                <Link to="/agents" onClick={onPath} className={path === "/agents" ? "active-nav" : ""}>
+                    Agents
+                </Link>
             </NavLink>
             <NavLink>
-                <Link to="/contact">About</Link>
-            </NavLink>
-            <NavLink>
-                <Link to="/login">Login</Link>
+                <Link to="/login" onClick={onPath} className={path === "/login" ? "active-nav" : ""}>
+                    Login
+                </Link>
             </NavLink>
         </ListContainer>
     );

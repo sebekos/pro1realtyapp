@@ -11,7 +11,11 @@ import LightButton from "../universal/LightButton";
 import Spinner from "../layout/Spinner";
 
 const Container = styled.div`
+    max-width: 1300px;
     margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
+    margin: 3rem auto;
 `;
 
 const WelcomeContainer = styled.div`
@@ -62,9 +66,6 @@ const ProfileAndButtons = ({ profile }) => {
     return (
         <ProfileContainer>
             <ButtonContainer>
-                <Link to="/mylistings">
-                    <MyListingsButton>My Listings</MyListingsButton>
-                </Link>
                 <Link to="/editprofile">
                     <EditProfileButton>Edit Profile</EditProfileButton>
                 </Link>

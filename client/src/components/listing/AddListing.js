@@ -13,12 +13,16 @@ import DropDown from "../universal/DropDown";
 import PrimaryButton from "../universal/PrimaryButton";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Form = styled(GenForm)`
-    margin: 1rem auto;
+const AddListingContainer = styled.div`
+    max-width: 1300px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
+    margin: 3rem auto;
 `;
 
-const AddListingContainer = styled.div`
-    margin: auto;
+const Form = styled(GenForm)`
+    margin: 1rem auto;
 `;
 
 const TitleText = styled.h1`

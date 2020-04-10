@@ -12,7 +12,7 @@ import GenInput from "../universal/GenInput";
 
 const Container = styled.div`
     text-align: center;
-    margin: auto;
+    margin: 3rem auto;
     display: grid;
     width: 350px;
 `;

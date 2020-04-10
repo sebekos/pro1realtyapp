@@ -13,10 +13,13 @@ const DeletePhotosContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: fit-content;
-    margin: auto;
-    background-color: #f2f5f2;
-    border: 1px solid grey;
-    padding: 5px;
+    max-width: 1300px;
+    overflow: hidden;
+    padding: 0 2rem;
+    margin: 3rem auto;
+    -webkit-box-shadow: 1px 1px 3px 2px #ccc;
+    -moz-box-shadow: 1px 1px 3px 2px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
 `;
 
 const ButtonContainer = styled.div`

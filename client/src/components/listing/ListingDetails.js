@@ -13,7 +13,7 @@ const ListingDetailsContainer = styled.div`
     flex-direction: column;
     width: 800px;
     box-sizing: border-box;
-    margin: auto;
+    margin: 3rem auto;
     @media (max-width: 680px) {
         grid-template-columns: 1fr;
         text-align: center;

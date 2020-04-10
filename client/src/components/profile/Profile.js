@@ -117,7 +117,9 @@ const Text = ({ name, position, location, phone, email, agentid }) => {
             <PositionText>{position}</PositionText>
             <LocationText>{location}</LocationText>
             <PhoneText>
-                <NumberFormat displayType="text" format="(###) ###-####" value={phone} />
+                <a href={`tel:1${phone}`}>
+                    <NumberFormat displayType="text" format="(###) ###-####" value={phone} />
+                </a>
             </PhoneText>
             <EmailText>{email}</EmailText>
             <Button agentid={agentid} />

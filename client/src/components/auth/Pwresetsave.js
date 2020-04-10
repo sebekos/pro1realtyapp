@@ -11,7 +11,7 @@ import PrimaryButton from "../universal/PrimaryButton";
 
 const Container = styled.div`
     max-width: 400px;
-    margin: auto;
+    margin: 3rem auto;
     box-sizing: border-box;
     -webkit-box-shadow: 1px 1px 3px 2px #ccc;
     -moz-box-shadow: 1px 1px 3px 2px #ccc;
