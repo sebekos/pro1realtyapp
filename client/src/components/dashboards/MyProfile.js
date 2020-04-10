@@ -54,10 +54,6 @@ const ButtonContainer = styled.div`
     margin: 10px auto 20px;
 `;
 
-const MyListingsButton = styled(GreenButton)`
-    margin-right: 10px;
-`;
-
 const EditProfileButton = styled(LightButton)`
     margin-right: 10px;
 `;

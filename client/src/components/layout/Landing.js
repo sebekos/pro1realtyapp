@@ -20,7 +20,6 @@ const Background = styled.div`
     background-size: cover;
     @media (max-width: 1230px) {
         min-height: 300px;
-        background-attachment: none;
     }
 `;
 
@@ -105,6 +104,7 @@ const RowTextContainer = styled.div`
 
 const RowTextTitle = styled.div`
     font-size: 2.5rem;
+    line-height: 1.2;
     @media (max-width: 1230px) {
         font-size: 2rem;
     }
