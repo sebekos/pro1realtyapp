@@ -158,6 +158,7 @@ const LagText = styled.span`
 const Details = ({ listing }) => {
     const listingProps = {
         status: "Status",
+        soldprice: "Sold Price",
         listdate: "List Date",
         type: "Type",
         bedroom: "Bedrooms",
@@ -165,6 +166,21 @@ const Details = ({ listing }) => {
         squarefeet: "Squarefeet"
     };
     const detailsHtml = Object.keys(listingProps).map((memo, index) => {
+        if (memo === "soldprice") {
+            return (
+                <DetailTextContainer key={`dtc-${index}`}>
+                    <LeadText>{listingProps[memo]}: </LeadText>
+                    <LagText>
+                        {" "}
+                        {listing[memo] ? (
+                            <NumberFormat value={listing[memo]} displayType={"text"} thousandSeparator={true} prefix={"$"} />
+                        ) : (
+                            "N / A"
+                        )}
+                    </LagText>
+                </DetailTextContainer>
+            );
+        }
         return (
             <DetailTextContainer key={`dtc-${index}`}>
                 <LeadText>{listingProps[memo]}: </LeadText>

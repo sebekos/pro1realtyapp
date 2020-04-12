@@ -28,6 +28,9 @@ const ListingSchema = new mongoose.Schema({
     price: {
         type: Number
     },
+    soldprice: {
+        type: String
+    },
     bedroom: {
         type: Number
     },

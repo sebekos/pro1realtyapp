@@ -111,6 +111,7 @@ const FormInputs = ({
     zipcode,
     state,
     price,
+    soldprice,
     bedroom,
     bathroom,
     squarefeet,
@@ -157,6 +158,9 @@ const FormInputs = ({
                 disabled={type.includes("Conf") ? true : false}
             />
             <GenInput type="number" placeholder="Price" name="price" value={price} onChange={onChange} />
+            {status === "Closed" ? (
+                <GenInput type="number" placeholder="Sold Price" name="soldprice" value={soldprice} onChange={onChange} />
+            ) : null}
             <GenInput type="number" placeholder="Bedroom" name="bedroom" value={bedroom} onChange={onChange} />
             <GenInput type="number" placeholder="Bathroom" name="bathroom" value={bathroom} onChange={onChange} />
             <GenInput type="number" placeholder="Squarefeet" name="squarefeet" value={squarefeet} onChange={onChange} />
@@ -181,6 +185,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
         state: "",
         zipcode: "",
         price: "",
+        soldprice: "",
         bedroom: "",
         bathroom: "",
         squarefeet: "",
@@ -203,6 +208,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
                 state: loading || !listing.state ? "" : listing.state,
                 zipcode: loading || !listing.zipcode ? "" : listing.zipcode,
                 price: loading || !listing.price ? "" : listing.price,
+                soldprice: loading || !listing.soldprice ? "" : listing.soldprice,
                 bedroom: loading || !listing.bedroom ? 0 : listing.bedroom,
                 bathroom: loading || !listing.bathroom ? 0 : listing.bathroom,
                 squarefeet: loading || !listing.squarefeet ? "" : listing.squarefeet,
@@ -217,7 +223,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
         setListDate(new Date(date));
     };
 
-    const { id, status, type, address, city, state, zipcode, price, bedroom, bathroom, squarefeet, description } = formData;
+    const { id, status, type, address, city, state, zipcode, price, soldprice, bedroom, bathroom, squarefeet, description } = formData;
 
     const onChange = (e) => {
         if (e.target.name === "type" && e.target.value.includes("Conf")) {
@@ -272,6 +278,7 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
                     zipcode={zipcode}
                     state={state}
                     price={price}
+                    soldprice={soldprice}
                     bedroom={bedroom}
                     bathroom={bathroom}
                     squarefeet={squarefeet}
