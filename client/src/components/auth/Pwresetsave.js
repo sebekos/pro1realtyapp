@@ -58,11 +58,20 @@ const Pwreset = ({ pwresetsave, auth: { loading }, match, history }) => {
             {loading ? <Spinner /> : null}
             <TextContainer>
                 <LeadText>
-                    <i className="fas fa-user"></i> Reset account password
+                    <i className="fas fa-user"></i> Enter your new password
                 </LeadText>
             </TextContainer>
             <FormContainer onSubmit={onSubmitHandler}>
                 <GenInput type="email" placeholder="Email Address" name="email" value={email} onChange={onChangeHandler} required />
+                <GenInput type="password" placeholder="New password" name="password" value={password} onChange={onChangeHandler} required />
+                <GenInput
+                    type="password"
+                    placeholder="Re-enter password"
+                    name="password2"
+                    value={password2}
+                    onChange={onChangeHandler}
+                    required
+                />
                 <PrimaryButton type="submit" onClick={onSubmitHandler}>
                     Reset
                 </PrimaryButton>
