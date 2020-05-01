@@ -54,6 +54,7 @@ const AddListing = ({ addListing, history }) => {
         if (e.target.name === "type" && e.target.value.includes("Conf")) {
             setFormData({
                 ...formData,
+                address: "",
                 city: "",
                 zipcode: "",
                 type: e.target.value

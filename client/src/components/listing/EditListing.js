@@ -227,8 +227,10 @@ const EditListing = ({ addListing, getListing, history, match, listing: { loadin
 
     const onChange = (e) => {
         if (e.target.name === "type" && e.target.value.includes("Conf")) {
+            console.log("here");
             setFormData({
                 ...formData,
+                address: "",
                 city: "",
                 zipcode: "",
                 type: e.target.value
