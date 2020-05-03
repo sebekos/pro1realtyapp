@@ -32,7 +32,9 @@ router.post(
         auth,
         [
             check("name", "Name is required").not().isEmpty(),
+            check("name", "Max name length is 24 characters").isLength({ min: 0, max: 24 }),
             check("location", "Location is required").not().isEmpty(),
+            check("location", "Max location length is 42 characters").isLength({ min: 0, max: 42 }),
             check("email", "Email is required").not().isEmpty(),
             check("phone", "Phone is required").not().isEmpty(),
             check("phone", "Phone number must be 10 digits").isLength({ min: 10, max: 10 })
