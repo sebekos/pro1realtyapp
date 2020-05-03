@@ -77,6 +77,14 @@ const Form = styled(GenForm)`
     margin-top: 1rem;
 `;
 
+const FormText = styled.small`
+    font-size: 0.7rem;
+    display: block;
+    margin-top: -1rem;
+    margin-bottom: 0.5rem;
+    color: #888;
+`;
+
 const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile, loading }, history }) => {
     const [formData, setFormData] = useState({
         id: "",
@@ -127,7 +135,9 @@ const EditProfile = ({ getProfile, addProfile, deleteProfile, profile: { profile
             <Avatar photo={photo} />
             <Form onSubmit={onSubmit}>
                 <GenInput type="text" placeholder="Visible Name" name="name" value={name} onChange={onChange} />
+                <FormText className="form-text">* Name... {name.length}/24</FormText>
                 <GenInput type="text" placeholder="Location" name="location" value={location} onChange={onChange} />
+                <FormText className="form-text">* Chicago Land Area, Great Lakes, etc... {location.length}/42</FormText>
                 <NumberFormat
                     className="number-format"
                     format="(###) ###-####"

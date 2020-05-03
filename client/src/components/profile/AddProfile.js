@@ -66,8 +66,9 @@ const AddProfile = ({ addProfile, history }) => {
             <TextPrimary>Profile Information</TextPrimary>
             <GenForm className="form" onSubmit={onSubmit}>
                 <GenInput type="text" placeholder="Visible Name" name="name" value={name} onChange={onChange} />
+                <FormText className="form-text">* Name... {name.length}/24</FormText>
                 <GenInput type="text" placeholder="Location" name="location" value={location} onChange={onChange} />
-                <FormText className="form-text">* Chicago Land Area, Great Lakes, etc...</FormText>
+                <FormText className="form-text">* Chicago Land Area, Great Lakes, etc... {location.length}/42</FormText>
                 <NumberFormat
                     className="number-format"
                     format="(###) ###-####"
