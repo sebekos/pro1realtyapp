@@ -9,6 +9,7 @@ import GreenButton from "../universal/GreenButton";
 import DangerButton from "../universal/DangerButton";
 
 const SummaryContainer = styled.div`
+    height: 200px;
     color: #333;
     position: relative;
     display: grid;
@@ -21,32 +22,33 @@ const SummaryContainer = styled.div`
     @media (max-width: 680px) {
         grid-template-columns: 1fr;
         max-width: 315px;
+        height: auto;
     }
 `;
 
 const ImgContainer = styled.div`
-    max-height: 200px;
-    max-width: 275px;
-    min-height: 200px;
-    min-width: 275px;
-    overflow: hidden;
+    width: 275px;
+    height: 200px;
     position: relative;
     border-right: 1px solid grey;
-    background-color: black;
-    color: white;
-    text-align: center;
-    vertical-align: middle;
+    overflow: hidden;
     @media (max-width: 680px) {
         margin: auto;
-        min-width: 315px;
         border-right: none;
+        height: 200px;
+        width: 100%;
     }
 `;
 
 const Img = styled.img`
-    max-width: 300px;
+    width: 275px;
+    height: 200px;
+    object-fit: fill;
     @media (max-width: 680px) {
-        max-width: 315px;
+        margin: auto;
+        border-right: none;
+        height: 200px;
+        width: 100%;
     }
 `;
 

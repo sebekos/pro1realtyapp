@@ -18,6 +18,7 @@ const ListingDetailsContainer = styled.div`
         grid-template-columns: 1fr;
         text-align: center;
         width: auto;
+        margin: 1rem;
     }
 `;
 

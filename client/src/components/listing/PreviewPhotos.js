@@ -6,28 +6,33 @@ const PhotosContainer = styled.div`
     grid-template-columns: 600px 200px;
     box-sizing: border-box;
     overflow: hidden;
-    max-height: 400px;
+    height: 400px;
     -webkit-box-shadow: 0 1px 2px 1px #000000;
     -moz-box-shadow: 0 1px 2px 1px #000000;
     box-shadow: 0 1px 2px 1px #000000;
+    @media (max-width: 680px) {
+        display: flex;
+        height: auto;
+    }
 `;
 
 const MainPhotoContainer = styled.div`
     position: relative;
     padding-right: 5px;
-    min-height: 400px;
-    background-color: black;
+    width: 600px;
+    height: 400px;
     color: white;
-    text-align: center;
     overflow: hidden;
     @media (max-width: 680px) {
-        min-height: auto;
         max-height: 250px;
+        width 100%;
     }
 `;
 
 const MainPhoto = styled.img`
-    max-height: 400px;
+    width: 600px;
+    height: 400px;
+    object-fit: cover;
 `;
 
 const ColumnContainer = styled.div`
@@ -37,28 +42,34 @@ const ColumnContainer = styled.div`
     margin-left: 2px;
     @media (max-width: 680px) {
         max-height: 250px;
+        display: none;
     }
 `;
 
 const ColumnPhotoContainer = styled.div`
-    max-width: 200px;
+    width: 200px;
     overflow: hidden;
     margin-bottom: 2px;
-    min-height: 133px;
+    height: 133px;
     background-color: black;
     color: white;
     text-align: center;
+    &:last-child {
+        margin-bottom: 0;
+    }
 `;
 
 const ColumnPhotoThumb = styled.img`
-    max-width: 200px;
+    width: 200px;
+    height: 133px;
+    object-fit: cover;
     @media (max-width: 680px) {
         dispaly: none;
     }
 `;
 
 const PhotoCountContainer = styled.div`
-    height: 30px;
+    height: 25px;
     width: 50px;
     background-color: black;
     opacity: 0.5;
