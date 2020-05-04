@@ -22,7 +22,7 @@ const ProfileItemContainer = styled.div`
     @media (max-width: 680px) {
         grid-template-columns: 1fr;
         height: auto;
-        width: fit-content;
+        max-width: 250px;
     }
 `;
 

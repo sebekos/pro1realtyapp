@@ -20,8 +20,8 @@ const Background = styled.div`
     background-size: cover;
     opacity: 0.9;
     @media (max-width: 1230px) {
-        min-height: auto;
-        background-size: 100%;
+        min-height: 400px;
+        background-size: cover;
         background-attachment: inherit;
     }
 `;
@@ -37,16 +37,13 @@ const LandingInner = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    @media (max-width: 1230px) {
-        height: fit-content;
-    }
 `;
 
 const Title = styled.h1`
     font-size: 6rem;
     margin-bottom: 0.3rem;
     @media (max-width: 1230px) {
-        font-size: 3rem;
+        font-size: 3.5rem;
     }
 `;
 
