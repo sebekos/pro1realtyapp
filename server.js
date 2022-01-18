@@ -5,6 +5,14 @@ const path = require("path");
 const dotenv = require("dotenv");
 require("dotenv").config();
 
+// ORIGINAL WORKING v1 DATE 01/18/2022
+// ORIGINAL WORKING v1 DATE 01/18/2022
+// ORIGINAL WORKING v1 DATE 01/18/2022
+// ORIGINAL WORKING v1 DATE 01/18/2022
+// ORIGINAL WORKING v1 DATE 01/18/2022
+// ORIGINAL WORKING v1 DATE 01/18/2022
+// ORIGINAL WORKING v1 DATE 01/18/2022
+
 const app = express();
 
 // Connect Database
@@ -24,12 +32,12 @@ app.use("/api/office", require("./routes/api/office"));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
-    //Set static folder
-    app.use(express.static("client/build"));
+  //Set static folder
+  app.use(express.static("client/build"));
 
-    app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-    });
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
 }
 
 const PORT = process.env.PORT || 5000;
