@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { uuid } from "utils";
 import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "reduxStore";
 import Pro1Logo from "img/pro1cyclinglogo.png";
+import MobileIcon from "img/mobileicon.png";
 
 // eslint-disable-next-line
 import styles from "./style.scss";
@@ -26,6 +27,7 @@ const adminRoutes = [
 
 const Menu = ({ isAuth, logout }) => {
   const { pathname } = useLocation();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -64,24 +66,35 @@ const Menu = ({ isAuth, logout }) => {
           </Link>
         </div>
         <div className="dropdown">
-          <div>
-            <button className="dropbtn">
+          <div
+            className="dropdown-mobile-icon-container"
+            onClick={() => setShow(!show)}
+          >
+            <div className="mobile-current-route">
               {curRoute ? curRoute.text : "Login"}
-            </button>
+            </div>
+            <img className="mobile-icon" src={MobileIcon} alt="" />
           </div>
-          <div className="dropdown-content">
-            {renderRoutes
-              .filter((o) => o.route)
-              .map((o) => (
-                <Link
-                  key={uuid()}
-                  to={`${o.route}`}
-                  onClick={() => (o.useLogout ? logout() : null)}
-                >
-                  {o.text}
-                </Link>
-              ))}
-          </div>
+          {show && (
+            <div className="dropdown-content">
+              {renderRoutes
+                .filter((o) => o.route)
+                .map((o) => (
+                  <Link
+                    key={uuid()}
+                    to={`${o.route}`}
+                    onClick={() => {
+                      if (o.useLogout) {
+                        return logout();
+                      }
+                      setShow(false);
+                    }}
+                  >
+                    {o.text}
+                  </Link>
+                ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
