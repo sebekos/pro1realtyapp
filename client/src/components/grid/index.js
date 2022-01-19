@@ -7,7 +7,6 @@ import styles from "./styles.scss";
 
 const GridItem = ({ o }) => {
   const [show, setShow] = useState(false);
-  console.log("show", show);
   return (
     <div className="griditem">
       <div className="griditem-info-icon-container">
@@ -36,13 +35,12 @@ const GridItem = ({ o }) => {
 };
 
 const Grid = ({ data, loading }) => {
-  if (loading) return <Loader />;
   return (
     <div className="grid-container">
+      {loading && <Loader />}
       <div className="grid">
-        {data.map((o) => (
-          <GridItem key={`griditem-${o.id}`} o={o} />
-        ))}
+        {!loading &&
+          data.map((o) => <GridItem key={`griditem-${o.id}`} o={o} />)}
       </div>
     </div>
   );
