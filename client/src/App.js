@@ -1,76 +1,46 @@
-import React, { Fragment, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { useEffect } from "react";
+// eslint-disable-next-line
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
-import { loadUser } from "./Redux/actions/auth";
-import { ToastContainer } from "react-toastify";
-import Navbar from "./components/layout/Navbar";
-import Landing from "./components/layout/Landing";
-import Register from "./components/auth/Register";
-import Login from "./components/auth/Login";
-import store from "./Redux/store";
-import setAuthToken from "./Redux/utils/setAuthToken";
-import PrivateRoute from "./components/routing/PrivateRoute";
-import MyProfile from "./components/dashboards/MyProfile";
-import MyListings from "./components/dashboards/MyListings";
-import AddListing from "./components/listing/AddListing";
-import EditListing from "./components/listing/EditListing";
-import AddProfile from "./components/profile/AddProfile";
-import EditProfile from "./components/profile/EditProfile";
-import AllListingSearch from "./components/listing/AllListingSearch";
-import Profiles from "./components/profile/Profiles";
-import Avatar from "./components/profile/Avatar";
-import AddPhotos from "./components/listing/AddPhotos";
-import ListingDetails from "./components/listing/ListingDetails";
-import PhotoSortable from "./components/listing/PhotoSortable";
-import AgentListingsSearch from "./components/listing/AgentListingsSearch";
-import DeletePhotos from "./components/deletephotos/DeletePhotos";
-import Pwreset from "./components/auth/Pwreset";
-import Pwresetsave from "./components/auth/Pwresetsave";
-import Footer from "./components/layout/Footer";
-import "react-toastify/dist/ReactToastify.min.css";
+import { loadUser } from "./reduxStore/actions/auth";
+import store from "./reduxStore/store/store";
 import "./App.css";
 
-if (localStorage.token) {
-    setAuthToken(localStorage.token);
-}
+// Routes
+import { Menu, Footer } from "./components";
+
+import {
+  About,
+  Team,
+  News,
+  Contact,
+  Login,
+  EditTeam,
+  EditNews,
+} from "./routes";
 
 const App = () => {
-    useEffect(() => {
-        store.dispatch(loadUser());
-    }, []);
-
-    return (
-        <Provider store={store}>
-            <Router>
-                <section className="main">
-                    <Navbar />
-                    <Route exact path="/" component={Landing} />
-                    <ToastContainer hideProgressBar pauseOnHover={false} />
-                    <Switch>
-                        <Route exact path="/register" component={Register} />
-                        <Route exact path="/login" component={Login} />
-                        <Route exact path="/listings" component={AllListingSearch} />
-                        <Route exact path="/agents" component={Profiles} />
-                        <Route exact path="/listing/:id" component={ListingDetails} />
-                        <Route exact path="/listings/:id" component={AgentListingsSearch} />
-                        <Route exact path="/pwreset" component={Pwreset} />
-                        <Route exact path="/pwresetsave/:hash" component={Pwresetsave} />
-                        <PrivateRoute exact path="/myprofile" component={MyProfile} />
-                        <PrivateRoute exact path="/mylistings" component={MyListings} />
-                        <PrivateRoute exact path="/addlisting" component={AddListing} />
-                        <PrivateRoute exact path="/editlisting/:id" component={EditListing} />
-                        <PrivateRoute exact path="/editlisting/addphotos/:id" component={AddPhotos} />
-                        <PrivateRoute exact path="/editlisting/sort/:id" component={PhotoSortable} />
-                        <PrivateRoute exact path="/editlisting/delete/:id" component={DeletePhotos} />
-                        <PrivateRoute exact path="/addprofile" component={AddProfile} />
-                        <PrivateRoute exact path="/editprofile" component={EditProfile} />
-                        <PrivateRoute exact path="/editprofile/avatar" component={Avatar} />
-                    </Switch>
-                </section>
-                <Footer />
-            </Router>
-        </Provider>
-    );
+  useEffect(() => {
+    store.dispatch(loadUser());
+  });
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <Menu />
+        <Routes>
+          <Route path="/" element={<About />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/newsmedia" element={<News />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/editteam" element={<EditTeam />} />
+          <Route path="/editnews" element={<EditNews />} />
+        </Routes>
+        {/* <Navigate to="/home" /> */}
+        <Footer />
+      </BrowserRouter>
+    </Provider>
+  );
 };
 
 export default App;
