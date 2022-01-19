@@ -44,8 +44,9 @@
 
 .list-no-rows {
   background-color: $font-color;
-  color: $secondary-color;
+  color: $dark-font;
   text-align: center;
   font-size: 30px;
   padding: 100px 0;
+  font-weight: bold;
 }

@@ -1,19 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { loadSchedule } from "reduxStore";
 import Landing1 from "img/landing1.jpeg";
 import Landing2 from "img/landing2.jpg";
+import { GenericButton } from "components";
+import { Link } from "react-router-dom";
 
-const Schedule = ({ loadSchedule, schedule, firstLoad, loading }) => {
-  useEffect(() => {
-    !firstLoad && loadSchedule();
-    // eslint-disable-next-line
-  }, []);
+const Schedule = () => {
   return (
     <div className="dualinfo-container">
       <div className="dualinfo">
         <div className="dualinfo-img-container">
-          <img className="dualinfo-img" src={Landing1} />
+          <img className="dualinfo-img" alt="landing1" src={Landing1} />
         </div>
         <div className="dualinfo-text-container">
           <div className="dualinfo-title">
@@ -24,6 +22,11 @@ const Schedule = ({ loadSchedule, schedule, firstLoad, loading }) => {
             want a REALTOR® who has the expertise and professionalism to treat
             you and your home with the respect it deserves.
           </div>
+          <div className="dualinfo-btn-container">
+            <Link to="/team">
+              <GenericButton label="Our Agents" />
+            </Link>
+          </div>
         </div>
         <div className="dualinfo-text-container">
           <div className="dualinfo-title">Stay on track and in control</div>
@@ -33,9 +36,14 @@ const Schedule = ({ loadSchedule, schedule, firstLoad, loading }) => {
             of the way - whether you’re buying your first home or selling your
             twentieth.
           </div>
+          <div className="dualinfo-btn-container">
+            <Link to="/contact">
+              <GenericButton label="Contact Us" />
+            </Link>
+          </div>
         </div>
         <div className="dualinfo-img-container">
-          <img className="dualinfo-img" src={Landing2} />
+          <img className="dualinfo-img" alt="landing2" src={Landing2} />
         </div>
       </div>
     </div>

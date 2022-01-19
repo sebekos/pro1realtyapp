@@ -30,7 +30,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: rgb(216, 216, 216);
+  color: $font-color;
   font-weight: bold;
   @media (max-width: 1000px) {
     top: 50%;
@@ -46,11 +46,17 @@
   }
 }
 
+.special > img {
+  @media only screen and (max-width: 500px) {
+    max-width: 350px;
+  }
+}
+
 .nextSpecial {
   font-size: 20px;
   margin-top: 0px;
   > a {
-    color: rgb(216, 216, 216);
+    color: $font-color;
   }
 }
 
@@ -149,4 +155,10 @@
 .dualinfo-title {
   font-size: 35px;
   margin-bottom: 20px;
+}
+
+.dualinfo-btn-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
 }

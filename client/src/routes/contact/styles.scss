@@ -1,9 +1,11 @@
 @import "styles/variables.scss";
 
 .left {
+  color: $dark-font;
+  font-weight: bold;
   line-height: 25px;
   > a {
-    color: rgb(216, 216, 216) !important;
+    color: $dark-font !important;
   }
   @media (max-width: 853px) {
     margin-bottom: 20px;

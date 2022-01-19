@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { uuid } from "utils";
 import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
@@ -26,6 +26,10 @@ const adminRoutes = [
 
 const Menu = ({ isAuth, logout }) => {
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   const renderRoutes = isAuth ? adminRoutes : routes;
   const curRoute = renderRoutes.find((o) => o.route === pathname);
   return (
@@ -39,14 +43,14 @@ const Menu = ({ isAuth, logout }) => {
             >
               <Link
                 to={`${o.route}`}
-                onClick={() => (o.useLogout ? logout() : window.scrollTo(0, 0))}
+                onClick={() => (o.useLogout ? logout() : null)}
               >
                 {o.text}
               </Link>
             </div>
           ) : (
             <div key={uuid()} className="menu-logo-container">
-              <Link to={`/`} onClick={() => window.scrollTo(0, 0)}>
+              <Link to={`/`}>
                 <img className="menu-logo-img" alt="Pro1" src={o.image} />
               </Link>
             </div>
@@ -55,7 +59,7 @@ const Menu = ({ isAuth, logout }) => {
       </div>
       <div className="item-container-dropdown">
         <div className="menu-logo-dropdown">
-          <Link to={`/`} onClick={() => window.scrollTo(0, 0)}>
+          <Link to={`/`}>
             <img className="menu-logo-img" alt="Pro1" src={Pro1Logo} />
           </Link>
         </div>
@@ -71,9 +75,7 @@ const Menu = ({ isAuth, logout }) => {
               .map((o) => (
                 <Link
                   to={`${o.route}`}
-                  onClick={() =>
-                    o.useLogout ? logout() : window.scrollTo(0, 0)
-                  }
+                  onClick={() => (o.useLogout ? logout() : null)}
                 >
                   {o.text}
                 </Link>
