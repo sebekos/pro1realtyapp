@@ -31,6 +31,7 @@ const Menu = ({ isAuth, logout }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setShow(false);
   }, [pathname]);
   const renderRoutes = isAuth ? adminRoutes : routes;
   const curRoute = renderRoutes.find((o) => o.route === pathname);
