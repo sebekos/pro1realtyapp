@@ -47,7 +47,7 @@
   width: 350px;
   background-color: $secondary-color;
   height: 300px;
-  padding: 10px;
+  padding: 75px 10px 10px;
   font-weight: bold;
   color: $font-color;
   white-space: pre-wrap;
@@ -58,6 +58,7 @@
   animation-timing-function: ease-in;
   animation-duration: 0.25s;
   z-index: 2;
+  line-height: 25px;
 }
 
 @keyframes fadeInOpacity {
@@ -82,7 +83,7 @@
 }
 
 .griditem-info2 {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .griditem-info-icon-container {
