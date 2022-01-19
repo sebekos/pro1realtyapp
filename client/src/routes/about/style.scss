@@ -1,0 +1,152 @@
+@import "styles/variables.scss";
+
+// ---------------------------------------------------
+// COVER
+// ---------------------------------------------------
+
+.cover {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  max-height: 1000px;
+}
+
+.coverImg {
+  object-fit: fill;
+  @media (max-width: 1000px) {
+    object-fit: cover;
+    max-height: 100vh;
+  }
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(216, 216, 216);
+  font-weight: bold;
+  @media (max-width: 1000px) {
+    top: 50%;
+  }
+}
+
+.special {
+  margin-bottom: 0px;
+  font-size: 80px;
+  white-space: nowrap;
+  @media (max-width: 1000px) {
+    font-size: 40px;
+  }
+}
+
+.nextSpecial {
+  font-size: 20px;
+  margin-top: 0px;
+  > a {
+    color: rgb(216, 216, 216);
+  }
+}
+
+// ---------------------------------------------------
+// ABOUT
+// ---------------------------------------------------
+
+.about-container {
+  display: flex;
+  justify-content: center;
+  background-color: $secondary-color;
+}
+
+.about {
+  max-width: 800px;
+  color: $font-color;
+  text-align: center;
+  @media only screen and (max-width: 1000px) {
+    display: flex;
+    padding: 20px;
+  }
+}
+
+.about-left-title {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 100px 0;
+  @media only screen and (max-width: 1000px) {
+    text-align: center;
+  }
+}
+
+.about-right-img-container {
+  background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 400px,
+      $secondary-color 490px,
+      $secondary-color 500px
+    ),
+    url(../../img/aboutteam.jpeg) no-repeat;
+  height: 250px;
+  width: 500px;
+  @media only screen and (max-width: 1000px) {
+    display: none;
+  }
+}
+
+.about-right-img {
+  width: 500px;
+}
+
+// ---------------------------------------------------
+// SCHEDULE
+// ---------------------------------------------------
+
+.dualinfo-container {
+  background-color: $font-color;
+}
+
+.dualinfo {
+  display: grid;
+  grid-template-columns: 450px 450px;
+  max-width: 900px;
+  margin: auto;
+  align-items: center;
+  justify-items: center;
+  row-gap: 10px;
+  column-gap: 10px;
+  padding: 10px 0;
+  @media only screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+    margin: 0 10px;
+  }
+}
+
+.dualinfo-img-container {
+  max-width: 450px;
+  overflow: hidden;
+}
+
+.dualinfo-img {
+  height: 350px;
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: -5px;
+  margin-right: -5px;
+}
+
+.dualinfo-text-container {
+  font-weight: bold;
+  padding: 10px;
+  color: $dark-font;
+  max-width: 450px;
+}
+
+.dualinfo-title {
+  font-size: 35px;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,27 @@
+$primary-color: #282c34;
+$font-color: rgb(219, 219, 219);
+$secondary-font-color: rgb(170, 170, 170);
+$secondary-color: rgb(38, 161, 238);
+$hover: rgb(102, 185, 236);
+$dark-font: rgb(60, 61, 61);
+
+a:link {
+  text-decoration: none;
+  color: $font-color;
+}
+a:hover {
+  color: $hover !important;
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+  color: $font-color;
+}
+
+.active-link {
+  > a {
+    color: $secondary-color;
+  }
+}

@@ -1,0 +1,51 @@
+@import "styles/variables.scss";
+
+// MEMBERS
+.list-container {
+  background-color: $font-color;
+}
+
+.list {
+  padding-top: 10px;
+  margin: auto;
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.listitem {
+  margin-bottom: 10px;
+  background-color: $font-color;
+  padding: 5px 10px;
+  border-radius: 2px;
+  @media only screen and (max-width: 1000px) {
+    margin: 0 5px 10px;
+  }
+}
+
+.list-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.list-text {
+  font-size: 15px;
+}
+
+.list-date {
+  width: 100%;
+  text-align: right;
+  margin-top: -6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.list-no-rows {
+  background-color: $font-color;
+  color: $secondary-color;
+  text-align: center;
+  font-size: 30px;
+  padding: 100px 0;
+}
