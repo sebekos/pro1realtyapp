@@ -11,10 +11,12 @@
   justify-content: center;
   overflow: hidden;
   max-height: 1000px;
+  background-color: $dark-font;
 }
 
 .coverImg {
   object-fit: fill;
+  // height: 100vh;
   @media (max-width: 1000px) {
     object-fit: cover;
     max-height: 100vh;

@@ -1,11 +1,20 @@
 import React from "react";
 import LandingImg from "img/landing.jpg";
+import LandingImgDefault from "img/landingDefault.png";
 import Pro1Logo from "img/pro1cyclinglogo.png";
 
 const Cover = () => {
   return (
     <div className="cover">
-      <img className="coverImg" src={LandingImg} alt="AiBC" />
+      <img
+        className="coverImg"
+        src={LandingImg}
+        alt=""
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = LandingImgDefault;
+        }}
+      />
       <div className="centered">
         <div className="special">
           <img src={Pro1Logo} alt="Pro 1 Realty" />
