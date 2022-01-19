@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Cover, Sponsors, Bar, List } from "components";
-import TeamImg from "img/team.jpg";
+import { Cover, Bar, List } from "components";
 import { connect } from "react-redux";
 import { loadNews } from "reduxStore";
 import LandingImg from "img/landing.jpg";

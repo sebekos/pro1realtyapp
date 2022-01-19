@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { Cover, Sponsors, Bar, Grid } from "components";
+import { Cover, Bar, Grid } from "components";
 import { connect } from "react-redux";
 import { loadTeam } from "reduxStore";
-import TeamImg from "img/team.jpg";
 import LandingImg from "img/landing.jpg";
 
 const Team = ({ loadTeam, team, loading, firstLoad }) => {

@@ -17,12 +17,16 @@ const ContactUs = ({ setForm }) => {
             Downers Grove, IL 60516 <br />
             <a href="tel:630-297-8088" style={{ fontWeight: "bold" }}>
               (630) 297-8088
-            </a>{" "}
+            </a>
             <br />
             pro1realtyinc@gmail.com
           </div>
         </div>
-
+        <div className="contact-btn-container">
+          <a href="tel:630-297-8088" style={{ fontWeight: "bold" }}>
+            <GenericButton label="Call Us Today" />
+          </a>
+        </div>
         <div className="gmap_canvas">
           <iframe
             title="map"

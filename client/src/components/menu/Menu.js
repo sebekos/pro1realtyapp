@@ -74,6 +74,7 @@ const Menu = ({ isAuth, logout }) => {
               .filter((o) => o.route)
               .map((o) => (
                 <Link
+                  key={uuid()}
                   to={`${o.route}`}
                   onClick={() => (o.useLogout ? logout() : null)}
                 >

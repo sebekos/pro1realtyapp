@@ -1,6 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
-import { loadSchedule } from "reduxStore";
 import Landing1 from "img/landing1.jpeg";
 import Landing2 from "img/landing2.jpg";
 import { GenericButton } from "components";
@@ -50,14 +48,4 @@ const Schedule = () => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  schedule: state.schedule.schedule,
-  firstLoad: state.schedule.firstLoad,
-  loading: state.schedule.loading,
-});
-
-const mapDispatchToProps = {
-  loadSchedule,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Schedule);
+export default Schedule;
