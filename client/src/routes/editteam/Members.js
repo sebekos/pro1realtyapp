@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { loadTeam, updateTeam } from "reduxStore";
-import { Input, GenericButton, ImageCropper } from "components";
+import { Input, GenericButton, ImageCropper, TextArea } from "components";
 
 // eslint-disable-next-line
 import styles from "./styles.scss";
@@ -13,6 +13,7 @@ const EditMember = ({ member, errors, updateTeam }) => {
     lastName: member.lastName,
     title: member.title,
     info: member.info,
+    sort: member.sort,
   });
 
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,7 +22,7 @@ const EditMember = ({ member, errors, updateTeam }) => {
 
   const onDelete = () => updateTeam({ ...form, deleted: 1 });
 
-  const { firstName, lastName, title, info } = form;
+  const { firstName, lastName, title, info, sort } = form;
 
   return (
     <div className="editteam-container">
@@ -51,13 +52,21 @@ const EditMember = ({ member, errors, updateTeam }) => {
           onChange={onChange}
           error={errors && errors.find((o) => o.param === "title")}
         />
-        <Input
+        <TextArea
           name="info"
           type="text"
           placeholder="Info"
           value={info}
           onChange={onChange}
           error={errors && errors.find((o) => o.param === "info")}
+        />
+        <Input
+          name="sort"
+          type="number"
+          placeholder="Sort"
+          value={sort}
+          onChange={onChange}
+          error={errors && errors.find((o) => o.param === "sort")}
         />
         <div className="editmember-btns-container">
           <GenericButton label="Delete" onClick={onDelete} color="negative" />

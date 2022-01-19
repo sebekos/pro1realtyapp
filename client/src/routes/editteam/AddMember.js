@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Input, GenericButton } from "components";
+import { Input, GenericButton, TextArea } from "components";
 import { updateTeam } from "reduxStore";
 
 // eslint-disable-next-line
@@ -12,13 +12,14 @@ const AddMember = ({ errors, loading, updateTeam }) => {
     lastName: "",
     title: "",
     info: "",
+    sort: 999,
   });
 
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const onSubmit = () => updateTeam(form);
 
-  const { firstName, lastName, title, info } = form;
+  const { firstName, lastName, title, info, sort } = form;
 
   return (
     <div className="editteam-container">
@@ -48,13 +49,21 @@ const AddMember = ({ errors, loading, updateTeam }) => {
           onChange={onChange}
           error={errors && errors.find((o) => o.param === "title")}
         />
-        <Input
+        <TextArea
           name="info"
           type="text"
           placeholder="Info"
           value={info}
           onChange={onChange}
           error={errors && errors.find((o) => o.param === "info")}
+        />
+        <Input
+          name="sort"
+          type="number"
+          placeholder="Sort"
+          value={sort}
+          onChange={onChange}
+          error={errors && errors.find((o) => o.param === "sort")}
         />
         <GenericButton label="Submit" onClick={onSubmit} />
       </div>

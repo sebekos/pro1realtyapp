@@ -31,6 +31,7 @@
 }
 
 .griditem-img-container {
+  position: relative;
   overflow: hidden;
   height: 300px;
   // border: 1px solid $primary-color;
@@ -43,15 +44,29 @@
 
 .griditem-hoverinfo {
   position: absolute;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.25s linear;
   width: 350px;
   background-color: $secondary-color;
   height: 300px;
   padding: 10px;
   font-weight: bold;
   color: $font-color;
+  white-space: pre-wrap;
+  text-align: center;
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.25s;
+  z-index: 2;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .griditem-info {
@@ -61,11 +76,6 @@
   color: $font-color;
 }
 
-.griditem:hover .griditem-hoverinfo {
-  visibility: visible;
-  opacity: 0.85;
-}
-
 .griditem-info1 {
   font-size: 18px;
   margin-bottom: 3px;
@@ -73,4 +83,22 @@
 
 .griditem-info2 {
   font-size: 12px;
+}
+
+.griditem-info-icon-container {
+  position: absolute;
+  z-index: 3;
+  width: 330px;
+}
+
+.griditem-info-icon {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 50px;
+  width: max-content;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 50px;
+  color: $dark-font;
+  margin: 5px 10px;
 }

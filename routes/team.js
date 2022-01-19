@@ -33,6 +33,7 @@ router.post(
     check("lastName", "Last name is required").isLength({ min: 3 }),
     check("title", "Title is required").isLength({ min: 3 }),
     check("info", "Info is required").isLength({ min: 3 }),
+    check("sort", "Sort is required").isNumeric(),
   ],
   async (req, res) => {
     // Check inputs
@@ -41,7 +42,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { id, firstName, lastName, title, info, deleted } = req.body;
+    const { id, firstName, lastName, title, info, sort, deleted } = req.body;
 
     // Setup team object
     let teamFields = {
@@ -49,6 +50,7 @@ router.post(
       lastName,
       title,
       info,
+      sort,
       deleted: deleted ? 1 : 0,
     };
 
