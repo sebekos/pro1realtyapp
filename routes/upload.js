@@ -61,10 +61,19 @@ router.post("/", [auth], async (req, res) => {
       const fileName = `avatars/${memberId}-${timestamp}`;
       const data = await uploadFile(buffer, fileName, type);
 
+      // Find location...
+      const locationArr = Object.entries(data).filter(
+        (d) => d && d[0] === "Location"
+      );
+      if (!locationArr || !locationArr.length > 0)
+        throw new Error("Could not find image location.");
+
+      const location = locationArr[0][1];
+
       if (data) {
         // Add to Photo MySQL
         const teamFields = {
-          avatar_link: Object.entries(data)[1][1],
+          avatar_link: location,
         };
         const updated = await Team.update(teamFields, {
           where: { id: memberId },
