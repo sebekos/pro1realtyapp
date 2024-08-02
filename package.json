@@ -4,7 +4,7 @@
   "description": "Real Estate App",
   "main": "server.js",
   "scripts": {
-    "build": "npm install && npm install --prefix client && npm run build --prefix client",
+    "build": "npm install && npm install --prefix client2 && npm run build --prefix client2",
     "start": "node server",
     "server": "nodemon server",
     "client": "npm run dev --prefix client2",
