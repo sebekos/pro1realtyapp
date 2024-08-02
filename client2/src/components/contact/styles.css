@@ -1,0 +1,67 @@
+.gmap_canvas {
+  width: 100%;
+  max-width: 1000px;
+  padding: 20px 10px 5px;
+}
+
+.iframe {
+  margin-top: 20px 10px 0;
+  height: 600px;
+  width: 100%;
+  background-color: grey;
+  @media (max-width: 1050px) {
+    max-height: 600px;
+  }
+  @media (max-width: 853px) {
+    max-height: 400px;
+  }
+}
+
+.contact-map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.contact-container {
+  color: var(--dark-font);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 5px;
+  margin-top: 40px;
+  font-size: 20px;
+  padding: 10px;
+  a {
+    text-decoration: none;
+    color: var(--dark-font);
+    font-weight: bold;
+  }
+}
+
+.call-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px auto;
+}
+
+.call-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.call-btn:hover {
+  background-color: #0056b3;
+}

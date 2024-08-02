@@ -7,7 +7,7 @@
     "build": "npm install && npm install --prefix client && npm run build --prefix client",
     "start": "node server",
     "server": "nodemon server",
-    "client": "npm start --prefix client",
+    "client": "npm run dev --prefix client2",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Sebastian Kosela",

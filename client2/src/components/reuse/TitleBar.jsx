@@ -1,9 +1,9 @@
 import React from "react";
 
-const TitleBar = () => {
+const TitleBar = ({ text }) => {
   return (
     <div className="title-bar-container">
-      <div>Our Agents</div>
+      <div>{text}</div>
     </div>
   );
 };
