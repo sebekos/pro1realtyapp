@@ -17,7 +17,7 @@ const Contact = () => {
         <div>pro1realtyinc@gmail.com</div>
       </div>
       <div className="call-btn-container">
-        <a class="call-btn" href="tel:+1234567890">
+        <a className="call-btn" href="tel:+1234567890">
           Call Us Today
         </a>
       </div>

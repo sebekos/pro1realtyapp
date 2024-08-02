@@ -5,7 +5,7 @@ const Landing = () => {
   return (
     <div className="landing-page">
       <img
-        src={`public/landing.jpg`}
+        src={`./home.jpg`}
         alt="Landing Page Image"
         className="landing-page-image"
       />
