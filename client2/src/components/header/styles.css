@@ -1,0 +1,25 @@
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 30px;
+  height: 70px;
+  background-color: rgba(71, 71, 71, 0.5);
+  z-index: 5;
+  position: fixed;
+  float: top;
+  width: 100%;
+}
+
+.header-logo {
+  max-width: 150px;
+  margin-right: 20px;
+}
+
+.header-link-div {
+  a {
+    text-decoration: none;
+    font-size: 20px;
+    color: var(--font-color);
+  }
+}

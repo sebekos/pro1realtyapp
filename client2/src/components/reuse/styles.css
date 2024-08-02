@@ -1,0 +1,16 @@
+.top-image {
+  background-image: url("./landing.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+}
+
+.title-bar-container {
+  background-color: var(--blue-color);
+  height: 100px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

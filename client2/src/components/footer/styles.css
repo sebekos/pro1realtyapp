@@ -1,0 +1,32 @@
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--blue-color);
+  padding: 20px;
+}
+
+.footer-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.footer-email {
+  margin-bottom: 10px;
+}
+
+.footer-phone {
+  a {
+    text-decoration: none;
+    color: var(--font-color);
+    font-weight: bold;
+  }
+}
+
+.footer-legal {
+  margin-top: 20px;
+  max-width: 600px;
+  text-align: center;
+}

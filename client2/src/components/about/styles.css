@@ -1,0 +1,76 @@
+.landing-page {
+  background-image: url("./landing.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  max-height: 1100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.landing-page-logo {
+  max-width: 500px;
+  margin-bottom: 10px;
+}
+
+.landing-page-title {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 250px;
+  background-color: var(--blue-color);
+}
+
+.bar-inner {
+  font-size: 21px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.tabs-page-container {
+  text-align: center;
+  background-color: var(--font-color);
+}
+
+.tabs-page-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: fit-content;
+  margin: 20px auto;
+  color: var(--dark-font);
+  row-gap: 20px;
+}
+
+.tab-logo-img {
+  max-width: 500px;
+}
+
+.tab-info-container {
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.tab-info-title {
+  font-size: 30px;
+  text-align: left;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tab-info-info {
+  font-size: 16px;
+  padding: 20px;
+  text-align: left;
+}
