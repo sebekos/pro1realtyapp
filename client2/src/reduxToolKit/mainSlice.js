@@ -10,21 +10,7 @@ const initialState = {
 export const getAgents = createAsyncThunk("main/getAgents", async () => {
   const agents = await axios
     .get("/api/team")
-    .then((data) => {
-      let cData = data?.data || [];
-      return [
-        ...cData,
-        ...cData,
-        ...cData,
-        ...cData,
-        ...cData,
-        ...cData,
-        ...cData,
-        ...cData,
-        ...cData,
-        ...cData,
-      ];
-    })
+    .then((data) => data?.data || [])
     .catch((err) => {
       console.log(err);
       return [];
@@ -41,8 +27,16 @@ export const counterSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(getAgents.pending, (state, action) => {
+      state.agentsLoading = true;
+    });
     builder.addCase(getAgents.fulfilled, (state, action) => {
       state.agents = action.payload;
+      state.agentsLoading = false;
+    });
+    builder.addCase(getAgents.rejected, (state, action) => {
+      state.agents = [];
+      state.agentsLoading = false;
     });
   },
 });

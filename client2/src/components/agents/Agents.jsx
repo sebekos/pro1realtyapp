@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { TitleBar, TopImage } from "../";
+import { TitleBar, TopImage, Loader } from "../";
 import { useSelector, useDispatch } from "react-redux";
 import { getAgents } from "../../reduxToolKit/mainSlice";
 import Agent from "./Agent";
@@ -15,11 +15,15 @@ const Agents = () => {
     <div className="agents-page-container">
       <TopImage />
       <TitleBar text="Our Agents" />
-      <div className="agents-container">
-        {agents.map((agent, i) => (
-          <Agent key={`agent-key-${i}`} data={agent} />
-        ))}
-      </div>
+      {agentsLoading ? (
+        <Loader />
+      ) : (
+        <div className="agents-container">
+          {agents.map((agent, i) => (
+            <Agent key={`agent-key-${i}`} data={agent} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
