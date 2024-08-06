@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Agent = ({ data }) => {
+  const [showInfo, setShowInfo] = useState(false);
   const { firstName, lastName, title, info, avatar_link } = data;
   return (
     <div className="agent-container">
@@ -12,10 +13,23 @@ const Agent = ({ data }) => {
         />
       </div>
       <div className="agent-info-container">
-        <div className="agent-info-title">
-          {firstName || ""} {lastName || ""}
-        </div>
-        <div className="agent-info-info">{title || ""}</div>
+        {info && (
+          <div className="agent-info-button">
+            <button onClick={() => setShowInfo(!showInfo)}>Info</button>
+          </div>
+        )}
+        {showInfo ? (
+          <div className="agent-info-desc">
+            Bensenville (312) 404-1519 aanula@yahoo.com
+          </div>
+        ) : (
+          <>
+            <div className="agent-info-title">
+              {firstName || ""} {lastName || ""}
+            </div>
+            <div className="agent-info-info">{title || ""}</div>
+          </>
+        )}
       </div>
     </div>
   );
