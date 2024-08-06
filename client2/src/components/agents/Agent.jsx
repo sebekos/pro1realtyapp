@@ -19,9 +19,7 @@ const Agent = ({ data }) => {
           </div>
         )}
         {showInfo ? (
-          <div className="agent-info-desc">
-            Bensenville (312) 404-1519 aanula@yahoo.com
-          </div>
+          <div className="agent-info-desc">{info}</div>
         ) : (
           <>
             <div className="agent-info-title">
