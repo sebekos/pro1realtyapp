@@ -9,12 +9,12 @@ const Contact = () => {
       <TopImage />
       <TitleBar text="Contact Us" />
       <div className="contact-container">
-        <div>6900 Main St. Suite #153</div>
+        <div>6900 Main St. Suite #165</div>
         <div>Downers Grove, IL 60516</div>
         <div>
           <a href="tel:+1234567890">(630) 297-8088</a>
         </div>
-        <div>pro1realtyinc@gmail.com</div>
+        <div>pro1realtycorp@gmail.com</div>
       </div>
       <div className="call-btn-container">
         <a className="call-btn" href="tel:+1234567890">
