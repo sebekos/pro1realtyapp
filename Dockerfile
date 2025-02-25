@@ -7,4 +7,7 @@ FROM gcr.io/distroless/nodejs18-debian11
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=builder /app .
+
+EXPOSE 5000
+
 CMD [ "server.js" ]
